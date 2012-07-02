@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo2"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/directorio_img"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/directorio_img_string"
+        android:src="@drawable/eldirectorio_icon" />
+
+    <TextView
+        android:id="@+id/info1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/directorio_img"
+        android:text="@string/info_1"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:id="@+id/info2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info1"
+        android:text="@string/info_2"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:id="@+id/info2_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info1"
+        android:layout_toRightOf="@id/info2"
+        android:autoLink="web"
+        android:text="@string/eldirectoriomx"
+        android:textColor="@color/Blue" />
+
+    <TextView
+        android:id="@+id/info3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info2"
+        android:text="@string/contactanos"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:id="@+id/info4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info3"
+        android:text="@string/email"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:id="@+id/info5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info3"
+        android:layout_toRightOf="@id/info4"
+        android:text="@string/eldirectorioemail"
+        android:textColor="@color/Blue" />
+
+    <TextView
+        android:id="@+id/info6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info4"
+        android:text="@string/comarca_lagunera"
+        android:textColor="@color/Black" />
+    
+    <TextView
+        android:id="@+id/info6_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info5"
+        android:layout_toRightOf="@id/info6"
+        android:text="@string/telefonocl"
+        android:textColor="@color/Blue" />
+
+    <TextView
+        android:id="@+id/info7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info6"
+        android:text="@string/int_rep"
+        android:textColor="@color/Black" />
+
+    <TextView
+        android:id="@+id/info7_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info6"
+        android:layout_toRightOf="@id/info7"
+        android:text="@string/telefono_int_rep"
+        android:textColor="@color/Blue" />
+
+    <ImageView
+        android:id="@+id/publi_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info7"
+        android:contentDescription="@string/publy_info"
+        android:src="@drawable/publi_icon" />
+
+    <Button
+        android:id="@+id/backtosearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/info2_1"
+        android:text="@string/regresar" />
+
+</RelativeLayout>
