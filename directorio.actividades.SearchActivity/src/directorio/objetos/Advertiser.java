@@ -1,5 +1,9 @@
 package directorio.objetos;
-
+/**
+ * Esta es la clase donde se guardan los datos del advertiser.
+ * @author Carlos Tirado
+ *
+ */
 public class Advertiser {
 	private String id;
 	private String nombre;
