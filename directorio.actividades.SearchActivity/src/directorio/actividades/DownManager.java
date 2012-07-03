@@ -17,6 +17,12 @@ import org.apache.http.util.ByteArrayBuffer;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.util.Log;
+
+/**
+ * Clase que descarga la base de datos del link.
+ * @author Juan Carlos
+ *
+ */
  
 public class DownManager {
 	
