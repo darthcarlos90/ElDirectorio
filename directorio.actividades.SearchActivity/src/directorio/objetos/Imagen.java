@@ -11,6 +11,16 @@ public class Imagen {
 		return id;
 	}
 
+	public Imagen(int id, int galeriaId, String descripcion, String imageUrl,
+			String thumbUrl) {
+		super();
+		this.id = id;
+		this.galeriaId = galeriaId;
+		this.descripcion = descripcion;
+		this.imageUrl = imageUrl;
+		ThumbUrl = thumbUrl;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}

@@ -20,6 +20,32 @@ public class Advertiser {
 	private String[] email;
 	private String[] categorias;
 	private String[] tags;
+	
+	
+
+	public Advertiser(String id, String nombre, String descripcion,
+			String contacto, String direccion, String sitioWeb, double posx,
+			double posy, String ciudad, String facebook, String twitter,
+			int[] telefono, String[] email, String[] categorias, String[] tags,
+			boolean favorito) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.contacto = contacto;
+		Direccion = direccion;
+		this.sitioWeb = sitioWeb;
+		this.posx = posx;
+		this.posy = posy;
+		this.ciudad = ciudad;
+		this.facebook = facebook;
+		this.twitter = twitter;
+		this.telefono = telefono;
+		this.email = email;
+		this.categorias = categorias;
+		this.tags = tags;
+		this.favorito = favorito;
+	}
 
 	public String getDescripcion() {
 		return descripcion;

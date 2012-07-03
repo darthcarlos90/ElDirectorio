@@ -6,6 +6,13 @@ package directorio.objetos;
  *
  */
 public class Categoria {
+	public Categoria(int id, String nombre, char letra) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.letra = letra;
+	}
+
 	private int id;
 	private String nombre;
 	private char letra;
