@@ -1,5 +1,10 @@
 package directorio.objetos;
 
+/**
+ * Clase donde se guardan los datos de cada categoría.
+ * @author Carlos
+ *
+ */
 public class Categoria {
 	private int id;
 	private String nombre;
