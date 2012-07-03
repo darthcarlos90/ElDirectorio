@@ -5,6 +5,7 @@ package directorio.objetos;
  *
  */
 public class Advertiser {
+
 	private String id;
 	private String nombre;
 	private String descripcion;
@@ -45,6 +46,10 @@ public class Advertiser {
 		this.categorias = categorias;
 		this.tags = tags;
 		this.favorito = favorito;
+	}
+
+	public Advertiser() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getDescripcion() {
@@ -177,5 +182,12 @@ public class Advertiser {
 	public void setFavorito(boolean favorito) {
 		this.favorito = favorito;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "" + nombre +descripcion + ciudad + facebook;
+	}
+
 
 }

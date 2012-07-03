@@ -56,7 +56,7 @@ public class DownManager {
                         downloadedSize += bufferLength;
                 }
                 fileOutput.close();
-                location = file.getPath();
+                location = file.getAbsolutePath();
         } catch (MalformedURLException e) {
                 e.printStackTrace();
         } catch (IOException e) {

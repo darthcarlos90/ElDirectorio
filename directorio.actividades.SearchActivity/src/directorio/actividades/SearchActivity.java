@@ -1,5 +1,10 @@
-package directorio.actividades;
+ package directorio.actividades;
 
+import java.util.ArrayList;
+
+import directorio.BaseDeDatos.DownManager;
+import directorio.DAO.AdvertiserDAO;
+import directorio.objetos.Advertiser;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -22,7 +27,9 @@ public class SearchActivity extends Activity {
 	private Spinner spinner;
 	private SeekBar barra;
 	private Button info;
-
+	private DownManager ble;
+	private Button test;
+	
 	/** Called when the activity is first created. */
 
 	@Override
@@ -31,6 +38,7 @@ public class SearchActivity extends Activity {
 		setContentView(R.layout.main);
 
 		// Inicializar los elementos en el View
+		test = (Button)findViewById(R.id.TestButton);
 		setupViews();
 	}
 
@@ -50,10 +58,10 @@ public class SearchActivity extends Activity {
 			this.startActivity(intent);
 			return true;
 		case R.id.btn_favoritos:
-			// mostrar la sección de favoritos
+			// mostrar la secciï¿½n de favoritos
 			return true;
 		case R.id.btn_buscar:
-			// No hacer nada, ya estamos aquí.
+			// No hacer nada, ya estamos aquï¿½.
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -96,12 +104,24 @@ public class SearchActivity extends Activity {
 
 		info = (Button) findViewById(R.id.info_button);
 		info.setOnClickListener(new View.OnClickListener() {
-
 			public void onClick(View v) {
+				ble = new DownManager();
+				ble.DescargaBD();
+
 				Intent myIntent = new Intent(SearchActivity.this,
 						AcercaDeActivity.class);
 				SearchActivity.this.startActivity(myIntent);
 
+			}
+		});
+		
+		test.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				AdvertiserDAO add = new AdvertiserDAO(ble.dameBDLocation());
+				ArrayList<Advertiser> didi = add.findAll();
+				System.out.println("TamaÃ±o de arreglo: " + didi.size());
 			}
 		});
 
