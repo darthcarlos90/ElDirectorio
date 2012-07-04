@@ -72,13 +72,4 @@
         android:layout_below="@+id/text_localidad"
         android:max="8" />
 
-    <Button
-        android:id="@+id/TestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/buscar"
-        android:layout_marginTop="24dp"
-        android:text="Pruebas" />
-
 </RelativeLayout>
