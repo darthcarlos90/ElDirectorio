@@ -24,6 +24,7 @@ public class MostrarCategoriasActivity extends Activity {
 		setContentView(R.layout.categorias);
 		setupViews();
 	}
+	
 
 	public void setupViews() {
 		lv = (ListView) findViewById(R.id.mostrar_categorias);

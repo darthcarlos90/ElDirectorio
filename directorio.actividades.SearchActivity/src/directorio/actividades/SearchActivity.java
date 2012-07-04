@@ -1,13 +1,17 @@
  package directorio.actividades;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import directorio.BaseDeDatos.DownManager;
 import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -29,6 +33,11 @@ public class SearchActivity extends Activity {
 	private Button info;
 	private DownManager ble;
 	private Button test;
+	private LocationManager lm;
+	private Location loc;
+	private double longitude;
+	private double latitude;
+	private File bd;
 	
 	/** Called when the activity is first created. */
 
@@ -38,8 +47,44 @@ public class SearchActivity extends Activity {
 		setContentView(R.layout.main);
 
 		// Inicializar los elementos en el View
-		test = (Button)findViewById(R.id.TestButton);
 		setupViews();
+		getLocation();
+		if(!checkForBD()){
+			ble = new DownManager();
+			ble.DescargaBD();
+			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			ArrayList<Advertiser> didi = add.findAll();
+			System.out.println("Tamaño de arreglo: " + didi.size());
+			System.out.println("Latitude: " + latitude);
+			System.out.println("Longitude: " + longitude);
+		}
+		else{
+			System.out.println("Existe la base de datos");
+			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			ArrayList<Advertiser> didi = add.findAll();
+			System.out.println("Tamaño de arreglo: " + didi.size());
+			System.out.println("Latitude: " + latitude);
+			System.out.println("Longitude: " + longitude);
+		}
+	}
+	//El resultado lo imprimira en el logcat, imprimira todos los objetos que saco de la base de datos, imprimira el tamaño del arreglo, la latitud y longitud
+
+	private boolean checkForBD() {
+		// TODO Auto-generated method stub
+		bd = new File("/sdcard/DirLaguna.db");
+		if(bd.exists()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	private void getLocation() {
+		// TODO Auto-generated method stub
+		lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+		loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		longitude = loc.getLongitude();
+		latitude = loc.getLatitude();
 	}
 
 	@Override
@@ -105,9 +150,6 @@ public class SearchActivity extends Activity {
 		info = (Button) findViewById(R.id.info_button);
 		info.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				ble = new DownManager();
-				ble.DescargaBD();
-
 				Intent myIntent = new Intent(SearchActivity.this,
 						AcercaDeActivity.class);
 				SearchActivity.this.startActivity(myIntent);
@@ -115,16 +157,6 @@ public class SearchActivity extends Activity {
 			}
 		});
 		
-		test.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				AdvertiserDAO add = new AdvertiserDAO(ble.dameBDLocation());
-				ArrayList<Advertiser> didi = add.findAll();
-				System.out.println("Tamaño de arreglo: " + didi.size());
-			}
-		});
-
 	}
 
 }

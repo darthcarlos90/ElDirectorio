@@ -1,8 +1,5 @@
 package directorio.BaseDeDatos;
 
-import org.apache.http.client.HttpClient;
-
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,13 +7,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
- 
-import org.apache.http.util.ByteArrayBuffer;
- 
 import android.annotation.SuppressLint;
 import android.os.Environment;
-import android.util.Log;
 
 /**
  * Clase que descarga la base de datos del link.
