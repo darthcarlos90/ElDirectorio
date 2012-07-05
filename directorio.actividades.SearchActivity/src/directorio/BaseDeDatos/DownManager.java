@@ -8,8 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.io.*;
 import android.annotation.SuppressLint;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 
 /**
@@ -22,6 +23,27 @@ import android.os.Environment;
 public class DownManager {
 
 	String location = "";
+	private SQLiteDatabase db;
+	private File file;
+
+	public DownManager() {
+		DescargaBD();
+		try{
+		modifyDatabase();
+		}catch(SQLiteException e){
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public void modifyDatabase() {
+		db = SQLiteDatabase.openOrCreateDatabase(file, null);
+		String query = "CREATE TABLE 'android_metadata' ('locale' TEXT DEFAULT 'en_US')";
+		db.execSQL(query);
+		query = "INSERT INTO 'android_metadata' VALUES ('en_US')";
+		db.execSQL(query);
+
+	}
 
 	@SuppressLint({ "ParserError", "ParserError" })
 	public void DescargaBD() {
@@ -37,7 +59,7 @@ public class DownManager {
 			urlConnection.connect();
 
 			File SDCardRoot = Environment.getExternalStorageDirectory();
-			File file = new File(SDCardRoot, "DirLaguna.db");
+			file = new File(SDCardRoot, "DirLaguna.db");
 
 			FileOutputStream fileOutput = new FileOutputStream(file);
 

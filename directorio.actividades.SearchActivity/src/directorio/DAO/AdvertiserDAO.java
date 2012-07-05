@@ -47,8 +47,7 @@ public class AdvertiserDAO {
 			arr.add(adver);
 		}
 		
-		holo.close();
-		
+		holo.close();		
 		return arr;
 		
 	}

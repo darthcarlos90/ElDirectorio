@@ -50,12 +50,11 @@ public class SearchActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		getLocation();
+		downloadDataBase();
 		others = new otrosDao();// se inicializa la variable
 		// Inicializar los elementos en el View
 		setupViews();
-		getLocation();
-		downloadDataBase();
 
 	}
 
@@ -66,31 +65,9 @@ public class SearchActivity extends Activity {
 	private void downloadDataBase() {
 		// Aquí implementé el uso de shared preferences, pero aparentemente no
 		// funciona :(
-		SharedPreferences settings = getSharedPreferences(PRIMERA_VEZ, 0);
-		boolean pVez = settings.getBoolean("primera vez", true);
-		SharedPreferences.Editor editor = settings.edit();
-		if (pVez == true) {
-			ble = new DownManager();
-			Thread t = new Thread() {
-				public void run() {
-					try {
-						sleep(100);
-						ble.DescargaBD();
-					} catch (Exception e) {
-						e.printStackTrace();
-
-					}
-				}
-			};
-			System.out.print(ble.dameBDLocation());
-			t.start();
-			// ble.DescargaBD();
-			editor.putBoolean("primera vez", false);
-			editor.commit();
-
-		} else {
-			System.out.println("Existe la base de datos");
-		}
+		ble = new DownManager();
+		// ble.DescargaBD();
+		System.out.println("Existe la base de datos");
 
 		checkForBD();
 	}
