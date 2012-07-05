@@ -1,18 +1,21 @@
- package directorio.actividades;
+package directorio.actividades;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import directorio.BaseDeDatos.DownManager;
 import directorio.DAO.AdvertiserDAO;
+import directorio.DAO.otrosDao;
 import directorio.objetos.Advertiser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,7 +41,9 @@ public class SearchActivity extends Activity {
 	private double longitude;
 	private double latitude;
 	private File bd;
-	
+	private static final String PRIMERA_VEZ = "Primera Vez";
+	private otrosDao others; // para recoger las ciudades de la base de datos
+
 	/** Called when the activity is first created. */
 
 	@Override
@@ -46,45 +51,76 @@ public class SearchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		others = new otrosDao();// se inicializa la variable
 		// Inicializar los elementos en el View
 		setupViews();
 		getLocation();
-		if(!checkForBD()){
-			ble = new DownManager();
-			ble.DescargaBD();
-			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-			ArrayList<Advertiser> didi = add.findAll();
-			System.out.println("TamaÃ±o de arreglo: " + didi.size());
-			System.out.println("Latitude: " + latitude);
-			System.out.println("Longitude: " + longitude);
-		}
-		else{
-			System.out.println("Existe la base de datos");
-			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-			ArrayList<Advertiser> didi = add.findAll();
-			System.out.println("TamaÃ±o de arreglo: " + didi.size());
-			System.out.println("Latitude: " + latitude);
-			System.out.println("Longitude: " + longitude);
-		}
+		downloadDataBase();
+
 	}
-	//El resultado lo imprimira en el logcat, imprimira todos los objetos que saco de la base de datos, imprimira el tamaÃ±o del arreglo, la latitud y longitud
+
+	/**
+	 * Método encargado de revisarr si existe la base de datos en la memoria, si
+	 * no existe, se descarga.
+	 */
+	private void downloadDataBase() {
+		// Aquí implementé el uso de shared preferences, pero aparentemente no
+		// funciona :(
+		SharedPreferences settings = getSharedPreferences(PRIMERA_VEZ, 0);
+		boolean pVez = settings.getBoolean("primera vez", true);
+		SharedPreferences.Editor editor = settings.edit();
+		if (pVez == true) {
+			ble = new DownManager();
+			Thread t = new Thread() {
+				public void run() {
+					try {
+						sleep(100);
+						ble.DescargaBD();
+					} catch (Exception e) {
+						e.printStackTrace();
+
+					}
+				}
+			};
+			System.out.print(ble.dameBDLocation());
+			t.start();
+			// ble.DescargaBD();
+			editor.putBoolean("primera vez", false);
+			editor.commit();
+
+		} else {
+			System.out.println("Existe la base de datos");
+		}
+
+		checkForBD();
+	}
 
 	private boolean checkForBD() {
 		// TODO Auto-generated method stub
-		bd = new File("/sdcard/DirLaguna.db");
-		if(bd.exists()){
+		// bd = new File("/sdcard/DirLaguna.db");
+		// Se hizo modificación para no tener que usar hard code para la
+		// localización de la sdCard.
+		bd = new File(Environment.getExternalStorageDirectory().getPath()
+				+ "/DirLaguna.db");
+		boolean bool = bd.exists();
+		if (bool == true) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
+	// El resultado lo imprimira en el logcat, imprimira todos los objetos que
+	// saco de la base de datos, imprimira el tamaÃ±o del arreglo, la latitud y
+	// longitud
 	private void getLocation() {
 		// TODO Auto-generated method stub
-		lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		longitude = loc.getLongitude();
-		latitude = loc.getLatitude();
+		if (loc != null) {
+			longitude = loc.getLongitude();
+			latitude = loc.getLatitude();
+		}
 	}
 
 	@Override
@@ -106,7 +142,13 @@ public class SearchActivity extends Activity {
 			// mostrar la secciï¿½n de favoritos
 			return true;
 		case R.id.btn_buscar:
-			// No hacer nada, ya estamos aquï¿½.
+			// Cuando se oprima el botón de buscar, se realizará la búsqueda,
+			// sin embargo, todavía no funciona.
+			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			ArrayList<Advertiser> didi = add.findAll();
+			System.out.println("TamaÃ±o de arreglo: " + didi.size());
+			System.out.println("Latitude: " + latitude);
+			System.out.println("Longitude: " + longitude);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -114,11 +156,26 @@ public class SearchActivity extends Activity {
 	}
 
 	private void setupViews() {
+
 		spinner = (Spinner) findViewById(R.id.spinner_localidades);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				this, R.array.ciudades_array,
-				android.R.layout.simple_spinner_item);
+		/*
+		 * ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+		 * this, R.array.ciudades_array, android.R.layout.simple_spinner_item);
+		 * 
+		 * adapter.setDropDownViewResource(android.R.layout.
+		 * simple_spinner_dropdown_item);
+		 */
+
+		ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
+				this, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Se obtiene la lista de ciudades de la base de datos. Sin embargo, la
+		// base de datos sigue sin funcionar.
+		ArrayList<String> datos = others.getCiudades();
+		for (int i = 0; i < datos.size(); i++) {
+			adapter.add(datos.get(i));
+		}
+
 		spinner.setAdapter(adapter);
 
 		textoBarra = (TextView) findViewById(R.id.mostrar_metros);
@@ -156,7 +213,7 @@ public class SearchActivity extends Activity {
 
 			}
 		});
-		
+
 	}
 
 }

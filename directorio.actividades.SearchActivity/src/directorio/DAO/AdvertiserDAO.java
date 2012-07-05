@@ -28,6 +28,8 @@ public class AdvertiserDAO {
 	public ArrayList<Advertiser>  findAll(){
 		ArrayList<Advertiser> arr = new ArrayList<Advertiser>();
 		Cursor holo = db.rawQuery("select * from Advertiser;", null);
+		
+		holo.moveToFirst();
 		while(holo.moveToNext()){
 			Advertiser adver = new Advertiser();
 			adver.setId(holo.getString(0));
@@ -44,6 +46,8 @@ public class AdvertiserDAO {
 			System.out.println("Objeto: " + adver.toString());
 			arr.add(adver);
 		}
+		
+		holo.close();
 		
 		return arr;
 		
