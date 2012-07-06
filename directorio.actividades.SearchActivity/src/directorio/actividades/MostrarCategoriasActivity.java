@@ -32,7 +32,6 @@ public class MostrarCategoriasActivity extends Activity {
 		for (int i = 0; i < lista.size(); i++) {
 			datosTentativos2[i] = lista.get(i);
 		}
-
 		lv.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				datosTentativos2));
 	}

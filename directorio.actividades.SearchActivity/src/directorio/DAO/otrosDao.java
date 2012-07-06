@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
 /**
- * Clase para hacer búsquedas en la base de datos de otros objetos.
+ * Clase para hacer bï¿½squedas en la base de datos de otros objetos.
  * 
  * @author Carlos
  * 
@@ -18,8 +18,7 @@ public class otrosDao {
 	private SQLiteDatabase database;
 	private ArrayList<String> ciudades;
 	private File file;
-	private static final String LOCATION_DB = Environment
-			.getExternalStorageDirectory().getPath() + "/DirLaguna.db";
+	private static final String LOCATION_DB = Environment.getExternalStorageDirectory().getPath() + "/DirLaguna.db";
 
 	public otrosDao() {
 		file = new File(LOCATION_DB);
@@ -28,8 +27,8 @@ public class otrosDao {
 	}
 
 	/**
-	 * Método que manda llamar al método cargaCiudades (metodception ._.) para
-	 * que realize el query, y después lo guarde en el "field" ciudades.
+	 * Mï¿½todo que manda llamar al mï¿½todo cargaCiudades (metodception ._.) para
+	 * que realize el query, y despuï¿½s lo guarde en el "field" ciudades.
 	 * 
 	 * @return El ArrayList con las ciudades de la base de datos.
 	 */
@@ -39,7 +38,7 @@ public class otrosDao {
 	}
 
 	/**
-	 * Método que hace el query a la base de datos y guarda las ciudades en un
+	 * Mï¿½todo que hace el query a la base de datos y guarda las ciudades en un
 	 * ArrayList.
 	 */
 	private void cargaCiudades() {

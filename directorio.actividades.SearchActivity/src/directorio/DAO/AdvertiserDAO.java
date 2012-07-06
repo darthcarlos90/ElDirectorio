@@ -28,8 +28,8 @@ public class AdvertiserDAO {
 	public ArrayList<Advertiser>  findAll(){
 		ArrayList<Advertiser> arr = new ArrayList<Advertiser>();
 		Cursor holo = db.rawQuery("select * from Advertiser;", null);
-		
-		holo.moveToFirst();
+		//Segun vi el registro, el total de advertisers son 1297, pero si ponemos el moveToFirst, omite el primer registro, y nos devuelve solo 1296, pero vuelvo, como tu prefieras
+//		holo.moveToFirst();
 		while(holo.moveToNext()){
 			Advertiser adver = new Advertiser();
 			adver.setId(holo.getString(0));
@@ -43,10 +43,8 @@ public class AdvertiserDAO {
 			adver.setPosx(holo.getDouble(8));
 			adver.setPosy(holo.getDouble(9));
 			adver.setCiudad(holo.getString(10));
-			System.out.println("Objeto: " + adver.toString());
 			arr.add(adver);
 		}
-		
 		holo.close();		
 		return arr;
 		

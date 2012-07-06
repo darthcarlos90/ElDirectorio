@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import directorio.BaseDeDatos.DownManager;
+import directorio.BaseDeDatos.SearchManager;
 import directorio.DAO.AdvertiserDAO;
 import directorio.DAO.otrosDao;
 import directorio.objetos.Advertiser;
@@ -34,14 +35,12 @@ public class SearchActivity extends Activity {
 	private Spinner spinner;
 	private SeekBar barra;
 	private Button info;
-	private DownManager ble;
-	private Button test;
 	private LocationManager lm;
 	private Location loc;
 	private double longitude;
 	private double latitude;
 	private File bd;
-	private static final String PRIMERA_VEZ = "Primera Vez";
+	private double kil;
 	private otrosDao others; // para recoger las ciudades de la base de datos
 
 	/** Called when the activity is first created. */
@@ -51,32 +50,33 @@ public class SearchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		getLocation();
-		downloadDataBase();
-		others = new otrosDao();// se inicializa la variable
+		// Checa ausencia de Base de datos, si no existe la descarga
+		if (!checkForBD()) {
+			System.out.println("No existe, descargando...");
+			downloadDataBase();
+		}
+		//Imprimira si si existe...
+		System.out.println("Existe, No descargue nada...");
+		//Si existe, inicializara los otros DAO
+		others = new otrosDao();
 		// Inicializar los elementos en el View
 		setupViews();
 
 	}
 
 	/**
-	 * Método encargado de revisarr si existe la base de datos en la memoria, si
+	 * Mï¿½todo encargado de revisarr si existe la base de datos en la memoria, si
 	 * no existe, se descarga.
 	 */
 	private void downloadDataBase() {
-		// Aquí implementé el uso de shared preferences, pero aparentemente no
-		// funciona :(
-		ble = new DownManager();
-		// ble.DescargaBD();
-		System.out.println("Existe la base de datos");
-
-		checkForBD();
+		new DownManager();
 	}
 
 	private boolean checkForBD() {
 		// TODO Auto-generated method stub
 		// bd = new File("/sdcard/DirLaguna.db");
-		// Se hizo modificación para no tener que usar hard code para la
-		// localización de la sdCard.
+		// Se hizo modificaciï¿½n para no tener que usar hard code para la
+		// localizaciï¿½n de la sdCard.
 		bd = new File(Environment.getExternalStorageDirectory().getPath()
 				+ "/DirLaguna.db");
 		boolean bool = bd.exists();
@@ -119,13 +119,44 @@ public class SearchActivity extends Activity {
 			// mostrar la secciï¿½n de favoritos
 			return true;
 		case R.id.btn_buscar:
-			// Cuando se oprima el botón de buscar, se realizará la búsqueda,
-			// sin embargo, todavía no funciona.
+			// Cuando se oprima el botï¿½n de buscar, se realizarï¿½ la bï¿½squeda,
+			// sin embargo, todavï¿½a no funciona.
+//			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+//			ArrayList<Advertiser> didi = add.findAll();
+//			System.out.println("TamaÃ±o de arreglo: " + didi.size());
+//			System.out.println("Latitude: " + latitude);
+//			System.out.println("Longitude: " + longitude);
+			
+			//Algoritmo de Busqueda de Lugares Version 1
 			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
 			ArrayList<Advertiser> didi = add.findAll();
-			System.out.println("TamaÃ±o de arreglo: " + didi.size());
-			System.out.println("Latitude: " + latitude);
-			System.out.println("Longitude: " + longitude);
+			ArrayList<Advertiser> enRango = new ArrayList<Advertiser>();
+			//Clase que contiene el metodo para obtener la distancia entre 2 puntos
+			SearchManager ble = new SearchManager();
+			//Obtiene la distancia en metros entre 2 puntos, entre el del usuario, y el uno de los negocios del arreglo,
+			for(int i = 0; i < didi.size();i++){
+				//Obtiene la distancia en metros entre 2 puntos, entre el del usuario, y el uno de los negocios del arreglo,
+				double metros = ble.gps2m((float)latitude, (float)longitude,(float) didi.get(i).getPosx(),(float)didi.get(i).getPosy());
+				//Lo convertimos a kilometros
+				double kilometrosDistancia = metros * 0.001;
+				//Si la distancia en kilometros, es menos a la distancia que solicito el usuario...
+				if(kilometrosDistancia < kil){
+					System.out.println("En rango: "+ didi.get(i).getNombre());
+					//lo agrega a la lista temporal de los necogios que estan en rango
+					enRango.add(didi.get(i));
+				}else{
+					//Si no lo esta, imprime que no esta en rango
+					System.out.println("No en rango");
+				}
+			}
+			//Al final, imprimimos los negocios que estan en rango
+			for(int i1 = 0; i1 < enRango.size();i1++){
+				System.out.println("Esta en rango: " +  enRango.get(i1).getNombre());
+			}
+			//Imprimimos el tamaÃ±o del arreglo que esta en rango
+			System.out.println("El tamaÃ±o del rango es: " + enRango.size());
+			//Algoritmo de busqueda de lugares Version 1
+			
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -175,6 +206,7 @@ public class SearchActivity extends Activity {
 				if (progress == 0) {
 					textoBarra.setText("--");
 				} else {
+					kil = (double)progress;
 					textoBarra.setText(progress + "km");
 				}
 
