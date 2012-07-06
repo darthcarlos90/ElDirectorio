@@ -26,7 +26,7 @@ public class DownManager {
                 URL url = new URL("http://71.6.150.179:8079/dbHandler.axd?SqliteDbVersion=0");
 
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
+                
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setDoOutput(true);
                 urlConnection.connect();

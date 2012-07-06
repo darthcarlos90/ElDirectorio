@@ -32,7 +32,6 @@ public class SearchActivity extends Activity {
 	private SeekBar barra;
 	private Button info;
 	private DownManager ble;
-	private Button test;
 	private LocationManager lm;
 	private Location loc;
 	private double longitude;
@@ -52,7 +51,7 @@ public class SearchActivity extends Activity {
 		if(!checkForBD()){
 			ble = new DownManager();
 			ble.DescargaBD();
-			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			AdvertiserDAO add = new AdvertiserDAO(ble.dameBDLocation());
 			ArrayList<Advertiser> didi = add.findAll();
 			System.out.println("Tamaño de arreglo: " + didi.size());
 			System.out.println("Latitude: " + latitude);
