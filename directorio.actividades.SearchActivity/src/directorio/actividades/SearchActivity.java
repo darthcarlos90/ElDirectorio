@@ -56,6 +56,7 @@ public class SearchActivity extends Activity {
 			System.out.println("Tamaño de arreglo: " + didi.size());
 			System.out.println("Latitude: " + latitude);
 			System.out.println("Longitude: " + longitude);
+			System.out.println("No existio la base de datos");
 		}
 		else{
 			System.out.println("Existe la base de datos");
@@ -64,6 +65,7 @@ public class SearchActivity extends Activity {
 			System.out.println("Tamaño de arreglo: " + didi.size());
 			System.out.println("Latitude: " + latitude);
 			System.out.println("Longitude: " + longitude);
+			System.out.println("Si existio la base de datos");
 		}
 	}
 	//El resultado lo imprimira en el logcat, imprimira todos los objetos que saco de la base de datos, imprimira el tamaño del arreglo, la latitud y longitud
