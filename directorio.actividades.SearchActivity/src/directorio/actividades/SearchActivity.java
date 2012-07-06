@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import directorio.BaseDeDatos.DownManager;
 import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -70,6 +71,7 @@ public class SearchActivity extends Activity {
 	}
 	//El resultado lo imprimira en el logcat, imprimira todos los objetos que saco de la base de datos, imprimira el tamaño del arreglo, la latitud y longitud
 
+	@SuppressLint("SdCardPath")
 	private boolean checkForBD() {
 		// TODO Auto-generated method stub
 		bd = new File("/sdcard/DirLaguna.db");

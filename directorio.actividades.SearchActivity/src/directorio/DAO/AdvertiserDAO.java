@@ -44,8 +44,12 @@ public class AdvertiserDAO {
 			System.out.println("Objeto: " + adver.toString());
 			arr.add(adver);
 		}
-		
+		holo.close();
 		return arr;
+	}
+	
+	public SQLiteDatabase bd(){
+		return this.db;
 		
 	}
 }
