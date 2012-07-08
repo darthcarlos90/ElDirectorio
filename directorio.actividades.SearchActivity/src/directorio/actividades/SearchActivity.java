@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 import android.location.Location;
 import android.location.LocationManager;
@@ -42,6 +43,7 @@ public class SearchActivity extends Activity {
 	private File bd;
 	private double kil;
 	private otrosDao others; // para recoger las ciudades de la base de datos
+	private static final String PREFS_NAME= "tipo de busqueda";
 
 	/** Called when the activity is first created. */
 
@@ -110,13 +112,19 @@ public class SearchActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
+		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
-			Intent intent = new Intent(this, MostrarCategoriasActivity.class);
+			intent = new Intent(this, MostrarCategoriasActivity.class);
 			this.startActivity(intent);
 			return true;
 		case R.id.btn_favoritos:
-			// mostrar la secci�n de favoritos
+			SharedPreferences sharedPrefs = getSharedPreferences(PREFS_NAME,0);
+			Editor editor = sharedPrefs.edit();
+			editor.putString(PREFS_NAME, "favoritos");
+			editor.commit();
+			intent = new Intent(this, ShowAdvertisersActivity.class);
+			this.startActivity(intent);
 			return true;
 		case R.id.btn_buscar:
 			// Cuando se oprima el bot�n de buscar, se realizar� la b�squeda,

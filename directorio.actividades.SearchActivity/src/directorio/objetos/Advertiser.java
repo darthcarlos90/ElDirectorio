@@ -1,8 +1,12 @@
 package directorio.objetos;
+
+import java.sql.Blob;
+
 /**
  * Esta es la clase donde se guardan los datos del advertiser.
+ * 
  * @author Carlos Tirado
- *
+ * 
  */
 public class Advertiser {
 
@@ -21,8 +25,24 @@ public class Advertiser {
 	private String[] email;
 	private String[] categorias;
 	private String[] tags;
-	
-	
+	private Blob imgSrc;
+	private String publicityUrl;
+
+	public String getPublicityUrl() {
+		return publicityUrl;
+	}
+
+	public void setPublicityUrl(String publicityUrl) {
+		this.publicityUrl = publicityUrl;
+	}
+
+	public Blob getImgSrc() {
+		return imgSrc;
+	}
+
+	public void setImgSrc(Blob imgSrc) {
+		this.imgSrc = imgSrc;
+	}
 
 	public Advertiser(String id, String nombre, String descripcion,
 			String contacto, String direccion, String sitioWeb, double posx,
@@ -182,12 +202,11 @@ public class Advertiser {
 	public void setFavorito(boolean favorito) {
 		this.favorito = favorito;
 	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "" + nombre +descripcion + ciudad + facebook;
+		return "" + nombre + descripcion + ciudad + facebook;
 	}
-
 
 }

@@ -13,9 +13,10 @@ import android.widget.ListView;
 
 public class MostrarCategoriasActivity extends Activity {
 
-	ListView lv;
-	Categoria categoria;
-	CategoriaDAO catDao;
+	private ListView lv;
+	private Categoria categoria;
+	private CategoriaDAO catDao;
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
