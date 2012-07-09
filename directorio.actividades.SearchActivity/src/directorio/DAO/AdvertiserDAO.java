@@ -25,12 +25,12 @@ public class AdvertiserDAO {
 			.getExternalStorageDirectory().getPath() + "/DirLaguna.db";
 
 	//
-	 public AdvertiserDAO() {
+	public AdvertiserDAO() {
 		ble = new File(LOCATION_DB);
 		db = SQLiteDatabase.openOrCreateDatabase(ble, null);
 	}
-	
-	public AdvertiserDAO (String path){
+
+	public AdvertiserDAO(String path) {
 		ble = new File(path);
 		db = SQLiteDatabase.openOrCreateDatabase(ble, null);
 	}
@@ -61,24 +61,67 @@ public class AdvertiserDAO {
 		return arr;
 
 	}
-	
-	public Advertiser find(String nombre){
+
+	public ArrayList<Advertiser> getByCategory(String category) {
+		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
+		Cursor cats = db.rawQuery(
+				"Select CategoryId from Category where CatName = '" + category + "';",
+				null);
+		cats.moveToPosition(0);
+		String catId = "*|@" + cats.getString(0) + "|";
+		cats.close();
+		Cursor c = db.rawQuery(
+				"Select * from Advertiser where Categories like '%" + catId + "%';",
+				null);
+		Advertiser temp;
+		c.moveToPosition(0);
+		if (!c.isAfterLast()) {
+			do {
+				temp = new Advertiser();
+				temp.setId(c.getString(0));
+				temp.setNombre(c.getString(1));
+				temp.setDescripcion(c.getString(2));
+				temp.setDireccion(c.getString(3));
+				temp.setContacto(c.getString(4));
+				temp.setSitioWeb(c.getString(5));
+				temp.setFacebook(c.getString(6));
+				temp.setTwitter(c.getString(7));
+				temp.setPosx(c.getDouble(8));
+				temp.setPosy(c.getDouble(9));
+				temp.setCiudad(c.getString(11));
+				resultados.add(temp);
+			} while (c.moveToNext());
+		}
+		c.close();
+
+		return resultados;
+	}
+
+	public Advertiser find(String nombre) {
 		Advertiser resultado = new Advertiser();
-		String query = "Select * from Advertiser where AdvName= '" + nombre + "';";
+		String query = "Select * from Advertiser where AdvName= '" + nombre
+				+ "';";
 		Cursor c = db.rawQuery(query, null);
-		//.moveToPosition(0);
-		resultado.setId(c.getString(0));
-		resultado.setNombre(c.getString(1));
-		resultado.setDescripcion(c.getString(2));
-		resultado.setDireccion(c.getString(3));
-		resultado.setContacto(c.getString(4));
-		resultado.setSitioWeb(c.getString(5));
-		resultado.setFacebook(c.getString(6));
-		resultado.setTwitter(c.getString(7));
-		resultado.setPosx(c.getDouble(8));
-		resultado.setPosy(c.getDouble(9));
-		resultado.setCiudad(c.getString(11));
-		
+		c.moveToFirst();
+		if (!c.isAfterLast()) {
+			do {
+				try {
+					resultado.setId(c.getString(0));
+					resultado.setNombre(c.getString(1));
+					resultado.setDescripcion(c.getString(2));
+					resultado.setDireccion(c.getString(3));
+					resultado.setContacto(c.getString(4));
+					resultado.setSitioWeb(c.getString(5));
+					resultado.setFacebook(c.getString(6));
+					resultado.setTwitter(c.getString(7));
+					resultado.setPosx(c.getDouble(8));
+					resultado.setPosy(c.getDouble(9));
+					resultado.setCiudad(c.getString(11));
+				} catch (NullPointerException e) {
+					System.out.println("No existe uno de los cursores");
+				}
+			} while (c.moveToNext());
+		}
 		return resultado;
 	}
 }

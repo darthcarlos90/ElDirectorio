@@ -119,12 +119,13 @@ public class SearchActivity extends Activity {
 			this.startActivity(intent);
 			return true;
 		case R.id.btn_favoritos:
+			// Unser construction
 			SharedPreferences sharedPrefs = getSharedPreferences(PREFS_NAME,0);
 			Editor editor = sharedPrefs.edit();
 			editor.putString(PREFS_NAME, "favoritos");
 			editor.commit();
-			intent = new Intent(this, ShowAdvertisersActivity.class);
-			this.startActivity(intent);
+			/*intent = new Intent(this, ShowAdvertisersActivity.class);
+			this.startActivity(intent);*/
 			return true;
 		case R.id.btn_buscar:
 			// Cuando se oprima el bot�n de buscar, se realizar� la b�squeda,
