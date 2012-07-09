@@ -23,7 +23,6 @@ public class otrosDao {
 	public otrosDao() {
 		file = new File(LOCATION_DB);
 		database = SQLiteDatabase.openOrCreateDatabase(file, null);
-
 	}
 
 	/**
@@ -48,7 +47,6 @@ public class otrosDao {
 		if (!cursor.isAfterLast()) {
 			do {
 				try {
-
 					String ciudad = cursor.getString(cursor
 							.getColumnIndex("CityName"));
 					ciudades.add(ciudad);
@@ -58,7 +56,6 @@ public class otrosDao {
 				}
 			} while (cursor.moveToNext());
 		}
-
 		cursor.close();
 
 	}

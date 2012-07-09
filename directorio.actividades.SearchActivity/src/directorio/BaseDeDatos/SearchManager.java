@@ -1,27 +1,58 @@
 package directorio.BaseDeDatos;
 
-import android.util.FloatMath;
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import directorio.objetos.Advertiser;
 
 public class SearchManager {
 	
-	public SearchManager(){
-		
-	}
+	private static Double EARTH_RADIUS = 6371.00;
 	
-	public double gps2m(float lat_a, float lng_a, float lat_b, float lng_b) { 
-		float pk = (float) (180/3.14169);
-		
-		float a1 = lat_a / pk;
-		float a2 = lng_a / pk;
-		float b1 = lat_b / pk;
-		float b2 = lng_b / pk;
-
-		float t1 = FloatMath.cos(a1)*FloatMath.cos(a2)*FloatMath.cos(b1)*FloatMath.cos(b2);
-		float t2 = FloatMath.cos(a1)*FloatMath.sin(a2)*FloatMath.cos(b1)*FloatMath.sin(b2);
-		float t3 = FloatMath.sin(a1)*FloatMath.sin(b1);
-		double tt = Math.acos(t1 + t2 + t3);
-		
-		return 6366000*tt;
-	}
+	
+	public static Double calculateDistance(Double lat1, Double lon1, Double lat2, Double lon2){
+		  Double Radius = EARTH_RADIUS; //6371.00;
+		  Double dLat = Math.toRadians(lat2-lat1);
+		  Double dLon = Math.toRadians(lon2-lon1);            
+		  Double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+		  Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+		  Math.sin(dLon/2) * Math.sin(dLon/2);
+		  Double c = (2 * Math.asin(Math.sqrt(a)));
+		  return (Radius * c);		
+		}
+	
+		@SuppressLint("ParserError")
+		public static ArrayList<Advertiser> negociosenRango(double latitude, double longitude, double rangoBuscar , String ciudad, String filtroString, SQLiteDatabase db,String path){
+			ArrayList<Advertiser> negociosPorNombre = new ArrayList<Advertiser>();
+			Cursor tablaNegocios = db.rawQuery("select * from Advertiser where AdvName like '%" + filtroString + "%' or Tags like '%"+filtroString+"%'",null);
+			while(tablaNegocios.moveToNext()){
+				Advertiser adver = new Advertiser();
+				adver.setId(tablaNegocios.getString(0));
+				adver.setNombre(tablaNegocios.getString(1));
+				adver.setDescripcion(tablaNegocios.getString(2));
+				adver.setDireccion(tablaNegocios.getString(3));
+				adver.setContacto(tablaNegocios.getString(4));
+				adver.setSitioWeb(tablaNegocios.getString(5));
+				adver.setFacebook(tablaNegocios.getString(6));
+				adver.setTwitter(tablaNegocios.getString(7));
+				adver.setPosx(tablaNegocios.getDouble(8));
+				adver.setPosy(tablaNegocios.getDouble(9));
+				adver.setCiudad(tablaNegocios.getString(10));
+				negociosPorNombre.add(adver);
+			}
+			ArrayList<Advertiser> negociosEnRango = new ArrayList<Advertiser>();
+				
+			for(int i = 0; i < negociosPorNombre.size();i++){
+			double kilometrosDistancia = calculateDistance(latitude, longitude, negociosPorNombre.get(i).getPosx(),negociosPorNombre.get(i).getPosy());
+			if(kilometrosDistancia < rangoBuscar){
+				negociosEnRango.add(negociosPorNombre.get(i));
+				}
+			}
+			
+			return negociosEnRango;
+		}
 	
 }

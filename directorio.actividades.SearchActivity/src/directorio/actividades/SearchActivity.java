@@ -8,11 +8,10 @@ import directorio.BaseDeDatos.SearchManager;
 import directorio.DAO.AdvertiserDAO;
 import directorio.DAO.otrosDao;
 import directorio.objetos.Advertiser;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -25,6 +24,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -41,6 +41,7 @@ public class SearchActivity extends Activity {
 	private double latitude;
 	private File bd;
 	private double kil;
+	private EditText Busqueda;
 	private otrosDao others; // para recoger las ciudades de la base de datos
 
 	/** Called when the activity is first created. */
@@ -55,10 +56,10 @@ public class SearchActivity extends Activity {
 			System.out.println("No existe, descargando...");
 			downloadDataBase();
 		}
-		//Imprimira si si existe...
+		// Imprimira si si existe...
 		System.out.println("Existe, No descargue nada...");
-		//Si existe, inicializara los otros DAO
-		others = new otrosDao();
+		// Si existe, inicializara los otros DAO
+		// others = new otrosDao();
 		// Inicializar los elementos en el View
 		setupViews();
 
@@ -107,6 +108,7 @@ public class SearchActivity extends Activity {
 		return true;
 	}
 
+	@SuppressLint("ParserError")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -121,43 +123,56 @@ public class SearchActivity extends Activity {
 		case R.id.btn_buscar:
 			// Cuando se oprima el bot�n de buscar, se realizar� la b�squeda,
 			// sin embargo, todav�a no funciona.
+//			 AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			// ArrayList<Advertiser> didi = add.findAll();
+			// System.out.println("Tamaño de arreglo: " + didi.size());
+			// System.out.println("Latitude: " + latitude);
+			// System.out.println("Longitude: " + longitude);
+
+			// Algoritmo de Busqueda de Lugares Version 1
 //			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
 //			ArrayList<Advertiser> didi = add.findAll();
-//			System.out.println("Tamaño de arreglo: " + didi.size());
-//			System.out.println("Latitude: " + latitude);
-//			System.out.println("Longitude: " + longitude);
+//			ArrayList<Advertiser> enRango = new ArrayList<Advertiser>();
+//			// Clase que contiene el metodo para obtener la distancia entre 2
+//			// puntos
+//			// Obtiene la distancia en metros entre 2 puntos, entre el del
+//			// usuario, y el uno de los negocios del arreglo,
+//			for (int i = 0; i < didi.size(); i++) {
+//				// Obtiene la distancia en metros entre 2 puntos, entre el del
+//				// usuario, y el uno de los negocios del arreglo,
+//				// Lo convertimos a kilometros
+//				double kilometrosDistancia = SearchManager.calculateDistance(
+//						latitude, longitude, didi.get(i).getPosx(), didi.get(i)
+//								.getPosy());
+//				System.out.println("Distancia en kilometros: "
+//						+ kilometrosDistancia);
+//				// Si la distancia en kilometros, es menos a la distancia que
+//				// solicito el usuario...
+//				if (kilometrosDistancia < kil) {
+//					System.out.println("En rango: " + didi.get(i).getNombre());
+//					// lo agrega a la lista temporal de los necogios que estan
+//					// en rango
+//					enRango.add(didi.get(i));
+//				} else {
+//					// Si no lo esta, imprime que no esta en rango
+//					System.out.println("No en rango");
+//				}
+//			}
+//			// Imprimimos el tamaño del arreglo que esta en rango
+//			System.out.println("El tamaño del rango es: " + enRango.size());
+			// Algoritmo de busqueda de lugares Version 1
 			
-			//Algoritmo de Busqueda de Lugares Version 1
-			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-			ArrayList<Advertiser> didi = add.findAll();
-			ArrayList<Advertiser> enRango = new ArrayList<Advertiser>();
-			//Clase que contiene el metodo para obtener la distancia entre 2 puntos
-			SearchManager ble = new SearchManager();
-			//Obtiene la distancia en metros entre 2 puntos, entre el del usuario, y el uno de los negocios del arreglo,
-			for(int i = 0; i < didi.size();i++){
-				//Obtiene la distancia en metros entre 2 puntos, entre el del usuario, y el uno de los negocios del arreglo,
-				double metros = ble.gps2m((float)latitude, (float)longitude,(float) didi.get(i).getPosx(),(float)didi.get(i).getPosy());
-				//Lo convertimos a kilometros
-				double kilometrosDistancia = metros * 0.001;
-				//Si la distancia en kilometros, es menos a la distancia que solicito el usuario...
-				if(kilometrosDistancia < kil){
-					System.out.println("En rango: "+ didi.get(i).getNombre());
-					//lo agrega a la lista temporal de los necogios que estan en rango
-					enRango.add(didi.get(i));
-				}else{
-					//Si no lo esta, imprime que no esta en rango
-					System.out.println("No en rango");
-				}
+			//Algoritmo de busqueda de lugares Version 2
+			 AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			 ArrayList<Advertiser> negociosenRango = SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb(), bd.getAbsolutePath());			
+			for(int i = 0; i < negociosenRango.size();i++){
+				System.out.println("En rango: " + negociosenRango.get(i).getNombre());
 			}
-			//Al final, imprimimos los negocios que estan en rango
-			for(int i1 = 0; i1 < enRango.size();i1++){
-				System.out.println("Esta en rango: " +  enRango.get(i1).getNombre());
-			}
-			//Imprimimos el tamaño del arreglo que esta en rango
-			System.out.println("El tamaño del rango es: " + enRango.size());
-			//Algoritmo de busqueda de lugares Version 1
+			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
+			//Algoritmo de busqueda de lugares Version 2
 			
-			return true;
+			
+			 return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -179,13 +194,14 @@ public class SearchActivity extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Se obtiene la lista de ciudades de la base de datos. Sin embargo, la
 		// base de datos sigue sin funcionar.
+		others = new otrosDao();
 		ArrayList<String> datos = others.getCiudades();
 		for (int i = 0; i < datos.size(); i++) {
 			adapter.add(datos.get(i));
 		}
 
 		spinner.setAdapter(adapter);
-
+		Busqueda = (EditText)findViewById(R.id.busqueda);
 		textoBarra = (TextView) findViewById(R.id.mostrar_metros);
 
 		barra = (SeekBar) findViewById(R.id.radioALaRedonda);
@@ -206,7 +222,7 @@ public class SearchActivity extends Activity {
 				if (progress == 0) {
 					textoBarra.setText("--");
 				} else {
-					kil = (double)progress;
+					kil = (double) progress;
 					textoBarra.setText(progress + "km");
 				}
 

@@ -47,6 +47,9 @@ public class AdvertiserDAO {
 		}
 		holo.close();		
 		return arr;
-		
+	}
+	
+	public SQLiteDatabase getdb(){
+		return db;
 	}
 }
