@@ -18,6 +18,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,6 +52,8 @@ public class SearchActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 		getLocation();
 		// Checa ausencia de Base de datos, si no existe la descarga
 		if (!checkForBD()) {

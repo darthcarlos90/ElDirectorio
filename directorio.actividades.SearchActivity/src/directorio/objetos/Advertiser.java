@@ -1,6 +1,8 @@
 package directorio.objetos;
 
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Esta es la clase donde se guardan los datos del advertiser.
@@ -21,7 +23,7 @@ public class Advertiser {
 	private String ciudad;
 	private String facebook;
 	private String twitter;
-	private int[] telefono;
+	private ArrayList<String> telefono;
 	private String[] email;
 	private String[] categorias;
 	private String[] tags;
@@ -47,7 +49,7 @@ public class Advertiser {
 	public Advertiser(String id, String nombre, String descripcion,
 			String contacto, String direccion, String sitioWeb, double posx,
 			double posy, String ciudad, String facebook, String twitter,
-			int[] telefono, String[] email, String[] categorias, String[] tags,
+			ArrayList<String> telefono, String[] email, String[] categorias, String[] tags,
 			boolean favorito) {
 		super();
 		this.id = id;
@@ -112,12 +114,17 @@ public class Advertiser {
 		this.ciudad = ciudad;
 	}
 
-	public int[] getTelefono() {
+	public ArrayList<String> getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int[] telefono) {
-		this.telefono = telefono;
+	public void setTelefono(String telefonos) {
+		StringTokenizer st = new StringTokenizer(telefonos);
+		while(st.hasMoreElements()){
+			String temp = st.nextToken("*|@");
+			telefono.add(temp);
+		}
+		
 	}
 
 	public String[] getEmail() {
