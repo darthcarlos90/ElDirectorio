@@ -164,13 +164,30 @@ public class SearchActivity extends Activity {
 			
 			//Algoritmo de busqueda de lugares Version 2
 			 AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-			 ArrayList<Advertiser> negociosenRango = SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb(), bd.getAbsolutePath());			
+			 ArrayList<Advertiser> negociosenRango = SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb());			
 			for(int i = 0; i < negociosenRango.size();i++){
 				System.out.println("En rango: " + negociosenRango.get(i).getNombre());
 			}
 			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
 			//Algoritmo de busqueda de lugares Version 2
+			add.getdb().close();
 			
+			Thread bli = new Thread(){
+				public void run(){
+					try{
+						sleep(100);
+						Class texto = Class.forName("directorio.actividades.PruebaMapa");
+						Intent ble = new Intent(SearchActivity.this,texto);
+						startActivity(ble);
+					}catch(InterruptedException e){
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			bli.start();
 			
 			 return true;
 		default:

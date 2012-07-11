@@ -3,8 +3,9 @@
 
     <string name="hello">Hello World, SearchActivity!</string>
     <string name="app_name">Directorio</string>
-    <string name= "bienvenido">Bienvenido a la Aplicación</string>
-    <string name= "seleccion_ciudad">Buscar en: </string>
+    <string name="bienvenido">Bienvenido a la Aplicación</string>
+    <string name="seleccion_ciudad">Buscar en: </string>
+
     <string-array name="ciudades_array">
         <item>Todas las ciudades</item>
         <item>Torreón, Coah. Mex.</item>
@@ -20,8 +21,9 @@
         <item>Guadalajara, Jal.</item>
         <item>León, Gto.</item>
     </string-array>
+
     <string name="string_localidades">En un radio de:</string>
-    <string name= "string_redonda">--</string>
+    <string name="string_redonda">--</string>
     <string name="buscando">¿Que estas buscando?</string>
     <string name="buscar">BUSCAR</string>
     <string name="abecedario">Abecedario</string>
@@ -44,5 +46,9 @@
     <string name="publy_info">Logo de publysorpresas. Da click para ir al sitio web.</string>
     <string name="banner_eldirectorio">Banner El Directorio.</string>
     <string name="banner_acercade">Banner Acerca De.</string>
+    <string name="logo_negocio">Logo del Negocio</string>
+    <string name="datos_empresa">Datos de la empresa</string>
+    <string name="testing">TESTING</string>
+    <string name="sucursales">Sucursales</string>
 
 </resources>
