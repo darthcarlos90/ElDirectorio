@@ -1,6 +1,5 @@
 package directorio.objetos;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 

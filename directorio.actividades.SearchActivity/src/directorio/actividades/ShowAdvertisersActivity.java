@@ -23,6 +23,7 @@ public class ShowAdvertisersActivity extends ListActivity {
 	private ArrayList<String> elementos;
 	private ArrayAdapter<String> advertisers;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mostrar_negocios);

@@ -16,6 +16,7 @@ public class AdvertiserManagerApplication extends Application {
 	private ArrayList<Advertiser> favoritos;
 	
 
+	@Override
 	public void onCreate() {
 		// Initialization of variables.
 		super.onCreate();
@@ -26,6 +27,7 @@ public class AdvertiserManagerApplication extends Application {
 		}
 	}
 
+	@Override
 	public void onTerminate() {
 		db.close();
 		super.onTerminate();

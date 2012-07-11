@@ -218,7 +218,7 @@ public class SearchActivity extends Activity {
 				if (progress == 0) {
 					textoBarra.setText("--");
 				} else {
-					kil = (double)progress;
+					kil = progress;
 					textoBarra.setText(progress + "km");
 				}
 

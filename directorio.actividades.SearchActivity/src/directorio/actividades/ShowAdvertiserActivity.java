@@ -2,16 +2,23 @@ package directorio.actividades;
 
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
+import directorio.objetos.ItemizedOverlayDirectorio;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +64,26 @@ public class ShowAdvertiserActivity extends MapActivity {
 
 		MapView mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
+
+		List<Overlay> mapOverlays = mapView.getOverlays();
+		Drawable drawable = this.getResources().getDrawable(
+				R.drawable.maps_icon);
+		ItemizedOverlayDirectorio itemizedoverlay = new ItemizedOverlayDirectorio(
+				drawable, this);
+		GeoPoint point = new GeoPoint((int) toShow.getPosx(),
+				(int) toShow.getPosy());
+		OverlayItem overlayitem = new OverlayItem(point, toShow.getNombre(),
+				toShow.getDireccion());
+		itemizedoverlay.addOverlay(overlayitem);
+		mapOverlays.add(itemizedoverlay);
+		final MapController mapController = mapView.getController();
+		mapController.animateTo(point,
+
+		new Runnable() {
+			public void run() {
+				mapController.setZoom(12);
+			}
+		});
 
 	}
 

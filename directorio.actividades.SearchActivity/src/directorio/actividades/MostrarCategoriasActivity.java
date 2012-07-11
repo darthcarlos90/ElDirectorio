@@ -17,6 +17,7 @@ public class MostrarCategoriasActivity extends ListActivity {
 	private CategoriaDAO catDao;
 	private ArrayList<String>lista;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.categorias);
