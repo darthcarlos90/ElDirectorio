@@ -12,10 +12,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,10 +42,11 @@ public class SearchActivity extends Activity {
 	private Location loc;
 	private double longitude;
 	private double latitude;
+	private EditText Busqueda;
 	private File bd;
 	private double kil;
-	private EditText Busqueda;
 	private otrosDao others; // para recoger las ciudades de la base de datos
+	private static final String PREFS_NAME= "tipo de busqueda";
 
 	/** Called when the activity is first created. */
 
@@ -50,6 +54,8 @@ public class SearchActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 		getLocation();
 		// Checa ausencia de Base de datos, si no existe la descarga
 		if (!checkForBD()) {
@@ -108,62 +114,29 @@ public class SearchActivity extends Activity {
 		return true;
 	}
 
-	@SuppressLint("ParserError")
+	@SuppressLint({ "ParserError", "ParserError", "ParserError" })
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
+		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
-			Intent intent = new Intent(this, MostrarCategoriasActivity.class);
+			others.regresaOtraDb().close();
+			intent = new Intent(this, MostrarCategoriasActivity.class);
 			this.startActivity(intent);
 			return true;
 		case R.id.btn_favoritos:
-			// mostrar la secci�n de favoritos
+			// Unser construction
+			SharedPreferences sharedPrefs = getSharedPreferences(PREFS_NAME,0);
+			Editor editor = sharedPrefs.edit();
+			editor.putString(PREFS_NAME, "favoritos");
+			editor.commit();
+			/*intent = new Intent(this, ShowAdvertisersActivity.class);
+			this.startActivity(intent);*/
 			return true;
 		case R.id.btn_buscar:
-			// Cuando se oprima el bot�n de buscar, se realizar� la b�squeda,
-			// sin embargo, todav�a no funciona.
-//			 AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-			// ArrayList<Advertiser> didi = add.findAll();
-			// System.out.println("Tamaño de arreglo: " + didi.size());
-			// System.out.println("Latitude: " + latitude);
-			// System.out.println("Longitude: " + longitude);
-
-			// Algoritmo de Busqueda de Lugares Version 1
-//			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-//			ArrayList<Advertiser> didi = add.findAll();
-//			ArrayList<Advertiser> enRango = new ArrayList<Advertiser>();
-//			// Clase que contiene el metodo para obtener la distancia entre 2
-//			// puntos
-//			// Obtiene la distancia en metros entre 2 puntos, entre el del
-//			// usuario, y el uno de los negocios del arreglo,
-//			for (int i = 0; i < didi.size(); i++) {
-//				// Obtiene la distancia en metros entre 2 puntos, entre el del
-//				// usuario, y el uno de los negocios del arreglo,
-//				// Lo convertimos a kilometros
-//				double kilometrosDistancia = SearchManager.calculateDistance(
-//						latitude, longitude, didi.get(i).getPosx(), didi.get(i)
-//								.getPosy());
-//				System.out.println("Distancia en kilometros: "
-//						+ kilometrosDistancia);
-//				// Si la distancia en kilometros, es menos a la distancia que
-//				// solicito el usuario...
-//				if (kilometrosDistancia < kil) {
-//					System.out.println("En rango: " + didi.get(i).getNombre());
-//					// lo agrega a la lista temporal de los necogios que estan
-//					// en rango
-//					enRango.add(didi.get(i));
-//				} else {
-//					// Si no lo esta, imprime que no esta en rango
-//					System.out.println("No en rango");
-//				}
-//			}
-//			// Imprimimos el tamaño del arreglo que esta en rango
-//			System.out.println("El tamaño del rango es: " + enRango.size());
-			// Algoritmo de busqueda de lugares Version 1
-			
-			//Algoritmo de busqueda de lugares Version 2
-			 AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			//SegundoAlgoritmo de Busqueda
+			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
 			 ArrayList<Advertiser> negociosenRango = SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb());			
 			for(int i = 0; i < negociosenRango.size();i++){
 				System.out.println("En rango: " + negociosenRango.get(i).getNombre());
@@ -171,24 +144,6 @@ public class SearchActivity extends Activity {
 			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
 			//Algoritmo de busqueda de lugares Version 2
 			add.getdb().close();
-			
-			Thread bli = new Thread(){
-				public void run(){
-					try{
-						sleep(100);
-						Class texto = Class.forName("directorio.actividades.PruebaMapa");
-						Intent ble = new Intent(SearchActivity.this,texto);
-						startActivity(ble);
-					}catch(InterruptedException e){
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			};
-			bli.start();
-			
 			 return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -234,6 +189,7 @@ public class SearchActivity extends Activity {
 
 			}
 
+			@SuppressLint({ "ParserError", "ParserError" })
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				if (progress == 0) {

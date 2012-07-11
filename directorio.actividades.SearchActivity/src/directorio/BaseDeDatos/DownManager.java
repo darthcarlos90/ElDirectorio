@@ -43,6 +43,7 @@ public class DownManager {
 		db.execSQL(query);
 		query = "INSERT INTO 'android_metadata' VALUES ('en_US')";
 		db.execSQL(query);
+		
 
 	}
 

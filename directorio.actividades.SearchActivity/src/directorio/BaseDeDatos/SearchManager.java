@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import directorio.objetos.Advertiser;
 
+@SuppressLint({ "ParserError", "ParserError" })
 public class SearchManager {
 	
 	private static Double EARTH_RADIUS = 6371.00;
@@ -46,7 +47,6 @@ public class SearchManager {
 					negociosPorNombre.add(adver);
 				}
 				tablaNegocios.close();
-
 				System.out.println(ciudad + " /" + ciudad.length());
 				ArrayList<Advertiser> negociosEnRango = new ArrayList<Advertiser>();	
 				for(int i = 0; i < negociosPorNombre.size();i++){

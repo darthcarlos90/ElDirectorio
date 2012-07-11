@@ -15,6 +15,7 @@ public class AcercaDeActivity extends Activity {
 	private ImageView img1;
 	private ImageView img2;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.acerca_de);

@@ -3,7 +3,6 @@ package directorio.DAO;
 import java.io.File;
 import java.util.ArrayList;
 
-import android.app.Application;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
@@ -58,5 +57,9 @@ public class otrosDao {
 		}
 		cursor.close();
 
+	}
+	
+	public SQLiteDatabase regresaOtraDb(){
+		return database;
 	}
 }
