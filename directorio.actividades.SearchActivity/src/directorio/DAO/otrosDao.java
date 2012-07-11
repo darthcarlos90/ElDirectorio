@@ -61,4 +61,8 @@ public class otrosDao {
 		cursor.close();
 
 	}
+	
+	public SQLiteDatabase regresaOtraDb(){
+		return database;
+	}
 }

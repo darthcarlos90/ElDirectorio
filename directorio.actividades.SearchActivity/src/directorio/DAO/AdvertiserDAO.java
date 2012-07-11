@@ -8,6 +8,7 @@ import directorio.objetos.Advertiser;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.view.Menu;
 
 /**
  * Clase para accesar a la tabla de Advertiser y otros datos que tengan que ver
@@ -125,5 +126,10 @@ public class AdvertiserDAO {
 			} while (c.moveToNext());
 		}
 		return resultado;
+	}
+
+	public SQLiteDatabase getdb() {
+		// TODO Auto-generated method stub
+		return db;
 	}
 }

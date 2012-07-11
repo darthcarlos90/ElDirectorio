@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -41,6 +42,7 @@ public class SearchActivity extends Activity {
 	private Location loc;
 	private double longitude;
 	private double latitude;
+	private EditText Busqueda;
 	private File bd;
 	private double kil;
 	private otrosDao others; // para recoger las ciudades de la base de datos
@@ -118,6 +120,7 @@ public class SearchActivity extends Activity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
+			others.regresaOtraDb().close();
 			intent = new Intent(this, MostrarCategoriasActivity.class);
 			this.startActivity(intent);
 			return true;
@@ -131,43 +134,16 @@ public class SearchActivity extends Activity {
 			this.startActivity(intent);*/
 			return true;
 		case R.id.btn_buscar:
-			// Cuando se oprima el bot�n de buscar, se realizar� la b�squeda,
-			// sin embargo, todav�a no funciona.
-//			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-//			ArrayList<Advertiser> didi = add.findAll();
-//			System.out.println("Tamaño de arreglo: " + didi.size());
-//			System.out.println("Latitude: " + latitude);
-//			System.out.println("Longitude: " + longitude);
-			
-			//Algoritmo de Busqueda de Lugares Version 1
+			//SegundoAlgoritmo de Busqueda
 			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-			ArrayList<Advertiser> didi = add.findAll();
-			ArrayList<Advertiser> enRango = new ArrayList<Advertiser>();
-			//Clase que contiene el metodo para obtener la distancia entre 2 puntos
-			SearchManager ble = new SearchManager();
-			//Obtiene la distancia en metros entre 2 puntos, entre el del usuario, y el uno de los negocios del arreglo,
-			for(int i = 0; i < didi.size();i++){
-				//Obtiene la distancia en metros entre 2 puntos, entre el del usuario, y el uno de los negocios del arreglo,
-				double metros = ble.gps2m((float)latitude, (float)longitude,(float) didi.get(i).getPosx(),(float)didi.get(i).getPosy());
-				//Lo convertimos a kilometros
-				double kilometrosDistancia = metros * 0.001;
-				//Si la distancia en kilometros, es menos a la distancia que solicito el usuario...
-				if(kilometrosDistancia < kil){
-					System.out.println("En rango: "+ didi.get(i).getNombre());
-					//lo agrega a la lista temporal de los necogios que estan en rango
-					enRango.add(didi.get(i));
-				}else{
-					//Si no lo esta, imprime que no esta en rango
-					System.out.println("No en rango");
-				}
+			 ArrayList<Advertiser> negociosenRango = SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb());			
+			for(int i = 0; i < negociosenRango.size();i++){
+				System.out.println("En rango: " + negociosenRango.get(i).getNombre());
 			}
-			//Al final, imprimimos los negocios que estan en rango
-			for(int i1 = 0; i1 < enRango.size();i1++){
-				System.out.println("Esta en rango: " +  enRango.get(i1).getNombre());
-			}
-			//Imprimimos el tamaño del arreglo que esta en rango
-			System.out.println("El tamaño del rango es: " + enRango.size());
-			//Algoritmo de busqueda de lugares Version 1
+			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
+			//Algoritmo de busqueda de lugares Version 2
+			add.getdb().close();
+
 			
 			return true;
 		default:
@@ -197,7 +173,7 @@ public class SearchActivity extends Activity {
 		}
 
 		spinner.setAdapter(adapter);
-
+		Busqueda = (EditText)findViewById(R.id.busqueda);
 		textoBarra = (TextView) findViewById(R.id.mostrar_metros);
 
 		barra = (SeekBar) findViewById(R.id.radioALaRedonda);
