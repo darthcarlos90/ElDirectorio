@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,6 +27,18 @@ public class ShowAdvertisersActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mostrar_negocios);
 		setUpViews();
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		String advertiser = advertisers.getItem(position);
+		SharedPreferences sp = getSharedPreferences("advertiser", 0);
+		Editor editor = sp.edit();
+		editor.putString("advertiser", advertiser);
+		editor.commit();
+		Intent intent = new Intent(this, ShowAdvertiserActivity.class);
+		this.startActivity(intent);
 	}
 
 	private void showFavs() {

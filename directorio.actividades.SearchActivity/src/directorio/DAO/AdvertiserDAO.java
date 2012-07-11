@@ -117,6 +117,8 @@ public class AdvertiserDAO {
 					resultado.setPosx(c.getDouble(8));
 					resultado.setPosy(c.getDouble(9));
 					resultado.setCiudad(c.getString(11));
+					resultado.setImgSrc(c.getBlob(16));
+					
 				} catch (NullPointerException e) {
 					System.out.println("No existe uno de los cursores");
 				}

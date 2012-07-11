@@ -27,7 +27,7 @@ public class Advertiser {
 	private String[] email;
 	private String[] categorias;
 	private String[] tags;
-	private Blob imgSrc;
+	private byte[] imgSrc;
 	private String publicityUrl;
 
 	public String getPublicityUrl() {
@@ -38,11 +38,12 @@ public class Advertiser {
 		this.publicityUrl = publicityUrl;
 	}
 
-	public Blob getImgSrc() {
+	public byte[] getImgSrc() {
+		
 		return imgSrc;
 	}
 
-	public void setImgSrc(Blob imgSrc) {
+	public void setImgSrc(byte[] imgSrc) {
 		this.imgSrc = imgSrc;
 	}
 
