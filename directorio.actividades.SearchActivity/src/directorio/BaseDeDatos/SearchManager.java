@@ -28,6 +28,13 @@ public class SearchManager {
 		@SuppressLint("ParserError")
 		public static ArrayList<Advertiser> negociosenRango(double latitude, double longitude, double rangoBuscar , String ciudad, String filtroString, SQLiteDatabase db){
 			ArrayList<Advertiser> negociosPorNombre = new ArrayList<Advertiser>();
+			String ble = " ";
+			char bli = ble.charAt(0);
+			int last = filtroString.length() - 1;
+			
+			if(filtroString.charAt(last) == bli){
+				filtroString = filtroString.substring(0, filtroString.length() - 1);
+			}
 			
 			if(rangoBuscar == 0){		
 				Cursor tablaNegocios = db.rawQuery("select * from Advertiser where AdvName like '%" + filtroString + "%' or Tags like '%"+filtroString+"%'",null);

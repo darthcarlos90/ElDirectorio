@@ -24,7 +24,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Método que carga las categorias de la base de datos.
+	 * Mï¿½todo que carga las categorias de la base de datos.
 	 * 
 	 * @return El ArrayList con las categorias de la base de datos.
 	 */
@@ -34,6 +34,7 @@ public class CategoriaDAO {
 		for (int i = 0; i < cats.size(); i++) {
 			categorias.add(cats.get(i).getNombre());
 		}
+		database.close();
 		return categorias;
 	}
 
@@ -50,7 +51,7 @@ public class CategoriaDAO {
 	}
 
 	/**
-	 * Método que hace el query a la base de datos y guarda las categorias en un
+	 * Mï¿½todo que hace el query a la base de datos y guarda las categorias en un
 	 * ArrayList.
 	 */
 	private void cargaCategorias() {

@@ -122,7 +122,7 @@ public class SearchActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
 			others.regresaOtraDb().close();
-			intent = new Intent(this, MostrarCategoriasActivity.class);
+			intent = new Intent(this, ListaIndexada.class);
 			this.startActivity(intent);
 			return true;
 		case R.id.btn_favoritos:
@@ -142,8 +142,9 @@ public class SearchActivity extends Activity {
 				System.out.println("En rango: " + negociosenRango.get(i).getNombre());
 			}
 			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
-			//Algoritmo de busqueda de lugares Version 2
 			add.getdb().close();
+			//Algoritmo de busqueda de lugares Version 2
+	
 			 return true;
 		default:
 			return super.onOptionsItemSelected(item);

@@ -1,6 +1,5 @@
 package directorio.actividades;
 
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import com.google.android.maps.OverlayItem;
 import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
 import directorio.objetos.ItemizedOverlayDirectorio;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -44,7 +42,6 @@ public class ShowAdvertiserActivity extends MapActivity {
 		String advertiser = sp.getString("advertiser", null);
 		AdvertiserDAO ad = new AdvertiserDAO();
 		toShow = ad.find(advertiser);
-
 	}
 
 	private void setupViews() throws SQLException {
