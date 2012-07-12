@@ -51,7 +51,6 @@ public class IndexScroller {
 		if (mState == STATE_HIDDEN)
 			return;
 
-		// mAlphaRate determines the rate of opacity
 		Paint indexbarPaint = new Paint();
 		indexbarPaint.setColor(Color.BLACK);
 		indexbarPaint.setAlpha((int) (64 * mAlphaRate));
@@ -59,7 +58,6 @@ public class IndexScroller {
 		canvas.drawRoundRect(mIndexbarRect, 5 * mDensity, 5 * mDensity, indexbarPaint);
 
 		if (mSections != null && mSections.length > 0) {
-			// Preview is shown when mCurrentSection is set
 			if (mCurrentSection >= 0) {
 				Paint previewPaint = new Paint();
 				previewPaint.setColor(Color.BLACK);
@@ -103,13 +101,10 @@ public class IndexScroller {
 	public boolean onTouchEvent(MotionEvent ev) {
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			// If down event occurs inside index bar region, start indexing
 			if (mState != STATE_HIDDEN && contains(ev.getX(), ev.getY())) {
 				setState(STATE_SHOWN);
 
-				// It demonstrates that the motion event started from index bar
 				mIsIndexing = true;
-				// Determine which section the point is in, and move the list to that section
 				mCurrentSection = getSectionByPoint(ev.getY());
 				mListView.setSelection(mIndexer.getPositionForSection(mCurrentSection));
 				return true;
@@ -117,9 +112,7 @@ public class IndexScroller {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			if (mIsIndexing) {
-				// If this event moves inside index bar
 				if (contains(ev.getX(), ev.getY())) {
-					// Determine which section the point is in, and move the list to that section
 					mCurrentSection = getSectionByPoint(ev.getY());
 					mListView.setSelection(mIndexer.getPositionForSection(mCurrentSection));
 				}
@@ -173,20 +166,16 @@ public class IndexScroller {
 		mState = state;
 		switch (mState) {
 		case STATE_HIDDEN:
-			// Cancel any fade effect
 			mHandler.removeMessages(0);
 			break;
 		case STATE_SHOWING:
-			// Start to fade in
 			mAlphaRate = 0;
 			fade(0);
 			break;
 		case STATE_SHOWN:
-			// Cancel any fade effect
 			mHandler.removeMessages(0);
 			break;
 		case STATE_HIDING:
-			// Start to fade out after three seconds
 			mAlphaRate = 1;
 			fade(3000);
 			break;
@@ -194,7 +183,6 @@ public class IndexScroller {
 	}
 
 	private boolean contains(float x, float y) {
-		// Determine if the point is in index bar region, which includes the right margin of the bar
 		return (x >= mIndexbarRect.left && y >= mIndexbarRect.top && y <= mIndexbarRect.top + mIndexbarRect.height());
 	}
 
@@ -232,11 +220,9 @@ public class IndexScroller {
 				fade(10);
 				break;
 			case STATE_SHOWN:
-				// If no action, hide automatically
 				setState(STATE_HIDING);
 				break;
 			case STATE_HIDING:
-				// Fade out effect
 				mAlphaRate -= mAlphaRate * 0.2;
 				if (mAlphaRate < 0.1) {
 					mAlphaRate = 0;
