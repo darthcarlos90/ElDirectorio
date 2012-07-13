@@ -28,6 +28,15 @@ public class Advertiser {
 	private String[] tags;
 	private byte[] imgSrc;
 	private String publicityUrl;
+	private ArrayList<String> sucursales;
+
+	public ArrayList<String> getSucursales() {
+		return sucursales;
+	}
+
+	public void setSucursales(String sucursal) {
+		sucursales.add(sucursal);
+	}
 
 	public String getPublicityUrl() {
 		return publicityUrl;
@@ -38,7 +47,7 @@ public class Advertiser {
 	}
 
 	public byte[] getImgSrc() {
-		
+
 		return imgSrc;
 	}
 
@@ -49,8 +58,8 @@ public class Advertiser {
 	public Advertiser(String id, String nombre, String descripcion,
 			String contacto, String direccion, String sitioWeb, double posx,
 			double posy, String ciudad, String facebook, String twitter,
-			ArrayList<String> telefono, String[] email, String[] categorias, String[] tags,
-			boolean favorito) {
+			ArrayList<String> telefono, String[] email, String[] categorias,
+			String[] tags, boolean favorito) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -120,11 +129,11 @@ public class Advertiser {
 
 	public void setTelefono(String telefonos) {
 		StringTokenizer st = new StringTokenizer(telefonos);
-		while(st.hasMoreElements()){
+		while (st.hasMoreElements()) {
 			String temp = st.nextToken("*|@");
 			telefono.add(temp);
 		}
-		
+
 	}
 
 	public String[] getEmail() {

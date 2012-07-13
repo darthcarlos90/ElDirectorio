@@ -8,7 +8,6 @@ import directorio.objetos.Advertiser;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
-import android.view.Menu;
 
 /**
  * Clase para accesar a la tabla de Advertiser y otros datos que tengan que ver
@@ -35,8 +34,14 @@ public class AdvertiserDAO {
 		ble = new File(path);
 		db = SQLiteDatabase.openOrCreateDatabase(ble, null);
 	}
+	public void openDB(){
+		db = SQLiteDatabase.openOrCreateDatabase(ble, null);
+	}
 
 	public ArrayList<Advertiser> findAll() {
+		if(db.isOpen() == false){
+			openDB();
+		}
 		ArrayList<Advertiser> arr = new ArrayList<Advertiser>();
 		Cursor holo = db.rawQuery("select * from Advertiser;", null);
 		// Segun vi el registro, el total de advertisers son 1297, pero si
@@ -59,11 +64,15 @@ public class AdvertiserDAO {
 			arr.add(adver);
 		}
 		holo.close();
+		db.close();
 		return arr;
 
 	}
 
 	public ArrayList<Advertiser> getByCategory(String category) {
+		if(db.isOpen()== false){
+			openDB();
+		}
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(
 				"Select CategoryId from Category where CatName = '" + category + "';",
@@ -94,11 +103,15 @@ public class AdvertiserDAO {
 			} while (c.moveToNext());
 		}
 		c.close();
+		db.close();
 
 		return resultados;
 	}
 
 	public Advertiser find(String nombre) {
+		if(db.isOpen() == false){
+			openDB();
+		}
 		Advertiser resultado = new Advertiser();
 		String query = "Select * from Advertiser where AdvName= '" + nombre
 				+ "';";
@@ -125,8 +138,12 @@ public class AdvertiserDAO {
 				}
 			} while (c.moveToNext());
 		}
+		c.close();
+		db.close();
 		return resultado;
 	}
+	
+	
 
 	public SQLiteDatabase getdb() {
 		// TODO Auto-generated method stub

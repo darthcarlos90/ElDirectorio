@@ -22,7 +22,6 @@ public class otrosDao {
 	public otrosDao() {
 		file = new File(LOCATION_DB);
 		database = SQLiteDatabase.openOrCreateDatabase(file, null);
-
 	}
 
 	/**

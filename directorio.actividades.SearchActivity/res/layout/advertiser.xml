@@ -1,81 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
     android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/negocio_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/logo_negocio" />
-
-    <TextView
-        android:id="@+id/datos_empresa"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/negocio_logo"
-        android:background="@drawable/barra"
-        android:text="@string/datos_empresa"
-        android:textColor="@color/White" />
-
-    <TextView
-        android:id="@+id/nombre_empresa"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/datos_empresa"
-        android:text="@string/testing" />
-
-    <TextView
-        android:id="@+id/descripcion_empresa"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nombre_empresa"
-        android:text="@string/testing" />
-
-    <TextView
-        android:id="@+id/direccion_empresa"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/descripcion_empresa"
-        android:text="@string/testing" />
-
-    <com.google.android.maps.MapView
+    <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mapview"
+        android:id="@+id/widgetscroll"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/direccion_empresa"
-        android:apiKey="0W_vU0VXNacjnvad2bnz4_Oeuir7aGp0bVAG7WA"
-        android:clickable="true" />
+        android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/sucursales_empresa"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mapview"
-        android:background="@drawable/barra"
-        android:text="@string/sucursales" />
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/sucursalesEmpresaList"
-        android:layout_width="fill_parent"
-        android:layout_below="@id/sucursales_empresa"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="#00000000" />
+            <ImageView
+                android:id="@+id/negocio_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/logo_negocio" />
 
-    <TextView
-        android:id="@+id/contacto_empresa"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/testing" />
+            <TextView
+                android:id="@+id/datos_empresa"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/negocio_logo"
+                android:background="@drawable/barra"
+                android:text="@string/datos_empresa"
+                android:textColor="@color/White" />
 
-    <ListView
-        android:id="@+id/list_contacto"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="#00000000" />
+            <TextView
+                android:id="@+id/nombre_empresa"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/datos_empresa"
+                android:text="@string/testing" />
+
+            <TextView
+                android:id="@+id/descripcion_empresa"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nombre_empresa"
+                android:text="@string/testing" />
+
+            <TextView
+                android:id="@+id/direccion_empresa"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/descripcion_empresa"
+                android:text="@string/testing" />
+
+            <TextView
+                android:id="@+id/sucursales_empresa"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/direccion_empresa"
+                android:background="@drawable/barra"
+                android:text="@string/sucursales"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linear_layout_si"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sucursales_empresa" >
+
+                <!--
+            <ListView
+                android:id="@+id/sucursalesEmpresaList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:visibility="gone" />
+                -->
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/contacto_empresa"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linear_layout_si"
+                android:text="@string/testing" />
+
+            <ListView
+                android:id="@+id/list_contacto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
