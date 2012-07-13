@@ -42,6 +42,7 @@ public class ShowAdvertiserActivity extends MapActivity {
 		String advertiser = sp.getString("advertiser", null);
 		AdvertiserDAO ad = new AdvertiserDAO();
 		toShow = ad.find(advertiser);
+		ad.getdb().close();
 	}
 
 	private void setupViews() throws SQLException {

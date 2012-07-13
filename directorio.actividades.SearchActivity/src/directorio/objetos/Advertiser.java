@@ -3,13 +3,16 @@ package directorio.objetos;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Esta es la clase donde se guardan los datos del advertiser.
  * 
  * @author Carlos Tirado
  * 
  */
-public class Advertiser {
+public class Advertiser implements Parcelable {
 
 	private String id;
 	private String nombre;
@@ -72,6 +75,12 @@ public class Advertiser {
 
 	public Advertiser() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Advertiser(Parcel in) {
+		// TODO Auto-generated constructor stub
+		in.readString();
+		in.readByteArray(imgSrc);
 	}
 
 	public String getDescripcion() {
@@ -215,5 +224,27 @@ public class Advertiser {
 		// TODO Auto-generated method stub
 		return "" + nombre + descripcion + ciudad + facebook;
 	}
+
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void writeToParcel(Parcel arg0, int arg1) {
+		// TODO Auto-generated method stub
+		arg0.writeString(nombre);
+		arg0.writeString(Direccion);
+		arg0.writeByteArray(imgSrc);
+	}
+	
+	public static final Advertiser.Creator<Advertiser> CREATOR = new Advertiser.Creator<Advertiser>() {
+        public Advertiser createFromParcel(Parcel in) {
+			return new Advertiser(in);
+        }
+
+        public Advertiser[] newArray(int size) {
+            return new Advertiser[size];
+        }
+    };  
 
 }

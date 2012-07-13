@@ -56,7 +56,6 @@ public class otrosDao {
 			} while (cursor.moveToNext());
 		}
 		cursor.close();
-
 	}
 	
 	public SQLiteDatabase regresaOtraDb(){

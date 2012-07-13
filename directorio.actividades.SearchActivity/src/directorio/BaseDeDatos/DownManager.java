@@ -50,8 +50,7 @@ public class DownManager {
 	@SuppressLint({ "ParserError", "ParserError" })
 	public void DescargaBD() {
 		try {
-			URL url = new URL(
-					"http://71.6.150.179:8079/dbHandler.axd?SqliteDbVersion=0");
+			URL url = new URL("http://71.6.150.179:8079/dbHandler.axd?SqliteDbVersion=0");
 
 			HttpURLConnection urlConnection = (HttpURLConnection) url
 					.openConnection();

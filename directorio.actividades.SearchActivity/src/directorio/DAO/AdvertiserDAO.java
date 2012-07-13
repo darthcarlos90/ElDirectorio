@@ -64,8 +64,6 @@ public class AdvertiserDAO {
 		return arr;
 	}
 	
-
-
 	public ArrayList<Advertiser> getByCategory(String category) {
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(

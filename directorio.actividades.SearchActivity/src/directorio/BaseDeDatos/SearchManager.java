@@ -15,14 +15,23 @@ public class SearchManager {
 	
 	
 	public static Double calculateDistance(Double lat1, Double lon1, Double lat2, Double lon2){
-		  Double Radius = EARTH_RADIUS; //6371.00;
-		  Double dLat = Math.toRadians(lat2-lat1);
-		  Double dLon = Math.toRadians(lon2-lon1);            
-		  Double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-		  Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-		  Math.sin(dLon/2) * Math.sin(dLon/2);
-		  Double c = (2 * Math.asin(Math.sqrt(a)));
-		  return (Radius * c);		
+		double nRadius = 6371; // Earth's radius in Kilometers
+	    // Get the difference between our two points
+	    // then convert the difference into radians
+
+	    double nDLat = Math.toRadians(lat2 - lat1);
+	    double nDLon = Math.toRadians(lon2 - lon1);
+
+	    // Here is the new line
+	    lat1 =  Math.toRadians(lat1);
+	    lat2 =  Math.toRadians(lat2);
+
+	    double nA = Math.pow( Math.sin(nDLat/2), 2 ) + Math.cos(lat1) * Math.cos(lat2) *Math.pow( Math.sin(nDLon/2), 2 );
+
+	    double nC = 2 * Math.atan2( Math.sqrt(nA), Math.sqrt( 1 - nA ));
+	    double nD = nRadius * nC;
+
+	    return nD; // Return our calculated distance	
 		}
 	
 		@SuppressLint("ParserError")
@@ -51,6 +60,7 @@ public class SearchManager {
 					adver.setPosx(tablaNegocios.getDouble(8));
 					adver.setPosy(tablaNegocios.getDouble(9));
 					adver.setCiudad(tablaNegocios.getString(11));
+					adver.setImgSrc(tablaNegocios.getBlob(16));
 					negociosPorNombre.add(adver);
 				}
 				tablaNegocios.close();
@@ -62,6 +72,7 @@ public class SearchManager {
 						negociosEnRango.add(negociosPorNombre.get(i));
 					}
 				}
+				db.close();
 				return  negociosEnRango;
 			}
 			else{
@@ -79,6 +90,7 @@ public class SearchManager {
 				adver.setPosx(tablaNegocios.getDouble(8));
 				adver.setPosy(tablaNegocios.getDouble(9));
 				adver.setCiudad(tablaNegocios.getString(10));
+				adver.setImgSrc(tablaNegocios.getBlob(16));
 				negociosPorNombre.add(adver);
 			}
 			tablaNegocios.close();
@@ -89,6 +101,7 @@ public class SearchManager {
 				negociosEnRango.add(negociosPorNombre.get(i));
 				}
 			}
+			db.close();
 			return negociosEnRango;
 			}
 		}

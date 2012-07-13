@@ -34,6 +34,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class SearchActivity extends Activity {
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		finish();
+	}
+
 	private TextView textoBarra;
 	private Spinner spinner;
 	private SeekBar barra;
@@ -54,15 +61,19 @@ public class SearchActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
+		
 		getLocation();
+
 		// Checa ausencia de Base de datos, si no existe la descarga
 		if (!checkForBD()) {
+			System.out.println("Location: " + longitude);
+			System.out.println("Lat: " + latitude);
 			System.out.println("No existe, descargando...");
 			downloadDataBase();
 		}
 		// Imprimira si si existe...
+		System.out.println("Location: " + longitude);
+		System.out.println("Lat: " + latitude);
 		System.out.println("Existe, No descargue nada...");
 		// Si existe, inicializara los otros DAO
 		// others = new otrosDao();
@@ -144,7 +155,15 @@ public class SearchActivity extends Activity {
 			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
 			add.getdb().close();
 			//Algoritmo de busqueda de lugares Version 2
-	
+		
+			intent = new Intent(this, adverlistitem.class);
+			intent.putExtra("latitude", latitude);
+			intent.putExtra("longitude", longitude);
+			intent.putExtra("kil", kil);	
+			intent.putExtra("ciudad", spinner.getSelectedItem().toString());
+			intent.putExtra("busqueda", Busqueda.getText().toString());
+			this.startActivity(intent);
+			
 			 return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -172,11 +191,12 @@ public class SearchActivity extends Activity {
 		for (int i = 0; i < datos.size(); i++) {
 			adapter.add(datos.get(i));
 		}
-
+		others.regresaOtraDb().close();
+		
 		spinner.setAdapter(adapter);
 		Busqueda = (EditText)findViewById(R.id.busqueda);
 		textoBarra = (TextView) findViewById(R.id.mostrar_metros);
-
+		
 		barra = (SeekBar) findViewById(R.id.radioALaRedonda);
 		barra.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
