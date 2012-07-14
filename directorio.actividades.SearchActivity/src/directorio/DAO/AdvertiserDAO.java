@@ -131,7 +131,8 @@ public class AdvertiserDAO {
 					resultado.setPosx(c.getDouble(8));
 					resultado.setPosy(c.getDouble(9));
 					resultado.setCiudad(c.getString(11));
-					resultado.setTelefono(c.getString(13));
+					resultado.setTelefono(c.getString(12));
+					resultado.setEmail(c.getString(13));
 					resultado.setImgSrc(c.getBlob(16));
 					
 				} catch (NullPointerException e) {

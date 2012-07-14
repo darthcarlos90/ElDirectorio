@@ -6,12 +6,15 @@ import directorio.DAO.AdvertiserDAO;
 import directorio.DAO.sucursalDAO;
 import directorio.objetos.Advertiser;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -82,16 +85,45 @@ public class ShowAdvertiserActivity extends Activity {
 			for (int i = 0; i < tvs.size(); i++) {
 				rl.addView(tvs.get(i), i);
 			}
-			
-			LinearLayout ll = (LinearLayout)findViewById(R.id.linear_layout_contacto);
-			for(int i =0; i < toShow.getTelefono().size(); i++){
-				TextView tv = new TextView(this);
-				tv.setText(toShow.getTelefono().get(i));
-				tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT));
-				ll.addView(tv);
-			}
+
 		}
+
+		LinearLayout ll = (LinearLayout) findViewById(R.id.linear_layout_contacto);
+		for (int i = 0; i < toShow.getTelefono().size(); i++) {
+			TextView tv = new TextView(this);
+			tv.setText(toShow.getTelefono().get(i));
+			tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT));
+			ll.addView(tv);
+		}
+		
+		for(int i =0; i < toShow.getEmail().size(); i++){
+			TextView tv = new TextView(this);
+			tv.setText(toShow.getEmail().get(i));
+			tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT));
+			ll.addView(tv);
+		}
+		
+		Button favs= (Button) findViewById(R.id.agregar_favs);
+		final AdvertiserManagerApplication ama = (AdvertiserManagerApplication) getApplication();
+		favs.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				
+				ama.addToFavoritos(toShow);
+				
+				AlertDialog alertDialog = new AlertDialog.Builder(ShowAdvertiserActivity.this).create();
+				alertDialog.setTitle("Agregado a Favoritos");
+				alertDialog.setMessage("Se agregó "+toShow.getNombre() + " a favoritos");
+				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				      public void onClick(DialogInterface dialog, int which) {
+				    	  ShowAdvertiserActivity.this.finish();
+				    } });
+				alertDialog.show();
+				System.out.println("Agregado a favoritos");
+			}
+		});
 
 	}
 }

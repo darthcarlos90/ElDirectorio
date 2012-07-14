@@ -23,7 +23,7 @@ public class Advertiser {
 	private String facebook;
 	private String twitter;
 	private ArrayList<String> telefono;
-	private String[] email;
+	private ArrayList<String> email;
 	private String[] categorias;
 	private String[] tags;
 	private byte[] imgSrc;
@@ -58,8 +58,8 @@ public class Advertiser {
 	public Advertiser(String id, String nombre, String descripcion,
 			String contacto, String direccion, String sitioWeb, double posx,
 			double posy, String ciudad, String facebook, String twitter,
-			ArrayList<String> telefono, String[] email, String[] categorias,
-			String[] tags, boolean favorito) {
+			ArrayList<String> telefono, ArrayList<String> email,
+			String[] categorias, String[] tags, boolean favorito) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -128,20 +128,30 @@ public class Advertiser {
 	}
 
 	public void setTelefono(String telefonos) {
+		telefono = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(telefonos);
 		while (st.hasMoreElements()) {
-			String temp = st.nextToken("*|@");
+			String temp = st.nextToken("*|@") + ": " + st.nextToken("*|@");
 			telefono.add(temp);
 		}
 
 	}
 
-	public String[] getEmail() {
+	public ArrayList<String> getEmail() {
 		return email;
 	}
 
-	public void setEmail(String[] email) {
-		this.email = email;
+	public void setEmail(String emails) {
+		email = new ArrayList<String>();
+		StringTokenizer st = new StringTokenizer(emails);
+		while (st.hasMoreElements()) {
+			String temp = st.nextToken("*|");
+			String resultado = "";
+			for (int j = 1; j < temp.length(); j++) {
+				resultado += temp.charAt(j);
+			}
+			email.add(resultado);
+		}
 	}
 
 	public String[] getCategorias() {
