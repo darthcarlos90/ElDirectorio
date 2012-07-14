@@ -130,8 +130,8 @@ public class SearchActivity extends Activity {
 			Editor editor = sharedPrefs.edit();
 			editor.putString(PREFS_NAME, "favoritos");
 			editor.commit();
-			/*intent = new Intent(this, ShowAdvertisersActivity.class);
-			this.startActivity(intent);*/
+			intent = new Intent(this, ShowAdvertisersActivity.class);
+			this.startActivity(intent);
 			return true;
 		case R.id.btn_buscar:
 			//SegundoAlgoritmo de Busqueda

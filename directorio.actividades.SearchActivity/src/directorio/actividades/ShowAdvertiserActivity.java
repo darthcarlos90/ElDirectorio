@@ -71,24 +71,26 @@ public class ShowAdvertiserActivity extends Activity {
 			// sucs.setVisibility(View.VISIBLE);
 			ArrayList<String> sucursales = sDAO.getStringSucursales(toShow
 					.getId());
+			ArrayList<TextView> tvs = new ArrayList<TextView>();
 			for (int i = 0; i < sucursales.size(); i++) {
 				TextView tv = new TextView(this);
 				tv.setText(sucursales.get(i));
-				rl.addView(tv);
+				tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT));
+				tvs.add(tv);
 			}
-
-			/*
-			 * ArrayAdapter<String> alsucs = new ArrayAdapter<String>(this,
-			 * R.layout.list_item, sucursales); /* RelativeLayout.LayoutParams
-			 * mParam = RelativeLayout.LayoutParams( (int) sucs.getWidth(),
-			 * (int) sucs.getHeight() * sucursales.size());
-			 */
-			RelativeLayout.LayoutParams mParam = new RelativeLayout.LayoutParams(
-					LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-			// sucs.setLayoutParams(mParam);
-			// sucs.setPadding(0, 390, 0, 300);
-			// sucs.setAdapter(alsucs);
-
+			for (int i = 0; i < tvs.size(); i++) {
+				rl.addView(tvs.get(i), i);
+			}
+			
+			LinearLayout ll = (LinearLayout)findViewById(R.id.linear_layout_contacto);
+			for(int i =0; i < toShow.getTelefono().size(); i++){
+				TextView tv = new TextView(this);
+				tv.setText(toShow.getTelefono().get(i));
+				tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT));
+				ll.addView(tv);
+			}
 		}
 
 	}

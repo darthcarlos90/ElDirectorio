@@ -69,16 +69,8 @@
                 android:id="@+id/linear_layout_si"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/sucursales_empresa" >
-
-                <!--
-            <ListView
-                android:id="@+id/sucursalesEmpresaList"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:cacheColorHint="#00000000"
-                android:visibility="gone" />
-                -->
+                android:layout_below="@id/sucursales_empresa"
+                android:orientation="vertical" >
             </LinearLayout>
 
             <TextView
@@ -86,14 +78,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linear_layout_si"
-                android:text="@string/testing" />
-
-            <ListView
-                android:id="@+id/list_contacto"
+                android:background="@drawable/barra"
+                android:text="@string/contacto" />
+            
+            <LinearLayout
+                android:id="@+id/linear_layout_contacto"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:cacheColorHint="#00000000" />
+                android:layout_below="@id/contacto_empresa"
+                android:orientation="vertical"
+                >
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>
