@@ -43,22 +43,15 @@ public class ListaIndexada extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				String categoria = categorias.get(arg2);
-				SharedPreferences sharedPrefs = getSharedPreferences("tipo de busqueda",0);
-				Editor editor = sharedPrefs.edit();
-				editor.putString("tipo de busqueda", "advertiser");
-				editor.commit();
-				SharedPreferences sp = getSharedPreferences("categoria",0);
-				editor = sp.edit();
-				editor.putString("categoria", categoria);
-				editor.commit();
+				final String categoria = categorias.get(arg2);
 				Thread holo = new Thread(){
 					public void run(){
-						
 						try {
 							sleep(100);
-							Class texto = Class.forName("directorio.actividades.ShowAdvertisersActivity");
+							Class texto = Class.forName("directorio.actividades.adverlistitem");
 							Intent correo = new Intent(ListaIndexada.this, texto);
+							correo.putExtra("estado", 2);
+							correo.putExtra("categoria", categoria);
 							startActivity(correo);
 						} catch (ClassNotFoundException e) {
 							// TODO Auto-generated catch block

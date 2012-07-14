@@ -91,6 +91,7 @@ public class AdvertiserDAO {
 				temp.setPosx(c.getDouble(8));
 				temp.setPosy(c.getDouble(9));
 				temp.setCiudad(c.getString(11));
+				temp.setImgSrc(c.getBlob(16));
 				resultados.add(temp);
 			} while (c.moveToNext());
 		}

@@ -1,6 +1,7 @@
 package directorio.actividades;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import directorio.BaseDeDatos.DownManager;
@@ -32,13 +33,13 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SearchActivity extends Activity {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		finish();
 	}
 
 	private TextView textoBarra;
@@ -64,21 +65,16 @@ public class SearchActivity extends Activity {
 		
 		getLocation();
 
-		// Checa ausencia de Base de datos, si no existe la descarga
-		if (!checkForBD()) {
-			System.out.println("Location: " + longitude);
-			System.out.println("Lat: " + latitude);
-			System.out.println("No existe, descargando...");
-			downloadDataBase();
+		System.out.println("Longitud: " + longitude);
+		System.out.println("Latitude: " + latitude);
+		
+		bd = new File(getIntent().getExtras().getString("basedatos"));
+		try {
+			setupViews();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		// Imprimira si si existe...
-		System.out.println("Location: " + longitude);
-		System.out.println("Lat: " + latitude);
-		System.out.println("Existe, No descargue nada...");
-		// Si existe, inicializara los otros DAO
-		// others = new otrosDao();
-		// Inicializar los elementos en el View
-		setupViews();
 
 	}
 
@@ -132,7 +128,6 @@ public class SearchActivity extends Activity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
-			others.regresaOtraDb().close();
 			intent = new Intent(this, ListaIndexada.class);
 			this.startActivity(intent);
 			return true;
@@ -157,6 +152,7 @@ public class SearchActivity extends Activity {
 			//Algoritmo de busqueda de lugares Version 2
 		
 			intent = new Intent(this, adverlistitem.class);
+			intent.putExtra("estado", 1);
 			intent.putExtra("latitude", latitude);
 			intent.putExtra("longitude", longitude);
 			intent.putExtra("kil", kil);	
@@ -170,7 +166,7 @@ public class SearchActivity extends Activity {
 		}
 	}
 
-	private void setupViews() {
+	private void setupViews() throws IOException {
 
 		spinner = (Spinner) findViewById(R.id.spinner_localidades);
 		/*
@@ -187,11 +183,19 @@ public class SearchActivity extends Activity {
 		// Se obtiene la lista de ciudades de la base de datos. Sin embargo, la
 		// base de datos sigue sin funcionar.
 		others = new otrosDao();
+		try{
 		ArrayList<String> datos = others.getCiudades();
 		for (int i = 0; i < datos.size(); i++) {
 			adapter.add(datos.get(i));
 		}
 		others.regresaOtraDb().close();
+		}catch(Exception e){
+			Toast.makeText(this, "Error de bd, reintentando...", Toast.LENGTH_LONG).show();
+			File file = new File(getIntent().getExtras(	).getString("basedatos"));
+			file.getCanonicalFile().delete();
+			restartFirstActivity();
+		}
+		
 		
 		spinner.setAdapter(adapter);
 		Busqueda = (EditText)findViewById(R.id.busqueda);
@@ -234,5 +238,13 @@ public class SearchActivity extends Activity {
 		});
 
 	}
+	private void restartFirstActivity()
+	 {
+	 Intent i = getApplicationContext().getPackageManager()
+	 .getLaunchIntentForPackage(getApplicationContext().getPackageName() );
+
+	 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+	 startActivity(i);
+	 }
 
 }
