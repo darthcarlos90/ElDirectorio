@@ -7,21 +7,19 @@ import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
 
 import android.app.Application;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class AdvertiserManagerApplication extends Application {
 	private SQLiteDatabase db;
 	private ArrayList<Advertiser> favoritos;
-	
+	private FavoritosDatabaseHelper helper;
 
 	@Override
 	public void onCreate() {
 		// Initialization of variables.
 		super.onCreate();
-		FavoritosDatabaseHelper helper = new FavoritosDatabaseHelper(this);
-		db = helper.getWritableDatabase();
+		openDatabase();
 		if (null == favoritos) {
 			loadFavoritos();
 		}
@@ -34,15 +32,20 @@ public class AdvertiserManagerApplication extends Application {
 	}
 
 	public void addToFavoritos(Advertiser adv) {
-		// Method that adds the data of a task into the database.
 		assert (null != adv);
-		String nombreAdvertiser = adv.getNombre();
-		ContentValues cv = new ContentValues();
-		// cv.put("id", "");
-		cv.put("nombreFavoritos", nombreAdvertiser);
-		db.insert("Favoritos", "id", cv);
+		if (db.isOpen() == false) {
+			openDatabase();
+		}
+		String query = "insert into Favoritos values('" + adv.getId() + "', '"
+				+ adv.getNombre() + "');";
+		db.rawQuery(query, null);
 		db.close();
 		favoritos.add(adv);
+	}
+
+	private void openDatabase() {
+		helper = new FavoritosDatabaseHelper(this);
+		db = helper.getWritableDatabase();
 	}
 
 	private void loadFavoritos() {
@@ -54,10 +57,11 @@ public class AdvertiserManagerApplication extends Application {
 		}
 		c.close();
 		for (int i = 0; i < favs.size(); i++) {
-			favoritos.add(getAdvertiser(favs.get(i)));
+			Advertiser adv = getAdvertiser(favs.get(i));
+			adv.setFavorito(true);
+			favoritos.add(adv);
 		}
-		
-		
+
 	}
 
 	public ArrayList<Advertiser> getFavoritos() {
@@ -74,4 +78,5 @@ public class AdvertiserManagerApplication extends Application {
 
 	}
 
-}
+}	
+

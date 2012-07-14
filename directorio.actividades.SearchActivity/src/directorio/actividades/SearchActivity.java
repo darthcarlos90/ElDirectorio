@@ -128,17 +128,18 @@ public class SearchActivity extends Activity {
 		Intent intent;
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
+			others.regresaOtraDb().close();
 			intent = new Intent(this, ListaIndexada.class);
 			this.startActivity(intent);
 			return true;
 		case R.id.btn_favoritos:
-			// Unser construction
-			SharedPreferences sharedPrefs = getSharedPreferences(PREFS_NAME,0);
-			Editor editor = sharedPrefs.edit();
-			editor.putString(PREFS_NAME, "favoritos");
-			editor.commit();
-			/*intent = new Intent(this, ShowAdvertisersActivity.class);
-			this.startActivity(intent);*/
+//			SharedPreferences sharedPrefs = getSharedPreferences(PREFS_NAME,0);
+//			Editor editor = sharedPrefs.edit();
+//			editor.putString(PREFS_NAME, "favoritos");
+//			editor.commit();
+			intent = new Intent(this, adverlistitem.class);
+			intent.putExtra("estado", 3);
+			this.startActivity(intent);
 			return true;
 		case R.id.btn_buscar:
 			//SegundoAlgoritmo de Busqueda
@@ -185,6 +186,7 @@ public class SearchActivity extends Activity {
 		others = new otrosDao();
 		try{
 		ArrayList<String> datos = others.getCiudades();
+		adapter.add("Todas las ciudades");
 		for (int i = 0; i < datos.size(); i++) {
 			adapter.add(datos.get(i));
 		}

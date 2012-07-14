@@ -1,75 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/bli"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/buscar"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/spinner_localidades"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:text="@string/buscar" />
-
-    <Button
-        android:id="@+id/info_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/info_icon" />
+        android:layout_x="2dp"
+        android:layout_y="232dp" />
 
     <EditText
         android:id="@+id/busqueda"
         android:layout_width="277dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_x="2dp"
+        android:layout_y="163dp"
+        android:ems="10"
         android:hint="@string/buscando"
-        android:inputType="text" >
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/seleccionCiudadtexto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/busqueda"
-        android:text="@string/seleccion_ciudad" />
-
-    <Spinner
-        android:id="@+id/spinner_localidades"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/seleccionCiudadtexto" />
-
-    <TextView
-        android:id="@+id/text_localidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/spinner_localidades"
-        android:text="@string/string_localidades" />
-    
-     <TextView
-        android:id="@+id/mostrar_metros"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/text_localidad"
-        android:layout_below="@id/spinner_localidades"
-        android:text="@string/string_redonda" >
-    </TextView>   
+        android:inputType="text" />
 
     <SeekBar
         android:id="@+id/radioALaRedonda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/text_localidad"
+        android:layout_x="-7dp"
+        android:layout_y="293dp"
         android:max="8" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text_localidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="13dp"
+        android:layout_y="278dp"
+        android:text="@string/string_localidades" />
+
+    <TextView
+        android:id="@+id/seleccionCiudadtexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="14dp"
+        android:layout_y="213dp"
+        android:text="@string/seleccion_ciudad" />
+
+    <Button
+        android:id="@+id/info_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="282dp"
+        android:layout_y="70dp"
+        android:background="@drawable/info_icon" />
+
+    <TextView
+        android:id="@+id/mostrar_metros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="112dp"
+        android:layout_y="280dp"
+        android:text="@string/string_redonda" />
+
+    
+
+</AbsoluteLayout>

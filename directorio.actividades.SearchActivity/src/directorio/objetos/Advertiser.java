@@ -3,16 +3,13 @@ package directorio.objetos;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Esta es la clase donde se guardan los datos del advertiser.
  * 
  * @author Carlos Tirado
  * 
  */
-public class Advertiser implements Parcelable {
+public class Advertiser {
 
 	private String id;
 	private String nombre;
@@ -26,11 +23,20 @@ public class Advertiser implements Parcelable {
 	private String facebook;
 	private String twitter;
 	private ArrayList<String> telefono;
-	private String[] email;
+	private ArrayList<String> email;
 	private String[] categorias;
 	private String[] tags;
 	private byte[] imgSrc;
 	private String publicityUrl;
+	private ArrayList<String> sucursales;
+
+	public ArrayList<String> getSucursales() {
+		return sucursales;
+	}
+
+	public void setSucursales(String sucursal) {
+		sucursales.add(sucursal);
+	}
 
 	public String getPublicityUrl() {
 		return publicityUrl;
@@ -41,7 +47,7 @@ public class Advertiser implements Parcelable {
 	}
 
 	public byte[] getImgSrc() {
-		
+
 		return imgSrc;
 	}
 
@@ -52,8 +58,8 @@ public class Advertiser implements Parcelable {
 	public Advertiser(String id, String nombre, String descripcion,
 			String contacto, String direccion, String sitioWeb, double posx,
 			double posy, String ciudad, String facebook, String twitter,
-			ArrayList<String> telefono, String[] email, String[] categorias, String[] tags,
-			boolean favorito) {
+			ArrayList<String> telefono, ArrayList<String> email,
+			String[] categorias, String[] tags, boolean favorito) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -75,12 +81,6 @@ public class Advertiser implements Parcelable {
 
 	public Advertiser() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public Advertiser(Parcel in) {
-		// TODO Auto-generated constructor stub
-		in.readString();
-		in.readByteArray(imgSrc);
 	}
 
 	public String getDescripcion() {
@@ -128,20 +128,30 @@ public class Advertiser implements Parcelable {
 	}
 
 	public void setTelefono(String telefonos) {
+		telefono = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(telefonos);
-		while(st.hasMoreElements()){
-			String temp = st.nextToken("*|@");
+		while (st.hasMoreElements()) {
+			String temp = st.nextToken("*|@") + ": " + st.nextToken("*|@");
 			telefono.add(temp);
 		}
-		
+
 	}
 
-	public String[] getEmail() {
+	public ArrayList<String> getEmail() {
 		return email;
 	}
 
-	public void setEmail(String[] email) {
-		this.email = email;
+	public void setEmail(String emails) {
+		email = new ArrayList<String>();
+		StringTokenizer st = new StringTokenizer(emails);
+		while (st.hasMoreElements()) {
+			String temp = st.nextToken("*|");
+			String resultado = "";
+			for (int j = 1; j < temp.length(); j++) {
+				resultado += temp.charAt(j);
+			}
+			email.add(resultado);
+		}
 	}
 
 	public String[] getCategorias() {
@@ -224,27 +234,5 @@ public class Advertiser implements Parcelable {
 		// TODO Auto-generated method stub
 		return "" + nombre + descripcion + ciudad + facebook;
 	}
-
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void writeToParcel(Parcel arg0, int arg1) {
-		// TODO Auto-generated method stub
-		arg0.writeString(nombre);
-		arg0.writeString(Direccion);
-		arg0.writeByteArray(imgSrc);
-	}
-	
-	public static final Advertiser.Creator<Advertiser> CREATOR = new Advertiser.Creator<Advertiser>() {
-        public Advertiser createFromParcel(Parcel in) {
-			return new Advertiser(in);
-        }
-
-        public Advertiser[] newArray(int size) {
-            return new Advertiser[size];
-        }
-    };  
 
 }

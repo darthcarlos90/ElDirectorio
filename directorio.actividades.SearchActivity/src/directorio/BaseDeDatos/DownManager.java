@@ -104,7 +104,7 @@ public class DownManager {
 	 */
 	public void DescargaBD2() throws IOException {
 		URL url = new URL(
-				"http://71.6.150.179:8079/dbHandler.axd?SqliteDbVersion=0");
+				"http://71.6.150.179:8079/dbHandler.axd?SqliteDbVersion=200");
 		URLConnection connection = url.openConnection();
 		InputStream response = connection.getInputStream();
 

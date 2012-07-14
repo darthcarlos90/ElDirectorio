@@ -105,4 +105,36 @@ public class SearchManager {
 			return negociosEnRango;
 			}
 		}
+
+		public static ArrayList<Advertiser> dameTodos(SQLiteDatabase getdb, String filtro) {
+			// TODO Auto-generated method stub
+			String ble = " ";
+			char bli = ble.charAt(0);
+			int last = filtro.length() - 1;
+			
+			if(filtro.charAt(last) == bli){
+				filtro = filtro.substring(0, filtro.length() - 1);
+			}
+			
+			Cursor results = getdb.rawQuery("select * from Advertiser where AdvName like '%"+filtro+"%' or Tags like '%"+filtro+"%'", null);
+			ArrayList<Advertiser> todos = new ArrayList<Advertiser>();
+			while(results.moveToNext()){
+				Advertiser adver = new Advertiser();
+				adver.setId(results.getString(0));
+				adver.setNombre(results.getString(1));
+				adver.setDescripcion(results.getString(2));
+				adver.setDireccion(results.getString(3));
+				adver.setContacto(results.getString(4));
+				adver.setSitioWeb(results.getString(5));
+				adver.setFacebook(results.getString(6));
+				adver.setTwitter(results.getString(7));
+				adver.setPosx(results.getDouble(8));
+				adver.setPosy(results.getDouble(9));
+				adver.setCiudad(results.getString(10));
+				adver.setImgSrc(results.getBlob(16));
+				todos.add(adver);
+			}
+			getdb.close();
+			return todos;
+		}
 }

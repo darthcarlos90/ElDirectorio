@@ -14,18 +14,16 @@ import android.widget.ProgressBar;
 
 ;
 
-@SuppressLint("ParserError")
+@SuppressLint({ "ParserError", "ParserError" })
 public class Inicio extends Activity {
 
 	File bd;
+	Thread timer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
-		
-		
 		
 		if (!checkForBD()) {
 			setContentView(R.layout.splishsplash);
@@ -33,7 +31,7 @@ public class Inicio extends Activity {
 			setContentView(R.layout.splishsplashmas);
 		}
 		
-		Thread timer = new Thread(){
+		timer = new Thread(){
     		public void run(){
     			try{
     				if (!checkForBD()) {
@@ -78,7 +76,8 @@ public class Inicio extends Activity {
 				}
 			}
     	};
-    	timer.start();	
+    	
+timer.start();
 		
 	}
 
