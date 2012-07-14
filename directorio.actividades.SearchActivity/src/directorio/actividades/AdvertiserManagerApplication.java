@@ -7,6 +7,7 @@ import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -36,9 +37,14 @@ public class AdvertiserManagerApplication extends Application {
 		if (db.isOpen() == false) {
 			openDatabase();
 		}
-		String query = "insert into Favoritos values('" + adv.getId() + "', '"
-				+ adv.getNombre() + "');";
-		db.rawQuery(query, null);
+		ContentValues cv = new ContentValues();
+		cv.put("id", adv.getId());
+		cv.put("nombreFavoritos", adv.getNombre());
+		/*
+		 * String query = "insert into Favoritos values('" + adv.getId() +
+		 * "', '" + adv.getNombre() + "');"; db.rawQuery(query, null);
+		 */
+		db.insert("Favoritos", null, cv);
 		db.close();
 		favoritos.add(adv);
 	}
@@ -78,5 +84,4 @@ public class AdvertiserManagerApplication extends Application {
 
 	}
 
-}	
-
+}

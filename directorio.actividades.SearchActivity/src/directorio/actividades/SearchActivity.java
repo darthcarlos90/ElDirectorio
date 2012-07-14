@@ -35,7 +35,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends Activity implements View.OnClickListener {
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
@@ -55,6 +55,10 @@ public class SearchActivity extends Activity {
 	private double kil;
 	private otrosDao others; // para recoger las ciudades de la base de datos
 	private static final String PREFS_NAME= "tipo de busqueda";
+	private Button abc;
+	private Button busqueda;
+	private Button favoritos;
+	private Intent intent;
 
 	/** Called when the activity is first created. */
 
@@ -75,6 +79,8 @@ public class SearchActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 
 	}
 
@@ -125,7 +131,7 @@ public class SearchActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
-		Intent intent;
+		
 		switch (item.getItemId()) {
 		case R.id.btn_abecedario:
 			others.regresaOtraDb().close();
@@ -202,7 +208,9 @@ public class SearchActivity extends Activity {
 		spinner.setAdapter(adapter);
 		Busqueda = (EditText)findViewById(R.id.busqueda);
 		textoBarra = (TextView) findViewById(R.id.mostrar_metros);
-		
+		abc = (Button)findViewById(R.id.ABC);
+		busqueda = (Button)findViewById(R.id.search);
+		favoritos = (Button)findViewById(R.id.favoritos);
 		barra = (SeekBar) findViewById(R.id.radioALaRedonda);
 		barra.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
@@ -248,5 +256,43 @@ public class SearchActivity extends Activity {
 	 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
 	 startActivity(i);
 	 }
+
+	@SuppressLint("ParserError")
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch(v.getId()){
+		
+		case R.id.busqueda:
+			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+			 ArrayList<Advertiser> negociosenRango = SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb());			
+			for(int i = 0; i < negociosenRango.size();i++){
+				System.out.println("En rango: " + negociosenRango.get(i).getNombre());
+			}
+			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
+			add.getdb().close();
+			//Algoritmo de busqueda de lugares Version 2
+		
+			intent = new Intent(this, adverlistitem.class);
+			intent.putExtra("estado", 1);
+			intent.putExtra("latitude", latitude);
+			intent.putExtra("longitude", longitude);
+			intent.putExtra("kil", kil);	
+			intent.putExtra("ciudad", spinner.getSelectedItem().toString());
+			intent.putExtra("busqueda", Busqueda.getText().toString());
+			this.startActivity(intent);
+			break;
+		case R.id.ABC:
+			others.regresaOtraDb().close();
+			intent = new Intent(this, ListaIndexada.class);
+			this.startActivity(intent);
+			break;
+		case R.id.favoritos:
+			intent = new Intent(this, adverlistitem.class);
+			intent.putExtra("estado", 3);
+			this.startActivity(intent);
+			break;
+		
+		}
+	}
 
 }
