@@ -57,7 +57,9 @@ public class AdvertiserManagerApplication extends Application {
 		}
 		c.close();
 		for (int i = 0; i < favs.size(); i++) {
-			favoritos.add(getAdvertiser(favs.get(i)));
+			Advertiser adv = getAdvertiser(favs.get(i));
+			adv.setFavorito(true);
+			favoritos.add(adv);
 		}
 
 	}
