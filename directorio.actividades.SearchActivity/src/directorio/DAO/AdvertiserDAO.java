@@ -1,6 +1,7 @@
 package directorio.DAO;
 
 import java.io.File;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import directorio.objetos.Advertiser;
@@ -34,12 +35,13 @@ public class AdvertiserDAO {
 		ble = new File(path);
 		db = SQLiteDatabase.openOrCreateDatabase(ble, null);
 	}
-	public void openDB(){
+
+	public void openDB() {
 		db = SQLiteDatabase.openOrCreateDatabase(ble, null);
 	}
 
 	public ArrayList<Advertiser> findAll() {
-		if(db.isOpen() == false){
+		if (db.isOpen() == false) {
 			openDB();
 		}
 		ArrayList<Advertiser> arr = new ArrayList<Advertiser>();
@@ -70,19 +72,19 @@ public class AdvertiserDAO {
 	}
 
 	public ArrayList<Advertiser> getByCategory(String category) {
-		if(db.isOpen()== false){
+		if (db.isOpen() == false) {
 			openDB();
 		}
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(
-				"Select CategoryId from Category where CatName = '" + category + "';",
-				null);
+				"Select CategoryId from Category where CatName = '" + category
+						+ "';", null);
 		cats.moveToPosition(0);
 		String catId = "*|@" + cats.getString(0) + "|";
 		cats.close();
 		Cursor c = db.rawQuery(
-				"Select * from Advertiser where Categories like '%" + catId + "%';",
-				null);
+				"Select * from Advertiser where Categories like '%" + catId
+						+ "%';", null);
 		Advertiser temp;
 		c.moveToPosition(0);
 		if (!c.isAfterLast()) {
@@ -109,13 +111,17 @@ public class AdvertiserDAO {
 	}
 
 	public Advertiser find(String nombre) {
-		if(db.isOpen() == false){
+		if (db.isOpen() == false) {
 			openDB();
 		}
 		Advertiser resultado = new Advertiser();
-		String query = "Select * from Advertiser where AdvName= '" + nombre
-				+ "';";
-		Cursor c = db.rawQuery(query, null);
+		Cursor c = db.query("Advertiser", null, "AdvName = ?",
+				new String[] { nombre }, null, null, null);
+		/*
+		 * String query = "Select * from Advertiser where AdvName= '" + nombre +
+		 * "';";
+		 */
+		// db.rawQuery(query, null);
 		c.moveToFirst();
 		if (!c.isAfterLast()) {
 			do {
@@ -134,7 +140,7 @@ public class AdvertiserDAO {
 					resultado.setTelefono(c.getString(12));
 					resultado.setEmail(c.getString(13));
 					resultado.setImgSrc(c.getBlob(16));
-					
+
 				} catch (NullPointerException e) {
 					System.out.println("No existe uno de los cursores");
 				}
@@ -144,11 +150,8 @@ public class AdvertiserDAO {
 		db.close();
 		return resultado;
 	}
-	
-	
 
 	public SQLiteDatabase getdb() {
-		// TODO Auto-generated method stub
 		return db;
 	}
 }

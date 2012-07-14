@@ -7,7 +7,6 @@ import directorio.DAO.AdvertiserDAO;
 import directorio.objetos.Advertiser;
 
 import android.app.Application;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -34,10 +33,11 @@ public class AdvertiserManagerApplication extends Application {
 
 	public void addToFavoritos(Advertiser adv) {
 		assert (null != adv);
-		if(db.isOpen()== false){
+		if (db.isOpen() == false) {
 			openDatabase();
 		}
-		String query = "insert into Favoritos values('" + adv.getId() + "', '" + adv.getNombre()+ "');";
+		String query = "insert into Favoritos values('" + adv.getId() + "', '"
+				+ adv.getNombre() + "');";
 		db.rawQuery(query, null);
 		db.close();
 		favoritos.add(adv);
