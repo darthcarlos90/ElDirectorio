@@ -209,7 +209,6 @@ public class SearchActivity extends Activity implements View.OnClickListener {
 		Busqueda = (EditText)findViewById(R.id.busqueda);
 		textoBarra = (TextView) findViewById(R.id.mostrar_metros);
 		abc = (Button)findViewById(R.id.ABC);
-		busqueda = (Button)findViewById(R.id.search);
 		favoritos = (Button)findViewById(R.id.favoritos);
 		barra = (SeekBar) findViewById(R.id.radioALaRedonda);
 		barra.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {

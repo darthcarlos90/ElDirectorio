@@ -50,11 +50,9 @@ public class MyCustomAdapter extends BaseAdapter {
 		if (v == null) {
 			v = li.inflate(R.layout.listadverts, null);
 		}
-
 		//reference to the ImageView component
 		final ImageView mLogo = (ImageView)v.findViewById(R.id.imagen);
 
-		//if gender is male, then use 'male' icon. Otherwise, female.
 		if(adver.getImgSrc() != null){
 			mLogo.setAdjustViewBounds(true);
 			mLogo.setMaxHeight(50);

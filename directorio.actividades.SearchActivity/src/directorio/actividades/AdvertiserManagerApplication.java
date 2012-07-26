@@ -22,7 +22,6 @@ public class AdvertiserManagerApplication extends Application {
 		super.onCreate();
 		openDatabase();
 		if (null == favoritos) {
-			loadFavoritos();
 		}
 	}
 
