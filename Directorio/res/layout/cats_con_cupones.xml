@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White" >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativeLayoutBanner"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            android:id="@+id/bannerOtraLista"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/header2"
+            android:contentDescription="@string/header"
+            android:gravity="center"
+            android:text="@string/cats_cupones"
+            android:textColor="@color/White"
+            android:textSize="27dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <directorio.actividades.IndexableListView
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/relativeLayoutBotones"
+        android:layout_below="@id/relativeLayoutBanner" />
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@id/relativeLayoutBotones"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/ABC1"
+            android:layout_width="61dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_abc2" />
+
+        <Button
+            android:id="@+id/Cupones1"
+            android:layout_width="61dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/cupones_presionado" />
+
+        <Button
+            android:id="@+id/destacados1"
+            android:layout_width="61dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/Cupones1"
+            android:background="@drawable/destacados_btn" />
+
+        <Button
+            android:id="@+id/favoritos1"
+            android:layout_width="61dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/ABC1"
+            android:background="@drawable/favs_btn2" />
+
+        <Button
+            android:id="@+id/buscar1"
+            android:layout_width="61dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/destacados1"
+            android:layout_toRightOf="@+id/favoritos1"
+            android:background="@drawable/buscar_btn_4" />
+    </RelativeLayout>
+
+</RelativeLayout>

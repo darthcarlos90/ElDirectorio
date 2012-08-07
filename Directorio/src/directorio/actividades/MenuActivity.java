@@ -57,6 +57,18 @@ public abstract class MenuActivity extends Activity {
 
 			}
 		});
+
+		Button cupon = (Button) findViewById(R.id.Cupones);
+
+		cupon.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(MenuActivity.this,
+						LoginCupones.class);	
+				startActivity(intent);
+
+			}
+		});
 	}
 
 }

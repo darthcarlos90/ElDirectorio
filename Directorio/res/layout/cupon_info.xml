@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/bannerBarra"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/header2"
+        android:contentDescription="@string/header" />
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/widgetscroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menuLayout"
+        android:layout_below="@id/bannerBarra" >
+
+    <LinearLayout
+        android:id="@+id/informacion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barra2"
+            android:text="@string/cupon"
+            android:textColor="@color/White"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/nombreEmpresa"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_del_cupon"
+            android:textColor="@color/Blue"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descripDesc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barra2"
+            android:text="@string/nombre_de_la_empresa_del_cup_n"
+            android:textColor="@color/White"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imagenCupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/imagen_del_cupon" />
+
+        <TextView
+            android:id="@+id/vigencia"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barra2"
+            android:text="@string/vigencia"
+            android:textColor="@color/White"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/desde"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desde"
+            android:textColor="@color/Blue"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hasta"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hasta"
+            android:textColor="@color/Blue"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descripcion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barra2"
+            android:text="@string/descripci_n"
+            android:textColor="@color/White"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descCupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/temp1"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/instrucciones"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barra2"
+            android:text="@string/instrucciones"
+            android:textColor="@color/White"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/insCupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/temp2"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/imprimir"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/barra2"
+            android:text="@string/imprimir"
+            android:textColor="@color/White"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonImprimir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/print_btn" />
+    </LinearLayout>
+</ScrollView>
+    <include
+        android:id="@+id/menuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        layout="@layout/menubar" />
+
+</RelativeLayout>

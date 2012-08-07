@@ -63,6 +63,16 @@ public class TodoManagerApplication extends Application {
 		db.close();
 		favoritos.add(adv);
 	}
+	
+	public void addToLogin(String user, String Estado){
+		assert (null != user && Estado != null);
+		if (db.isOpen() == false) {
+			openDatabase();
+		}
+		ContentValues cv = new ContentValues();
+		cv.put("Id", user);
+		cv.put("Estado", Estado);
+	}
 
 	private void openDatabase() {
 		helper = new FavoritosDatabaseHelper(this);
@@ -83,6 +93,28 @@ public class TodoManagerApplication extends Application {
 			favoritos.add(adv);
 		}
 
+	}
+	
+	public ArrayList<String> dameLogeado(){
+		if (db.isOpen() == false) {
+			openDatabase();
+		}
+		ArrayList<String> resultado = new ArrayList<String>();
+		Cursor c = db.rawQuery("select  * from Login", null);
+		while(c.moveToNext()){
+			resultado.add(c.getString(0));
+			resultado.add(c.getString(1));
+		}
+		c.close();
+		return resultado;
+	}
+	
+	public void desloguear(){
+		if (db.isOpen() == false) {
+			openDatabase();
+		}
+		Cursor c = db.rawQuery("delete from Login", null);
+		c.close();
 	}
 
 	public ArrayList<Advertiser> getFavoritos() {

@@ -11,6 +11,12 @@ import android.widget.TextView;
 
 public class AcercaDeActivity extends Activity {
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		System.out.println("Disabled");
+	}
+
 	private ImageView img1;
 	private ImageView img2;
 

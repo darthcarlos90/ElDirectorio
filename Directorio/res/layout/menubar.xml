@@ -19,15 +19,16 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/ABC"
         android:background="@drawable/favs_btn2" />
-
+
     <Button
         android:id="@+id/buscar"
         android:layout_width="61dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/favoritos"
         android:layout_toLeftOf="@+id/destacados"
         android:layout_toRightOf="@+id/favoritos"
-        android:background="@drawable/buscar_btn_3" />
+        android:background="@drawable/buscar_btn_4" />
 
     <Button
         android:id="@+id/Cupones"

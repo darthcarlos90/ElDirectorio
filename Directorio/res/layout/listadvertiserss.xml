@@ -7,13 +7,14 @@
     <TextView
         android:id="@+id/bannerSeh"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/header2"
         android:contentDescription="@string/header"
         android:gravity="center"
         android:text="@string/negocios"
-        android:textSize="15dp"
+        android:textColor="@color/White"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <ListView

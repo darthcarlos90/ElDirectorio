@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     android:orientation="vertical" >
-
+
     <Button
         android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/cerrar" />
+        android:background="@drawable/atras" />
 
     <!--
           <LinearLayout
@@ -25,10 +26,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"	
+        android:layout_height="wrap_content"
         android:layout_above="@id/buttonBack"
-        android:apiKey="0W_vU0VXNacg8qcmF7wOHTaZaThej4KIM8OZorg"
+        android:apiKey="0W_vU0VXNacjnvad2bnz4_Oeuir7aGp0bVAG7WA"
         android:clickable="true" />
-    
+   
 
 </RelativeLayout>

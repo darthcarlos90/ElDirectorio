@@ -10,7 +10,9 @@ public class FavoritosDatabaseHelper extends SQLiteOpenHelper {
 	private static final String TABLA_FAVS = "Favoritos";
 	private static final String FAVORITOS_NOMBRE = "nombreFavoritos";
 	private static final String ID = "id";
-
+	private static final String TABLA_LOGIN = "Login";
+	private static final String Id = "Id";
+	private static final String Estado = "Estado";
 	public FavoritosDatabaseHelper(Context context) {
 		super(context, DB_NAME, null, VERSION);
 	}
@@ -20,7 +22,8 @@ public class FavoritosDatabaseHelper extends SQLiteOpenHelper {
 		createTables(db);
 		db.rawQuery("insert into " + TABLA_FAVS
 				+ " values (1, 'Prueba creacion bd');", null);
-
+		db.rawQuery("insert into " + TABLA_LOGIN
+				+ " values ('1', 'No Logeado');", null);
 	}
 
 	private void createTables(SQLiteDatabase db) {
@@ -28,12 +31,15 @@ public class FavoritosDatabaseHelper extends SQLiteOpenHelper {
 				+ " integer primary key autoincrement not null,"
 				+ FAVORITOS_NOMBRE + " text" + ");");
 		System.out.println("Base de datos 2 creada c:");
-
+		db.execSQL("create table " + TABLA_LOGIN + " (" + Id
+				+ " text not null,"
+				+ Estado + " text not null" + ");");
+		System.out.println("Base de datos para login creada c:");
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Este método no será necesario.
+		// Este mï¿½todo no serï¿½ necesario.
 
 	}
 

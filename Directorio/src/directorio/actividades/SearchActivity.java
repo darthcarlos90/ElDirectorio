@@ -14,11 +14,13 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -36,6 +38,12 @@ public class SearchActivity extends MenuActivity /*
 		super.onPause();
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		System.out.println("Disabled");
+	}
+
 	private TextView textoBarra;
 	private Spinner spinner;
 	private SeekBar barra;
@@ -51,25 +59,28 @@ public class SearchActivity extends MenuActivity /*
 	private Button busqueda;
 	private Button favoritos;
 	private Intent intent;
-	
-	
+	private ProgressBar cargando;
+
 	/** Called when the activity is first created. */
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		getLocation();
 
-		if(longitude == 0.0 && latitude == 0.0){
-			Toast.makeText(this,"No pudimos obtener tu localización, reintenta reiniciando la aplicación...", Toast.LENGTH_SHORT).show();
+		if (longitude == 0.0 && latitude == 0.0) {
+			Toast.makeText(
+					this,
+					"No pudimos obtener tu localización, reintenta reiniciando la aplicación...",
+					Toast.LENGTH_SHORT).show();
 		}
-			
+
 		System.out.println("Longitud: " + longitude);
 		System.out.println("Latitude: " + latitude);
 
-		bd = new File(getIntent().getExtras().getString("basedatos"));
+		bd = new File(Environment.getExternalStorageDirectory().getPath() + "/DirLaguna.db");
 		try {
 			setupViews();
 		} catch (IOException e) {
@@ -77,8 +88,6 @@ public class SearchActivity extends MenuActivity /*
 		}
 
 	}
-
-
 
 	/**
 	 * M�todo encargado de revisarr si existe la base de datos en la memoria,
@@ -88,98 +97,99 @@ public class SearchActivity extends MenuActivity /*
 	 * private void downloadDataBase() { new DownManager(); }
 	 */
 
-
 	// El resultado lo imprimira en el logcat, imprimira todos los objetos que
 	// saco de la base de datos, imprimira el tamaño del arreglo, la latitud y
 	// longitud
 	private void getLocation() {
 		// TODO Auto-generated method stub
-		
-		
-        lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
-        Location loc1 = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if(loc1 != null)                                
-        {
-        	System.out.println("Lo obtuve por GPS");
-            latitude = loc1.getLatitude();
-            longitude = loc1.getLongitude();
-        }else{
-        	System.out.println("Lo obtuve por WIFI");
-        	Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
-    		intent.putExtra("enabled", true);
-    		sendBroadcast(intent);
-    		lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
-            Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            latitude = loc.getLatitude();
-            longitude = loc.getLongitude();
-        	Intent intento = new Intent("android.location.GPS_ENABLED_CHANGE");
-            intento.putExtra("enabled", false);
-            sendBroadcast(intento);
-        }
-       
-        
-	    }
-	
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		MenuInflater inflater = getMenuInflater();
-//		inflater.inflate(R.menu.menu, menu);
-//		return true;
-//	}
-//
-//	@SuppressLint({ "ParserError", "ParserError", "ParserError", "NewApi" })
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		// Handle item selection
-//
-//		switch (item.getItemId()) {
-//		case R.id.btn_abecedario:
-//			// others.regresaOtraDb().close();
-//			intent = new Intent(this, ListaIndexada.class);
-//			this.startActivity(intent);
-//			return true;
-//		case R.id.btn_favoritos:
-//			// SharedPreferences sharedPrefs =
-//			// getSharedPreferences(PREFS_NAME,0);
-//			// Editor editor = sharedPrefs.edit();
-//			// editor.putString(PREFS_NAME, "favoritos");
-//			// editor.commit();
-//			System.out.println("Longitud: " + longitude);
-//			System.out.println("Latitude: " + latitude);
-//			intent = new Intent(this, adverlistitem.class);
-//			intent.putExtra("estado", 3);
-//			this.startActivity(intent);
-//			return true;
-//		case R.id.btn_buscar:
-//			// SegundoAlgoritmo de Busqueda
-//			
-//			Toast.makeText(this, "Resultados....", Toast.LENGTH_LONG).show();
-//			AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-//			ArrayList<Advertiser> negociosenRango = SearchManager
-//					.negociosenRango(latitude, longitude, kil, spinner
-//							.getSelectedItem().toString(), Busqueda.getText()
-//							.toString(), add.getdb());
-//			for (int i = 0; i < negociosenRango.size(); i++) {
-//				System.out.println("En rango: "
-//						+ negociosenRango.get(i).getNombre());
-//			}
-//			System.out.println("Tamaño del arreglo: " + negociosenRango.size());
-//			add.getdb().close();
-//			// Algoritmo de busqueda de lugares Version 2
-//			
-//			intent = new Intent(this, adverlistitem.class);
-//			intent.putExtra("estado", 1);
-//			intent.putExtra("latitude", latitude);
-//			intent.putExtra("longitude", longitude);
-//			intent.putExtra("kil", kil);
-//			intent.putExtra("ciudad", spinner.getSelectedItem().toString());
-//			intent.putExtra("busqueda", Busqueda.getText().toString());
-//			this.startActivity(intent);
-//			return true;
-//		default:
-//			return super.onOptionsItemSelected(item);
-//		}
-//	}
+
+		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location loc1 = lm
+				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if (loc1 != null) {
+			System.out.println("Lo obtuve por WIFI");
+			latitude = loc1.getLatitude();
+			longitude = loc1.getLongitude();
+		} else {
+			System.out.println("Lo obtuve por GPS");
+			Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
+			intent.putExtra("enabled", true);
+			sendBroadcast(intent);
+			lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			try {
+				latitude = loc.getLatitude();
+				longitude = loc.getLongitude();
+			} catch (NullPointerException npe) {
+				latitude = 0.0;
+				longitude = 0.0;
+			}
+			Intent intento = new Intent("android.location.GPS_ENABLED_CHANGE");
+			intento.putExtra("enabled", false);
+			sendBroadcast(intento);
+		}
+	}
+
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// MenuInflater inflater = getMenuInflater();
+	// inflater.inflate(R.menu.menu, menu);
+	// return true;
+	// }
+	//
+	// @SuppressLint({ "ParserError", "ParserError", "ParserError", "NewApi" })
+	// @Override
+	// public boolean onOptionsItemSelected(MenuItem item) {
+	// // Handle item selection
+	//
+	// switch (item.getItemId()) {
+	// case R.id.btn_abecedario:
+	// // others.regresaOtraDb().close();
+	// intent = new Intent(this, ListaIndexada.class);
+	// this.startActivity(intent);
+	// return true;
+	// case R.id.btn_favoritos:
+	// // SharedPreferences sharedPrefs =
+	// // getSharedPreferences(PREFS_NAME,0);
+	// // Editor editor = sharedPrefs.edit();
+	// // editor.putString(PREFS_NAME, "favoritos");
+	// // editor.commit();
+	// System.out.println("Longitud: " + longitude);
+	// System.out.println("Latitude: " + latitude);
+	// intent = new Intent(this, adverlistitem.class);
+	// intent.putExtra("estado", 3);
+	// this.startActivity(intent);
+	// return true;
+	// case R.id.btn_buscar:
+	// // SegundoAlgoritmo de Busqueda
+	//
+	// Toast.makeText(this, "Resultados....", Toast.LENGTH_LONG).show();
+	// AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
+	// ArrayList<Advertiser> negociosenRango = SearchManager
+	// .negociosenRango(latitude, longitude, kil, spinner
+	// .getSelectedItem().toString(), Busqueda.getText()
+	// .toString(), add.getdb());
+	// for (int i = 0; i < negociosenRango.size(); i++) {
+	// System.out.println("En rango: "
+	// + negociosenRango.get(i).getNombre());
+	// }
+	// System.out.println("Tamaño del arreglo: " + negociosenRango.size());
+	// add.getdb().close();
+	// // Algoritmo de busqueda de lugares Version 2
+	//
+	// intent = new Intent(this, adverlistitem.class);
+	// intent.putExtra("estado", 1);
+	// intent.putExtra("latitude", latitude);
+	// intent.putExtra("longitude", longitude);
+	// intent.putExtra("kil", kil);
+	// intent.putExtra("ciudad", spinner.getSelectedItem().toString());
+	// intent.putExtra("busqueda", Busqueda.getText().toString());
+	// this.startActivity(intent);
+	// return true;
+	// default:
+	// return super.onOptionsItemSelected(item);
+	// }
+	// }
 
 	@Override
 	public void addButtons() {
@@ -195,6 +205,8 @@ public class SearchActivity extends MenuActivity /*
 		findViewById(R.id.buttons);
 		this.addButtons();
 
+		cargando = (ProgressBar)findViewById(R.id.cargasearch);
+		cargando.setVisibility(ProgressBar.INVISIBLE);
 		// MenuUtilities mu = new MenuUtilities("Search");
 		// mu.addButtons(rl, SearchActivity.this,this);
 		spinner = (Spinner) findViewById(R.id.spinner_localidades);
@@ -222,8 +234,7 @@ public class SearchActivity extends MenuActivity /*
 		} catch (Exception e) {
 			Toast.makeText(this, "Error de bd, reintentando...",
 					Toast.LENGTH_LONG).show();
-			File file = new File(getIntent().getExtras().getString("basedatos"));
-			file.getCanonicalFile().delete();
+			bd.getCanonicalFile().delete();
 			restartFirstActivity();
 		}
 
@@ -236,29 +247,37 @@ public class SearchActivity extends MenuActivity /*
 
 			public void onClick(View v) {
 				// SegundoAlgoritmo de Busqueda
-				AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-				ArrayList<Advertiser> negociosenRango = SearchManager
-						.negociosenRango(latitude, longitude, kil, spinner
-								.getSelectedItem().toString(), Busqueda
-								.getText().toString(), add.getdb());
-				for (int i = 0; i < negociosenRango.size(); i++) {
-					System.out.println("En rango: "
-							+ negociosenRango.get(i).getNombre());
-				}
-				System.out.println("Tamaño del arreglo: "
-						+ negociosenRango.size());
-				add.getdb().close();
+//				AdvertiserDAO add = new AdvertiserDAO();
+//				ArrayList<Advertiser> negociosenRango = SearchManager
+//						.negociosenRango(latitude, longitude, kil, spinner
+//								.getSelectedItem().toString(), Busqueda
+//								.getText().toString(), add.getdb());
+//				for (int i = 0; i < negociosenRango.size(); i++) {
+//					System.out.println("En rango: "
+//							+ negociosenRango.get(i).getNombre());
+//				}
+//				System.out.println("Tamaño del arreglo: "
+//						+ negociosenRango.size());
+//				add.getdb().close();
 				// Algoritmo de busqueda de lugares Version 2
+				
 
-				intent = new Intent(SearchActivity.this, adverlistitem.class);
-				intent.putExtra("estado", 1);
-				intent.putExtra("latitude", latitude);
-				intent.putExtra("longitude", longitude);
-				intent.putExtra("kil", kil);
-				intent.putExtra("ciudad", spinner.getSelectedItem().toString());
-				intent.putExtra("busqueda", Busqueda.getText().toString());
-				SearchActivity.this.startActivity(intent);
-
+				Thread timer = new Thread() {
+					public void run() {
+						intent = new Intent(SearchActivity.this, adverlistitem.class);
+						intent.putExtra("estado", 1);
+						intent.putExtra("latitude", latitude);
+						intent.putExtra("longitude", longitude);
+						intent.putExtra("kil", kil);
+						intent.putExtra("ciudad", spinner.getSelectedItem().toString());
+						intent.putExtra("busqueda", Busqueda.getText().toString());
+						SearchActivity.this.startActivity(intent);
+					}
+				};
+				cargando.setVisibility(ProgressBar.VISIBLE);
+				cargando.setIndeterminate(true);
+				timer.start();
+				
 			}
 		});
 		favoritos = (Button) findViewById(R.id.favoritos);
@@ -279,6 +298,7 @@ public class SearchActivity extends MenuActivity /*
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				if (progress == 0) {
+					kil = 0.0;
 					textoBarra.setText("--");
 				} else {
 					kil = (double) progress;
@@ -297,7 +317,7 @@ public class SearchActivity extends MenuActivity /*
 
 			}
 		});
-		}
+	}
 
 	private void restartFirstActivity() {
 		Intent i = getApplicationContext().getPackageManager()
@@ -308,32 +328,5 @@ public class SearchActivity extends MenuActivity /*
 				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(i);
 	}
-
-	/*
-	 * @SuppressLint("ParserError") public void onClick(View v) { // TODO
-	 * Auto-generated method stub switch (v.getId()) {
-	 * 
-	 * case R.id.busqueda: AdvertiserDAO add = new
-	 * AdvertiserDAO(bd.getAbsolutePath()); ArrayList<Advertiser>
-	 * negociosenRango = SearchManager .negociosenRango(latitude, longitude,
-	 * kil, spinner .getSelectedItem().toString(), Busqueda.getText()
-	 * .toString(), add.getdb()); for (int i = 0; i < negociosenRango.size();
-	 * i++) { System.out.println("En rango: " +
-	 * negociosenRango.get(i).getNombre()); } System.out
-	 * .println("Tamaño del arreglo: " + negociosenRango.size());
-	 * add.getdb().close(); // Algoritmo de busqueda de lugares Version 2
-	 * 
-	 * intent = new Intent(this, adverlistitem.class); intent.putExtra("estado",
-	 * 1); intent.putExtra("latitude", latitude); intent.putExtra("longitude",
-	 * longitude); intent.putExtra("kil", kil); intent.putExtra("ciudad",
-	 * spinner.getSelectedItem().toString()); intent.putExtra("busqueda",
-	 * Busqueda.getText().toString()); this.startActivity(intent); break; case
-	 * R.id.ABC: others.regresaOtraDb().close(); intent = new Intent(this,
-	 * ListaIndexada.class); this.startActivity(intent); break; case
-	 * R.id.favoritos: intent = new Intent(this, adverlistitem.class);
-	 * intent.putExtra("estado", 3); this.startActivity(intent); break;
-	 * 
-	 * } }
-	 */
 
 }

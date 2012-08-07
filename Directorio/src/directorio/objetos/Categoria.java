@@ -2,20 +2,32 @@ package directorio.objetos;
 
 /**
  * Clase donde se guardan los datos de cada categoría.
+ * 
  * @author Carlos
- *
+ * 
  */
 public class Categoria {
-	public Categoria(int id, String nombre, char letra) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.letra = letra;
-	}
 
 	private int id;
 	private String nombre;
 	private char letra;
+	private boolean hasCoupons;
+
+	public boolean isHasCoupons() {
+		return hasCoupons;
+	}
+
+	public void setHasCoupons(boolean hasCoupons) {
+		this.hasCoupons = hasCoupons;
+	}
+
+	public Categoria(int id, String nombre, char letra, boolean hasCoupons) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.letra = letra;
+		this.hasCoupons = hasCoupons;
+	}
 
 	public int getId() {
 		return id;

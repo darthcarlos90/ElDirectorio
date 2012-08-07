@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 @SuppressLint({ "ParserError", "ParserError" })
@@ -29,17 +30,15 @@ public class Inicio extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (!checkForBD()) {
 			setContentView(R.layout.splishsplash);
-		} else {
-			setContentView(R.layout.splishsplashmas);
-		}
-
+		  	final ProgressBar descargar = (ProgressBar) findViewById(R.id.progressBar1);
+//		  	final TextView texto = (TextView)findViewById(R.id.textView1);
+//	    	final TextView texto2 = (TextView)findViewById(R.id.textView1);
+		  	
 		timer = new Thread() {
 			public void run() {
 				try {
 					if (!checkForBD()) {
-						final ProgressBar descargar = (ProgressBar) findViewById(R.id.progressBar1);
 						System.out.println("No existe... descargando...");
 						descargar.setIndeterminate(true);
 						downloadDataBase();
@@ -48,6 +47,8 @@ public class Inicio extends Activity {
 						    NetworkInfo netInfo = cm.getActiveNetworkInfo();
 						    if(netInfo != null){
 						    	System.out.println("Hay conexión a internet");
+						    	sleep(4000);
+//						    	descargar.setIndeterminate(true);
 						    	tryAct();
 						    }else{
 						    	System.out.println("No hay conexión");
@@ -59,12 +60,11 @@ public class Inicio extends Activity {
 					e.printStackTrace();
 				} finally {
 					try {
-						Class texto = Class
-								.forName("directorio.actividades.SearchActivity");
-						Intent ble = new Intent(Inicio.this, texto);
-						// Intent intent = new Intent(Inicio.this,
-						// ListaIndexada.class);
-						// startActivity(intent);
+//				    	texto.setVisibility(TextView.INVISIBLE);
+//				    	texto2.setVisibility(TextView.INVISIBLE);
+//				    	descargar.setVisibility(ProgressBar.INVISIBLE);
+				    	Class listactivity = Class.forName("directorio.actividades.ListaIndexada");
+						Intent ble = new Intent(Inicio.this, listactivity);
 							ble.putExtra("basedatos", bd.getAbsolutePath());							
 						
 						startActivity(ble);

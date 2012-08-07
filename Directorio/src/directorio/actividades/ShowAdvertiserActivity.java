@@ -51,6 +51,11 @@ public class ShowAdvertiserActivity extends MenuActivity {
 			e.printStackTrace();
 		}
 	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		System.out.println("Disabled");
+	}
 
 	private void searchAdvertiser() {
 
@@ -262,7 +267,7 @@ public class ShowAdvertiserActivity extends MenuActivity {
 		}
 
 		final String webPage = toShow.getSitioWeb();
-		if (webPage.isEmpty() == false) {
+		if (webPage.equals("") == false) {
 			LinearLayout tll = new LinearLayout(this);
 			tll.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView iv1 = new ImageView(this);
@@ -289,7 +294,7 @@ public class ShowAdvertiserActivity extends MenuActivity {
 
 		final String facebook = toShow.getFacebook();
 
-		if (facebook.isEmpty() == false) {
+		if (facebook.equals("") == false) {
 			LinearLayout tll = new LinearLayout(this);
 			tll.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView iv1 = new ImageView(this);
@@ -316,7 +321,7 @@ public class ShowAdvertiserActivity extends MenuActivity {
 		}
 
 		final String twitter = toShow.getTwitter();
-		if (twitter.isEmpty() == false) {
+		if (twitter.equals("") == false) {
 			LinearLayout tll = new LinearLayout(this);
 			tll.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView iv1 = new ImageView(this);

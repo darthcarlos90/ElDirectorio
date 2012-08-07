@@ -86,10 +86,17 @@
             android:id="@+id/info_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_above="@+id/busqueda"
+            android:layout_alignBottom="@+id/search"
             android:layout_alignRight="@+id/busqueda"
-            android:layout_marginBottom="30dp"
             android:background="@drawable/info_icon" />
+
+        <ProgressBar
+            android:id="@+id/cargasearch"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/busqueda"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

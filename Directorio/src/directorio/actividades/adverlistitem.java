@@ -41,7 +41,7 @@ public class adverlistitem extends MenuActivity {
         String ciudad = getIntent().getExtras().getString("ciudad");
         String filtro = getIntent().getExtras().getString("busqueda");
         
-        if(ciudad.equals("Todas las ciudades") && kil == 0){
+        if(ciudad.equals("Todas las ciudades") && kil == 0.0){
         	adds = SearchManager.dameTodos(ble.getdb(), filtro);
         }else{
         adds = SearchManager.negociosenRango(latitude, longitude, kil, ciudad, filtro, ble.getdb());
@@ -117,7 +117,7 @@ public class adverlistitem extends MenuActivity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		super.onBackPressed();
+		System.out.println("Disabled");
 	}
 	
 }

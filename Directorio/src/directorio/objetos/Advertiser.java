@@ -69,12 +69,13 @@ public class Advertiser {
 
 	public void setImgSrc(String url) {
 		byte[] imgSrc = null;
-		
-		File RutaImagenes = new File(Environment.getExternalStorageDirectory().getPath() + "/ElDirectorio/");
+
+		File RutaImagenes = new File(Environment.getExternalStorageDirectory()
+				.getPath() + "/ElDirectorio/");
 		RutaImagenes.mkdirs();
-		File archivo = new File(RutaImagenes, this.getId()+".png");
-		
-		if(archivo.exists()){
+		File archivo = new File(RutaImagenes, this.getId() + ".png");
+
+		if (archivo.exists()) {
 			try {
 				InputStream is = new FileInputStream(archivo);
 				this.imgSrc = IOUtils.toByteArray(is);
@@ -85,48 +86,47 @@ public class Advertiser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 
 			URL uri;
 			try {
-				
-				if(url == null){
-					    this.imgSrc = null;
-				}
-				else{
-				uri = new URL(url);
-				System.out.println("Estado de la tarjeta es: "
-						+ Environment.getExternalStorageState());
-				HttpURLConnection urlConnection = (HttpURLConnection) uri.openConnection();
 
-				urlConnection.setRequestMethod("GET");
-				urlConnection.setDoOutput(true);
-				urlConnection.connect();
-
-				InputStream inputStream = urlConnection.getInputStream();
-				FileOutputStream fileOutput = new FileOutputStream(archivo);
-
-				int totalSize = urlConnection.getContentLength();
-				if(totalSize == 0){
+				if (url == null) {
 					this.imgSrc = null;
-				}else{
-				int downloadedSize = 0;
+				} else {
+					uri = new URL(url);
+					System.out.println("Estado de la tarjeta es: "
+							+ Environment.getExternalStorageState());
+					HttpURLConnection urlConnection = (HttpURLConnection) uri
+							.openConnection();
 
-				byte[] buffer = new byte[1024];
-				int bufferLength = 0;
-				while ((bufferLength = inputStream.read(buffer)) > 0) {
-					fileOutput.write(buffer, 0, bufferLength);
-					downloadedSize += bufferLength;
-				}
-				fileOutput.close();
-				InputStream is = new FileInputStream(archivo);
-				imgSrc = IOUtils.toByteArray(is);
-				this.imgSrc = imgSrc;
-				}
+					urlConnection.setRequestMethod("GET");
+					urlConnection.setDoOutput(true);
+					urlConnection.connect();
+
+					InputStream inputStream = urlConnection.getInputStream();
+					FileOutputStream fileOutput = new FileOutputStream(archivo);
+
+					int totalSize = urlConnection.getContentLength();
+					if (totalSize == 0) {
+						this.imgSrc = null;
+					} else {
+						int downloadedSize = 0;
+
+						byte[] buffer = new byte[1024];
+						int bufferLength = 0;
+						while ((bufferLength = inputStream.read(buffer)) > 0) {
+							fileOutput.write(buffer, 0, bufferLength);
+							downloadedSize += bufferLength;
+						}
+						fileOutput.close();
+						InputStream is = new FileInputStream(archivo);
+						imgSrc = IOUtils.toByteArray(is);
+						this.imgSrc = imgSrc;
+					}
 				}
 
-			}
-			 catch (MalformedURLException e) {
+			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ProtocolException e) {
@@ -137,7 +137,7 @@ public class Advertiser {
 				e.printStackTrace();
 			}
 		}
-}
+	}
 
 	public Advertiser(String id, String nombre, String descripcion,
 			String contacto, String direccion, String sitioWeb, double posx,

@@ -1,5 +1,7 @@
 package directorio.actividades;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,8 +32,7 @@ public class ListaIndexada extends Activity {
 		setContentView(R.layout.otralista);
 		setupViews();
 		CategoriaDAO adb = new CategoriaDAO();
-
-		final ArrayList<String> categorias = adb.getCategorias();
+		final ArrayList<String> categorias =  adb.getCategorias();
 
 		Collections.sort(categorias);
 
@@ -47,12 +48,13 @@ public class ListaIndexada extends Activity {
 					long arg3) {
 				// TODO Auto-generated method stub
 				final String categoria = categorias.get(arg2);
+				
+				
 				Thread holo = new Thread() {
 					public void run() {
 						try {
 							sleep(100);
-							Class texto = Class
-									.forName("directorio.actividades.adverlistitem");
+							Class texto = Class.forName("directorio.actividades.adverlistitem");
 							Intent correo = new Intent(ListaIndexada.this,
 									texto);
 							correo.putExtra("estado", 2);
@@ -72,6 +74,17 @@ public class ListaIndexada extends Activity {
 			}
 		});
 	}
+	
+	private void restartFirstActivity() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		System.out.println("Disabled");
+	}
 
 	private void setupViews() {
 		Button abc = (Button) findViewById(R.id.ABC1);
@@ -84,20 +97,20 @@ public class ListaIndexada extends Activity {
 				startActivity(intent);
 			}
 		});
-		
-		Button favs = (Button)findViewById(R.id.favoritos1);
+
+		Button favs = (Button) findViewById(R.id.favoritos1);
 		favs.setOnClickListener(new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				System.out.println("Button FAVORITOS!!!!");
 				Intent intent = new Intent(ListaIndexada.this,
 						adverlistitem.class);
 				intent.putExtra("estado", 3);
 				startActivity(intent);
-				
+
 			}
 		});
-		
+
 		Button buscar = (Button) findViewById(R.id.buscar1);
 		buscar.setOnClickListener(new View.OnClickListener() {
 
@@ -107,6 +120,16 @@ public class ListaIndexada extends Activity {
 				intent.putExtra("basedatos", Environment
 						.getExternalStorageDirectory().getPath()
 						+ "/DirLaguna.db");
+				startActivity(intent);
+
+			}
+		});
+		Button cupon = (Button) findViewById(R.id.Cupones1);
+		cupon.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(ListaIndexada.this,
+						CatsConCupones.class);
 				startActivity(intent);
 
 			}
@@ -153,6 +176,16 @@ public class ListaIndexada extends Activity {
 			for (int i = 0; i < mSections.length(); i++)
 				sections[i] = String.valueOf(mSections.charAt(i));
 			return sections;
+		}
+		private void restartFirstActivity() {
+			// TODO Auto-generated method stub
+			Intent i = getApplicationContext().getPackageManager()
+					.getLaunchIntentForPackage(
+							getApplicationContext().getPackageName());
+
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+					| Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(i);
 		}
 
 	}

@@ -110,6 +110,46 @@ public class AdvertiserDAO {
 		return resultados;
 	}
 
+	public ArrayList<Advertiser> getByCategory2(String category) {
+		if (db.isOpen() == false) {
+			openDB();
+		}
+		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
+		Cursor cats = db.rawQuery(
+				"Select CategoryId from Category where CatName = '" + category
+						+ "';", null);
+		cats.moveToPosition(0);
+		String catId = "*|@" + cats.getString(0) + "|";
+		cats.close();
+		Cursor c = db.rawQuery(
+				"Select * from Advertiser where Categories like '%" + catId
+						+ "%';", null);
+		Advertiser temp;
+		c.moveToPosition(0);
+		if (!c.isAfterLast()) {
+			do {
+				temp = new Advertiser();
+				temp.setId(c.getString(0));
+				temp.setNombre(c.getString(1));
+				temp.setDescripcion(c.getString(2));
+				temp.setDireccion(c.getString(3));
+				temp.setContacto(c.getString(4));
+				temp.setSitioWeb(c.getString(5));
+				temp.setFacebook(c.getString(6));
+				temp.setTwitter(c.getString(7));
+				temp.setPosx(c.getDouble(8));
+				temp.setPosy(c.getDouble(9));
+				temp.setCiudad(c.getString(11));
+				resultados.add(temp);
+			} while (c.moveToNext());
+		}
+		c.close();
+		db.close();
+
+		return resultados;
+	}
+
+	
 	public Advertiser find(String nombre) {
 		if (db.isOpen() == false) {
 			openDB();
@@ -149,6 +189,46 @@ public class AdvertiserDAO {
 		c.close();
 		db.close();
 		return resultado;
+	}
+	
+	public ArrayList<Advertiser> getByCategoryAndId(String category, String id) {
+		if (db.isOpen() == false) {
+			openDB();
+		}
+		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
+		Cursor cats = db.rawQuery(
+				"Select CategoryId from Category where CatName = '" + category
+						+ "';", null);
+		cats.moveToPosition(0);
+		String catId = "*|@" + cats.getString(0) + "|";
+		cats.close();
+		Cursor c = db.rawQuery(
+				"Select * from Advertiser where Categories like '%" + catId
+						+ "%' AND AdvertiserId = " + id + ";", null);
+		Advertiser temp;
+		c.moveToPosition(0);
+		if (!c.isAfterLast()) {
+			do {
+				temp = new Advertiser();
+				temp.setId(c.getString(0));
+				temp.setNombre(c.getString(1));
+				temp.setDescripcion(c.getString(2));
+				temp.setDireccion(c.getString(3));
+				temp.setContacto(c.getString(4));
+				temp.setSitioWeb(c.getString(5));
+				temp.setFacebook(c.getString(6));
+				temp.setTwitter(c.getString(7));
+				temp.setPosx(c.getDouble(8));
+				temp.setPosy(c.getDouble(9));
+				temp.setCiudad(c.getString(11));
+				temp.setImgSrc(c.getString(17));
+				resultados.add(temp);
+			} while (c.moveToNext());
+		}
+		c.close();
+		db.close();
+
+		return resultados;
 	}
 
 	public boolean hasGallery(String id) {
