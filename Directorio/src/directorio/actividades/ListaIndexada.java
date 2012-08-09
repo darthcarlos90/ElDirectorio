@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SectionIndexer;
 
 @SuppressLint("ParserError")
@@ -139,6 +140,18 @@ public class ListaIndexada extends Activity {
 
 			}
 		});
+		
+		Button dest = (Button) findViewById(R.id.destacados1);
+		dest.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(ListaIndexada.this,
+						ShowDestacados.class);
+				startActivity(intent);
+
+			}
+		});
+		
 	}
 
 	private class ContentAdapter extends ArrayAdapter<String> implements

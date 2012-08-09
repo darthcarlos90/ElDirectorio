@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/bannerSeh"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/header2"
+        android:contentDescription="@string/header"
+        android:gravity="center"
+        android:text="@string/negocios"
+        android:textColor="@color/White"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/lisst"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/bannerSeh"
+        android:layout_above="@+id/includeButtons" />
+
+    <include
+        android:id="@+id/includeButtons"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        layout="@layout/menubar" />
+
+</RelativeLayout>

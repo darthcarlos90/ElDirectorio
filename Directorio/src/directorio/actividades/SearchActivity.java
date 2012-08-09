@@ -153,6 +153,7 @@ public class SearchActivity extends MenuActivity /*
 		// MenuUtilities mu = new MenuUtilities("Search");
 		// mu.addButtons(rl, SearchActivity.this,this);
 		spinner = (Spinner) findViewById(R.id.spinner_localidades);
+		
 		/*
 		 * ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
 		 * this, R.array.ciudades_array, android.R.layout.simple_spinner_item);
@@ -191,46 +192,36 @@ public class SearchActivity extends MenuActivity /*
 			public void onClick(View v) {
 				// SegundoAlgoritmo de Busqueda
 				
-				final DownloaderImages di = new DownloaderImages();
 				
-				Thread holo = new Thread(){
-					public void run(){
-						AdvertiserDAO add = new AdvertiserDAO();
-						ArrayList<Advertiser> negociosenRango = di.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb());
-						for (int i = 0; i < negociosenRango.size(); i++) {
-							System.out.println("En rango: "+ negociosenRango.get(i).getNombre());
+				if (Busqueda.getText().toString().equals("")) {
+					Toast.makeText(
+							SearchActivity.this,
+							"No insertaste valores para la búsqueda, intenta de nuevo.",
+							Toast.LENGTH_SHORT).show();
+				} else {
+
+					Thread timer = new Thread() {
+						public void run() {
+							intent = new Intent(SearchActivity.this,
+									adverlistitem.class);
+							intent.putExtra("estado", 1);
+							intent.putExtra("latitude", latitude);
+							intent.putExtra("longitude", longitude);
+							intent.putExtra("kil", kil);
+							intent.putExtra("ciudad", spinner.getSelectedItem()
+									.toString());
+							intent.putExtra("busqueda", Busqueda.getText()
+									.toString());
+							SearchActivity.this.startActivity(intent);
 						}
-						System.out.println("Tamaño del arreglo: "
-								+ negociosenRango.size());
-						add.getdb().close();
-					}
-				};
-				holo.start();
-				buscando.setVisibility(TextView.VISIBLE);
-				cargando.setVisibility(ProgressBar.VISIBLE);
-				
-				while(holo.isAlive()){
+					};
+					cargando.setVisibility(ProgressBar.VISIBLE);
 					cargando.setIndeterminate(true);
+					timer.start();
+
 				}
-				cargando.setIndeterminate(false);
-				// Algoritmo de busqueda de lugares Version 2
 				
-				Thread timer = new Thread() {
-					public void run() {
-						intent = new Intent(SearchActivity.this, adverlistitem.class);
-						intent.putExtra("estado", 1);
-						intent.putExtra("latitude", latitude);
-						intent.putExtra("longitude", longitude);
-						intent.putExtra("kil", kil);
-						intent.putExtra("ciudad", spinner.getSelectedItem().toString());
-						intent.putExtra("busqueda", Busqueda.getText().toString());
-						SearchActivity.this.startActivity(intent);
-					}
-				};
-//				cargando.setVisibility(ProgressBar.VISIBLE);
-//				cargando.setIndeterminate(true);
-				timer.start();
-				
+			
 			}
 		});
 		favoritos = (Button) findViewById(R.id.favoritos);

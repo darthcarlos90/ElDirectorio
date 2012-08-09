@@ -69,6 +69,17 @@ public abstract class MenuActivity extends Activity {
 
 			}
 		});
+		
+		Button dest = (Button)findViewById(R.id.destacados);
+		dest.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(MenuActivity.this,
+						ShowDestacados.class);	
+				startActivity(intent);
+
+			}
+		});
 	}
 
 }

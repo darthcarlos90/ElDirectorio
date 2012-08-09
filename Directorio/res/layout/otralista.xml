@@ -18,8 +18,11 @@
             android:layout_height="100dp"
             android:background="@drawable/searchheader"
             android:contentDescription="@string/header"
-            android:gravity="center"
+            android:gravity="center"	
             android:textStyle="bold" />
+
+      
+
     </RelativeLayout>
 
     <directorio.actividades.IndexableListView

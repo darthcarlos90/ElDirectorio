@@ -28,7 +28,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/buttonBack"
-        android:apiKey="0W_vU0VXNacjnvad2bnz4_Oeuir7aGp0bVAG7WA"
+        android:apiKey="0W_vU0VXNacg8qcmF7wOHTaZaThej4KIM8OZorg"
         android:clickable="true" />
    
 

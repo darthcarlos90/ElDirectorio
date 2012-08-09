@@ -45,6 +45,15 @@ public class Advertiser {
 	private byte[] imgSrc;
 	private String publicityUrl;
 	private ArrayList<String> sucursales;
+	private int featured;
+
+	public int getFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(int featured) {
+		this.featured = featured;
+	}
 
 	public ArrayList<String> getSucursales() {
 		return sucursales;

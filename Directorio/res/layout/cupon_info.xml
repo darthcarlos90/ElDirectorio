@@ -125,23 +125,6 @@
             android:layout_gravity="center"
             android:text="@string/temp2"
             android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/imprimir"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/barra2"
-            android:text="@string/imprimir"
-            android:textColor="@color/White"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/buttonImprimir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/print_btn" />
     </LinearLayout>
 </ScrollView>
     <include

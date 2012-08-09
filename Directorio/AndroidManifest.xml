@@ -102,6 +102,16 @@
             android:theme="@android:style/Theme.Light"></activity>
         <activity android:name=".Finalizado"
             android:label="@string/app_name"></activity>
+        <activity android:name=".ShowDestacados"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light"></activity>
+        <activity
+            android:name=".ShowPortalActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light" ></activity>
     </application>
     
 </manifest>

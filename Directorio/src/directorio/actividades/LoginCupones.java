@@ -46,7 +46,7 @@ public class LoginCupones extends MenuActivity {
 	       System.out.println("Estado: " + estado);
 	       
 	       
-	       if(estado == "Logueado"){
+	       if(estado.equals("Logueado")){
 	    	   Intent intent = new Intent(LoginCupones.this,CatsConCupones.class);
 				startActivity(intent);
 	       }

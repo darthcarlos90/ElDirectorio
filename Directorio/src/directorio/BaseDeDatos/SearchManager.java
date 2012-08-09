@@ -61,6 +61,7 @@ public class SearchManager {
 					adver.setPosy(tablaNegocios.getDouble(9));
 					adver.setCiudad(tablaNegocios.getString(11));
 					adver.setImgSrc(tablaNegocios.getString(17));
+					adver.setFeatured(tablaNegocios.getInt(18));
 					negociosPorNombre.add(adver);
 				}
 				tablaNegocios.close();
@@ -91,6 +92,7 @@ public class SearchManager {
 				adver.setPosy(tablaNegocios.getDouble(9));
 				adver.setCiudad(tablaNegocios.getString(10));
 				adver.setImgSrc(tablaNegocios.getString(17));
+				adver.setFeatured(tablaNegocios.getInt(18));
 				negociosPorNombre.add(adver);
 			}
 			tablaNegocios.close();
@@ -137,6 +139,7 @@ public class SearchManager {
 				adver.setPosy(results.getDouble(9));
 				adver.setCiudad(results.getString(10));
 				adver.setImgSrc(results.getString(17));
+				adver.setFeatured(results.getInt(18));
 				todos.add(adver);
 			}
 			getdb.close();

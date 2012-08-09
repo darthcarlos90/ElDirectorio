@@ -110,6 +110,7 @@ public class AdvertiserDAO {
 				temp.setPosy(c.getDouble(9));
 				temp.setCiudad(c.getString(11));
 				temp.setImgSrc(c.getString(17));
+				temp.setFeatured(c.getInt(18));
 				resultados.add(temp);
 			} while (c.moveToNext());
 		}
@@ -149,6 +150,7 @@ public class AdvertiserDAO {
 				temp.setPosx(c.getDouble(8));
 				temp.setPosy(c.getDouble(9));
 				temp.setCiudad(c.getString(11));
+				temp.setFeatured(c.getInt(18));
 				resultados.add(temp);
 			} while (c.moveToNext());
 		}
@@ -189,7 +191,7 @@ public class AdvertiserDAO {
 					resultado.setTelefono(c.getString(12));
 					resultado.setEmail(c.getString(13));
 					resultado.setImgSrc(c.getString(17));
-
+					resultado.setFeatured(c.getInt(18));
 				} catch (NullPointerException e) {
 					System.out.println("No existe uno de los cursores");
 				}
@@ -231,6 +233,7 @@ public class AdvertiserDAO {
 				temp.setPosy(c.getDouble(9));
 				temp.setCiudad(c.getString(11));
 				temp.setImgSrc(c.getString(17));
+				temp.setFeatured(c.getInt(18));
 				resultados.add(temp);
 			} while (c.moveToNext());
 		}
@@ -317,6 +320,29 @@ public class AdvertiserDAO {
 		db.close();
 		
 		return resultados;
+	}
+	
+	public ArrayList<Advertiser> dameDestacados(){
+		ArrayList<Advertiser> destacados = new ArrayList<Advertiser>();
+		Cursor c = db.rawQuery("select * from Advertiser where Featured = 1;", null);
+		System.out.println("Tamño de la consulta: " + c.getCount());
+		while(c.moveToNext()){
+			Advertiser temp = new Advertiser();
+			temp.setId(c.getString(0));
+			temp.setNombre(c.getString(1));
+			temp.setDescripcion(c.getString(2));
+			temp.setDireccion(c.getString(3));
+			temp.setContacto(c.getString(4));
+			temp.setSitioWeb(c.getString(5));
+			temp.setFacebook(c.getString(6));
+			temp.setTwitter(c.getString(7));
+			temp.setPosx(c.getDouble(8));
+			temp.setPosy(c.getDouble(9));
+			temp.setCiudad(c.getString(11));
+			temp.setFeatured(c.getInt(18));
+			destacados.add(temp);
+		}
+		return destacados;
 	}
 
 	public SQLiteDatabase getdb() {

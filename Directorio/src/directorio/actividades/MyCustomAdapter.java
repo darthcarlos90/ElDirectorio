@@ -44,30 +44,32 @@ public class MyCustomAdapter extends BaseAdapter {
 
 		final Advertiser adver = adds.get(position);
 
-		//if View exists, then reuse... else create a new object.
-		if (v == null) {
-			v = li.inflate(R.layout.listadverts, null);
-		}
-
-		//reference to the ImageView component
-		final ImageView mLogo = (ImageView)v.findViewById(R.id.imagen);
-
+			if (v == null) {
+				v = li.inflate(R.layout.destacados_item, null);
+			}
+			//reference to the ImageView component
+			ImageView iconin = (ImageView)v.findViewById(R.id.iconito);
+			
+			if(adver.getFeatured() == 0){
+				iconin.setVisibility(ImageView.INVISIBLE);
+			}
+			
+			final ImageView mLogo = (ImageView)v.findViewById(R.id.imagendest);
+			if(adver.getImgSrc() != null){
+				mLogo.setAdjustViewBounds(true);
+				mLogo.setMaxHeight(50);
+				mLogo.setMaxWidth(50);
+				mLogo.setImageBitmap(BitmapFactory.decodeByteArray(adver.getImgSrc(),
+						0, adver.getImgSrc().length));
+			}
+			//set 'name' in line 1.
+			final TextView nameTv = (TextView) v.findViewById(R.id.linea1);
+			nameTv.setText(adver.getNombre());
+			//set 'gender' in line 2.
+			final TextView genderTv = (TextView) v.findViewById(R.id.linea2);
+			genderTv.setText(adver.getDireccion());
 		
-		if(adver.getImgSrc() != null){
-			mLogo.setAdjustViewBounds(true);
-			mLogo.setMaxHeight(50);
-			mLogo.setMaxWidth(50);
-			mLogo.setImageBitmap(BitmapFactory.decodeByteArray(adver.getImgSrc(),
-					0, adver.getImgSrc().length));
-		}
-
-		//set 'name' in line 1.
-		final TextView nameTv = (TextView) v.findViewById(R.id.line1);
-		nameTv.setText(adver.getNombre());
-
-		//set 'gender' in line 2.
-		final TextView genderTv = (TextView) v.findViewById(R.id.line2);
-		genderTv.setText(adver.getDireccion());
+		//if View exists, then reuse... else create a new object.
 
 		return v;
 	}
