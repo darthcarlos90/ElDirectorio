@@ -95,10 +95,13 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>	
         <activity android:name=".LoginCupones"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light"></activity>
+        <activity android:name=".Finalizado"
+            android:label="@string/app_name"></activity>
     </application>
+    
 </manifest>

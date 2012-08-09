@@ -21,6 +21,7 @@ public class adverlistitem extends MenuActivity {
 	
 	 private ArrayList<Advertiser> adds = null;
 	 private ListView Lista;
+	 int estado;
 	 
 	/** Called when the activity is first created. */
     @Override
@@ -30,7 +31,7 @@ public class adverlistitem extends MenuActivity {
         addButtons();
         //CAMBIOS!!!
         TextView tv = (TextView) findViewById(R.id.bannerSeh);
-        int estado = getIntent().getExtras().getInt("estado");
+        estado = getIntent().getExtras().getInt("estado");
         AdvertiserDAO ble = new AdvertiserDAO();
        TodoManagerApplication ama =  (TodoManagerApplication)getApplication();
         
@@ -117,7 +118,12 @@ public class adverlistitem extends MenuActivity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		System.out.println("Disabled");
+		 
+		if(estado != 1){
+			super.onBackPressed();
+		}else{
+			System.out.println("Jojo");
+		}
 	}
 	
 }

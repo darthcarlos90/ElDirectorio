@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import directorio.BaseDeDatos.DownloaderImages;
 import directorio.BaseDeDatos.SearchManager;
 import directorio.DAO.AdvertiserDAO;
 import directorio.DAO.otrosDao;
@@ -41,7 +42,7 @@ public class SearchActivity extends MenuActivity /*
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		System.out.println("Disabled");
+		System.out.println("Holo");
 	}
 
 	private TextView textoBarra;
@@ -60,6 +61,7 @@ public class SearchActivity extends MenuActivity /*
 	private Button favoritos;
 	private Intent intent;
 	private ProgressBar cargando;
+	private TextView buscando;
 
 	/** Called when the activity is first created. */
 
@@ -73,7 +75,7 @@ public class SearchActivity extends MenuActivity /*
 		if (longitude == 0.0 && latitude == 0.0) {
 			Toast.makeText(
 					this,
-					"No pudimos obtener tu localización, reintenta reiniciando la aplicación...",
+					"No pudimos obtener tu localización, intentalo mas tarde...",
 					Toast.LENGTH_SHORT).show();
 		}
 
@@ -129,68 +131,7 @@ public class SearchActivity extends MenuActivity /*
 			sendBroadcast(intento);
 		}
 	}
-
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// MenuInflater inflater = getMenuInflater();
-	// inflater.inflate(R.menu.menu, menu);
-	// return true;
-	// }
-	//
-	// @SuppressLint({ "ParserError", "ParserError", "ParserError", "NewApi" })
-	// @Override
-	// public boolean onOptionsItemSelected(MenuItem item) {
-	// // Handle item selection
-	//
-	// switch (item.getItemId()) {
-	// case R.id.btn_abecedario:
-	// // others.regresaOtraDb().close();
-	// intent = new Intent(this, ListaIndexada.class);
-	// this.startActivity(intent);
-	// return true;
-	// case R.id.btn_favoritos:
-	// // SharedPreferences sharedPrefs =
-	// // getSharedPreferences(PREFS_NAME,0);
-	// // Editor editor = sharedPrefs.edit();
-	// // editor.putString(PREFS_NAME, "favoritos");
-	// // editor.commit();
-	// System.out.println("Longitud: " + longitude);
-	// System.out.println("Latitude: " + latitude);
-	// intent = new Intent(this, adverlistitem.class);
-	// intent.putExtra("estado", 3);
-	// this.startActivity(intent);
-	// return true;
-	// case R.id.btn_buscar:
-	// // SegundoAlgoritmo de Busqueda
-	//
-	// Toast.makeText(this, "Resultados....", Toast.LENGTH_LONG).show();
-	// AdvertiserDAO add = new AdvertiserDAO(bd.getAbsolutePath());
-	// ArrayList<Advertiser> negociosenRango = SearchManager
-	// .negociosenRango(latitude, longitude, kil, spinner
-	// .getSelectedItem().toString(), Busqueda.getText()
-	// .toString(), add.getdb());
-	// for (int i = 0; i < negociosenRango.size(); i++) {
-	// System.out.println("En rango: "
-	// + negociosenRango.get(i).getNombre());
-	// }
-	// System.out.println("Tamaño del arreglo: " + negociosenRango.size());
-	// add.getdb().close();
-	// // Algoritmo de busqueda de lugares Version 2
-	//
-	// intent = new Intent(this, adverlistitem.class);
-	// intent.putExtra("estado", 1);
-	// intent.putExtra("latitude", latitude);
-	// intent.putExtra("longitude", longitude);
-	// intent.putExtra("kil", kil);
-	// intent.putExtra("ciudad", spinner.getSelectedItem().toString());
-	// intent.putExtra("busqueda", Busqueda.getText().toString());
-	// this.startActivity(intent);
-	// return true;
-	// default:
-	// return super.onOptionsItemSelected(item);
-	// }
-	// }
-
+	
 	@Override
 	public void addButtons() {
 		super.addButtons();
@@ -205,7 +146,9 @@ public class SearchActivity extends MenuActivity /*
 		findViewById(R.id.buttons);
 		this.addButtons();
 
-		cargando = (ProgressBar)findViewById(R.id.cargasearch);
+		buscando = (TextView)findViewById(R.id.textoBusqueda);
+		buscando.setVisibility(TextView.INVISIBLE);
+		cargando = (ProgressBar)findViewById(R.id.progresoBusqueda);
 		cargando.setVisibility(ProgressBar.INVISIBLE);
 		// MenuUtilities mu = new MenuUtilities("Search");
 		// mu.addButtons(rl, SearchActivity.this,this);
@@ -247,21 +190,31 @@ public class SearchActivity extends MenuActivity /*
 
 			public void onClick(View v) {
 				// SegundoAlgoritmo de Busqueda
-//				AdvertiserDAO add = new AdvertiserDAO();
-//				ArrayList<Advertiser> negociosenRango = SearchManager
-//						.negociosenRango(latitude, longitude, kil, spinner
-//								.getSelectedItem().toString(), Busqueda
-//								.getText().toString(), add.getdb());
-//				for (int i = 0; i < negociosenRango.size(); i++) {
-//					System.out.println("En rango: "
-//							+ negociosenRango.get(i).getNombre());
-//				}
-//				System.out.println("Tamaño del arreglo: "
-//						+ negociosenRango.size());
-//				add.getdb().close();
+				
+				final DownloaderImages di = new DownloaderImages();
+				
+				Thread holo = new Thread(){
+					public void run(){
+						AdvertiserDAO add = new AdvertiserDAO();
+						ArrayList<Advertiser> negociosenRango = di.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), add.getdb());
+						for (int i = 0; i < negociosenRango.size(); i++) {
+							System.out.println("En rango: "+ negociosenRango.get(i).getNombre());
+						}
+						System.out.println("Tamaño del arreglo: "
+								+ negociosenRango.size());
+						add.getdb().close();
+					}
+				};
+				holo.start();
+				buscando.setVisibility(TextView.VISIBLE);
+				cargando.setVisibility(ProgressBar.VISIBLE);
+				
+				while(holo.isAlive()){
+					cargando.setIndeterminate(true);
+				}
+				cargando.setIndeterminate(false);
 				// Algoritmo de busqueda de lugares Version 2
 				
-
 				Thread timer = new Thread() {
 					public void run() {
 						intent = new Intent(SearchActivity.this, adverlistitem.class);
@@ -274,8 +227,8 @@ public class SearchActivity extends MenuActivity /*
 						SearchActivity.this.startActivity(intent);
 					}
 				};
-				cargando.setVisibility(ProgressBar.VISIBLE);
-				cargando.setIndeterminate(true);
+//				cargando.setVisibility(ProgressBar.VISIBLE);
+//				cargando.setIndeterminate(true);
 				timer.start();
 				
 			}

@@ -11,9 +11,6 @@ import directorio.objetos.Advertiser;
 @SuppressLint({ "ParserError", "ParserError" })
 public class SearchManager {
 	
-	private static Double EARTH_RADIUS = 6371.00;
-	
-	
 	public static Double calculateDistance(Double lat1, Double lon1, Double lat2, Double lon2){
 		double nRadius = 6371; // Earth's radius in Kilometers
 	    // Get the difference between our two points
@@ -103,8 +100,6 @@ public class SearchManager {
 			double kilometrosDistancia = calculateDistance(latitude, longitude, negociosPorNombre.get(i).getPosx(),negociosPorNombre.get(i).getPosy());
 		
 			if(kilometrosDistancia < rangoBuscar){
-				double x =  negociosPorNombre.get(i).getPosx();
-				double y = negociosPorNombre.get(i).getPosy();
 				System.out.println("Agregue: "+nombreNegocio +" y la distancia es de: " + kilometrosDistancia);
 				negociosEnRango.add(negociosPorNombre.get(i));
 				}

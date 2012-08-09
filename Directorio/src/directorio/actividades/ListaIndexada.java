@@ -75,15 +75,20 @@ public class ListaIndexada extends Activity {
 		});
 	}
 	
-	private void restartFirstActivity() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		System.out.println("Disabled");
+		Class texto;
+		try {
+			texto = Class.forName("directorio.actividades.SearchActivity");
+			Intent correo = new Intent(ListaIndexada.this,
+					texto);
+			startActivity(correo);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void setupViews() {
@@ -129,7 +134,7 @@ public class ListaIndexada extends Activity {
 
 			public void onClick(View v) {
 				Intent intent = new Intent(ListaIndexada.this,
-						CatsConCupones.class);
+						LoginCupones.class);
 				startActivity(intent);
 
 			}

@@ -89,14 +89,25 @@
             android:layout_alignBottom="@+id/search"
             android:layout_alignRight="@+id/busqueda"
             android:background="@drawable/info_icon" />
-
+
         <ProgressBar
-            android:id="@+id/cargasearch"
-            style="?android:attr/progressBarStyleLarge"
+            android:id="@+id/progresoBusqueda"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/busqueda"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignLeft="@+id/search"
+            android:layout_alignRight="@+id/search"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/textoBusqueda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/progressBar1"
+            android:layout_below="@+id/buttons"
+            android:text="Buscando..."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </RelativeLayout>
 

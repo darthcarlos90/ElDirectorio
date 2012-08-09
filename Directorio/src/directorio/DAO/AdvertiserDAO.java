@@ -20,6 +20,15 @@ public class AdvertiserDAO {
 
 	File ble;
 	SQLiteDatabase db;
+	boolean finished;
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
 
 	private static final String LOCATION_DB = Environment
 			.getExternalStorageDirectory().getPath() + "/DirLaguna.db";

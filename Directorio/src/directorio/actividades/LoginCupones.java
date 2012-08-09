@@ -18,6 +18,8 @@ import org.apache.http.message.BasicNameValuePair;
 import directorio.DAO.LoginDAO;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,22 +30,27 @@ import android.widget.Toast;
 
 public class LoginCupones extends MenuActivity {
 
+	public static final String PREFS_NAME = "MyPrefsFile";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);	
+
 	      	
-	       String estado = "Nuuu";
-	       
-	       
+		  SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		  final Editor guadaSesion = settings.edit();
+		  
+		  String estado = settings.getString("estado", "No Logueado"); 
+		  
 	       System.out.println("Estado: " + estado);
 	       
 	       
-	       if(estado == "Logeado"){
-	    	   Intent intent = new Intent(LoginCupones.this,
-						CatsConCupones.class);
+	       if(estado == "Logueado"){
+	    	   Intent intent = new Intent(LoginCupones.this,CatsConCupones.class);
 				startActivity(intent);
-	       }else{
+	       }
+	       else{
 	    	   setContentView(R.layout.login);
 	    		   
 	    	   final EditText username = (EditText)findViewById(R.id.username);
@@ -66,8 +73,8 @@ public class LoginCupones extends MenuActivity {
 						carga.setVisibility(ProgressBar.INVISIBLE);
 						carga.setIndeterminate(true);
 					}else{
-//						session.desloguear();
-//						session.addToLogin(username.getText().toString(), "Logeado");
+						guadaSesion.putString("estado", resultado);
+						guadaSesion.commit();
 
 						Intent intent = new Intent(LoginCupones.this,CatsConCupones.class);
 						startActivity(intent);
@@ -118,7 +125,7 @@ public class LoginCupones extends MenuActivity {
 	        int comprobacion = response.getStatusLine().getStatusCode();
 	        System.out.println("Resulto en: " +comprobacion);
 	        if(comprobacion == 200){
-	        	log = "Logeado";
+	        	log = "Logueado";
 	        }else{
 	        	log = "No logueado";
 	        }

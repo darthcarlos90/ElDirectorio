@@ -54,7 +54,8 @@ public class ShowAdvertiserActivity extends MenuActivity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		System.out.println("Disabled");
+		Intent intent = new Intent(	ShowAdvertiserActivity.this, SearchActivity.class);
+		startActivity(intent);
 	}
 
 	private void searchAdvertiser() {
