@@ -92,7 +92,6 @@
 
         <ProgressBar
             android:id="@+id/progresoBusqueda"
-            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/busqueda"
