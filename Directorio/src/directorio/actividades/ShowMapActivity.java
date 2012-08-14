@@ -61,7 +61,7 @@ public class ShowMapActivity extends MapActivity {
 
 		new Runnable() {
 			public void run() {
-				mapController.setZoom(12);
+				mapController.setZoom(30);
 			}
 		});
 
