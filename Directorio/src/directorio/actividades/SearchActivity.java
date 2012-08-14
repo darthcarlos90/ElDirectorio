@@ -202,6 +202,17 @@ public class SearchActivity extends MenuActivity /*
 
 					Thread timer = new Thread() {
 						public void run() {
+							
+							if(spinner.getSelectedItem().toString().equals("Todas las ciudades") && kil == 0.0){
+								others = new otrosDao();
+								SearchManager.dameTodos(others.regresaOtraDb(), Busqueda.getText().toString());
+								others.regresaOtraDb().close();
+							}else{
+								others = new otrosDao();
+								SearchManager.negociosenRango(latitude, longitude, kil, spinner.getSelectedItem().toString(), Busqueda.getText().toString(), others.regresaOtraDb());
+								others.regresaOtraDb().close();
+							}
+							
 							intent = new Intent(SearchActivity.this,
 									adverlistitem.class);
 							intent.putExtra("estado", 1);

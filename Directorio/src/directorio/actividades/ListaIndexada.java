@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import directorio.DAO.AdvertiserDAO;
 import directorio.DAO.CategoriaDAO;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -33,6 +34,7 @@ public class ListaIndexada extends Activity {
 		final ArrayList<String> categorias =  adb.getCategorias();
 		progreso = (ProgressBar)findViewById(R.id.progreso);
 		boolean estadoBarra = progreso.isShown();
+		final AdvertiserDAO ble = new AdvertiserDAO();
 		
 		if(!estadoBarra){
 			progreso.setVisibility(ProgressBar.INVISIBLE);
@@ -58,6 +60,8 @@ public class ListaIndexada extends Activity {
 					public void run() {
 						try {
 							sleep(100);
+							ble.getByCategory(categoria);
+							ble.getdb().close();
 							Class texto = Class.forName("directorio.actividades.adverlistitem");
 							Intent correo = new Intent(ListaIndexada.this,
 									texto);
