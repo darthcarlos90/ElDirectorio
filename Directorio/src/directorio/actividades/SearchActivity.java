@@ -106,8 +106,7 @@ public class SearchActivity extends MenuActivity /*
 		// TODO Auto-generated method stub
 
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Location loc1 = lm
-				.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		Location loc1 = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		if (loc1 != null) {
 			System.out.println("Lo obtuve por WIFI");
 			latitude = loc1.getLatitude();

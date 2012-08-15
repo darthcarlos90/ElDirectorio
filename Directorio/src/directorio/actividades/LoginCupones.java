@@ -36,7 +36,8 @@ public class LoginCupones extends MenuActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);	
-
+		
+		
 	      	
 		  SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		  final Editor guadaSesion = settings.edit();
@@ -52,7 +53,7 @@ public class LoginCupones extends MenuActivity {
 	       }
 	       else{
 	    	   setContentView(R.layout.login);
-	    		   
+	    	   super.addButtons();
 	    	   final EditText username = (EditText)findViewById(R.id.username);
 	    	   final EditText password = (EditText)findViewById(R.id.password);
 	    	   final ProgressBar carga = (ProgressBar)findViewById(R.id.progressBar1);

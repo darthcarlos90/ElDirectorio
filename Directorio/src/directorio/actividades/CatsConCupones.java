@@ -107,16 +107,17 @@ public class CatsConCupones extends Activity {
 			}
 		});
 
-		/*Button destacados = (Button) findViewById(R.id.destacados1);
+		Button destacados = (Button) findViewById(R.id.destacados1);
 		destacados.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 
 				Intent intent = new Intent(CatsConCupones.this,
-						DestacadosActivity.class);
+						ShowDestacados.class);
 				startActivity(intent);
 			}
-		});*/
+		});
+		
 		Button cupon = (Button) findViewById(R.id.Cupones1);
 		cupon.setBackgroundResource(R.drawable.cupones_presionado);
 
