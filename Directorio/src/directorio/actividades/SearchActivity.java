@@ -34,6 +34,14 @@ public class SearchActivity extends MenuActivity /*
 												 * View.OnClickListener
 												 */{
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		cargando.setVisibility(ProgressBar.INVISIBLE);
+		cargando.setIndeterminate(false);
+	}
+
+	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
@@ -149,6 +157,14 @@ public class SearchActivity extends MenuActivity /*
 		buscando.setVisibility(TextView.INVISIBLE);
 		cargando = (ProgressBar)findViewById(R.id.progresoBusqueda);
 		cargando.setVisibility(ProgressBar.INVISIBLE);
+		
+		boolean haycarga = cargando.isShown();
+		
+		if(!haycarga){
+			cargando.setVisibility(ProgressBar.INVISIBLE);
+			cargando.setIndeterminate(false);
+		}
+		
 		// MenuUtilities mu = new MenuUtilities("Search");
 		// mu.addButtons(rl, SearchActivity.this,this);
 		spinner = (Spinner) findViewById(R.id.spinner_localidades);

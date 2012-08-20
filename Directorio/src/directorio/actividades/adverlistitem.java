@@ -111,18 +111,12 @@ public class adverlistitem extends MenuActivity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		//onBackPressed();
-		finish();
 	}
 	
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		 
-		if(estado != 1){
-			super.onBackPressed();
-		}else{
-			System.out.println("Jojo");
-		}
+		 	super.onBackPressed();
 	}
 	
 }

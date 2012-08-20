@@ -54,8 +54,7 @@ public class ShowAdvertiserActivity extends MenuActivity {
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(	ShowAdvertiserActivity.this, SearchActivity.class);
-		startActivity(intent);
+		super.onBackPressed();
 	}
 
 	private void searchAdvertiser() {
