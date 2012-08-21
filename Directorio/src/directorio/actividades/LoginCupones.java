@@ -69,16 +69,18 @@ public class LoginCupones extends MenuActivity {
 					
 					String resultado =loguear(username.getText().toString(), toMd5(password.getText().toString()));
 					
-					if(resultado == "No Logueado"){
-						Toast.makeText(LoginCupones.this, "Datos Incorrectos", Toast.LENGTH_LONG).show();
-						carga.setVisibility(ProgressBar.INVISIBLE);
-						carga.setIndeterminate(true);
-					}else{
+					if(resultado == "Logueado"){
 						guadaSesion.putString("estado", resultado);
 						guadaSesion.commit();
 
 						Intent intent = new Intent(LoginCupones.this,CatsConCupones.class);
 						startActivity(intent);
+					
+					}else{
+						Toast.makeText(LoginCupones.this, "Datos Incorrectos", Toast.LENGTH_LONG).show();
+						carga.setVisibility(ProgressBar.INVISIBLE);
+						carga.setIndeterminate(true);
+						
 					}	
 				}
 			});

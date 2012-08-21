@@ -53,7 +53,7 @@ public class AdvertiserDAO {
 			openDB();
 		}
 		ArrayList<Advertiser> arr = new ArrayList<Advertiser>();
-		Cursor holo = db.rawQuery("select * from Advertiser;", null);
+		Cursor holo = db.rawQuery("select * from Advertiser order by AdvName;", null);
 		// Segun vi el registro, el total de advertisers son 1297, pero si
 		// ponemos el moveToFirst, omite el primer registro, y nos devuelve solo
 		// 1296, pero vuelvo, como tu prefieras
@@ -92,7 +92,7 @@ public class AdvertiserDAO {
 		cats.close();
 		Cursor c = db.rawQuery(
 				"Select * from Advertiser where Categories like '%" + catId
-						+ "%';", null);
+						+ "%' order by AdvName;", null);
 		Advertiser temp;
 		c.moveToPosition(0);
 		if (!c.isAfterLast()) {
@@ -127,13 +127,13 @@ public class AdvertiserDAO {
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(
 				"Select CategoryId from Category where CatName = '" + category
-						+ "';", null);
+						+ "' order by AdvName;", null);
 		cats.moveToPosition(0);
 		String catId = "*|@" + cats.getString(0) + "|";
 		cats.close();
 		Cursor c = db.rawQuery(
 				"Select * from Advertiser where Categories like '%" + catId
-						+ "%';", null);
+						+ "%' order by AdvName;", null);
 		Advertiser temp;
 		c.moveToPosition(0);
 		if (!c.isAfterLast()) {
@@ -209,13 +209,13 @@ public class AdvertiserDAO {
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(
 				"Select CategoryId from Category where CatName = '" + category
-						+ "';", null);
+						+ "' order by AdvName;", null);
 		cats.moveToPosition(0);
 		String catId = "*|@" + cats.getString(0) + "|";
 		cats.close();
 		Cursor c = db.rawQuery(
 				"Select * from Advertiser where Categories like '%" + catId
-						+ "%' AND AdvertiserId = " + id + ";", null);
+						+ "%' AND AdvertiserId = " + id + " order by AdvName;", null);
 		Advertiser temp;
 		c.moveToPosition(0);
 		if (!c.isAfterLast()) {
@@ -324,7 +324,7 @@ public class AdvertiserDAO {
 	
 	public ArrayList<Advertiser> dameDestacados(){
 		ArrayList<Advertiser> destacados = new ArrayList<Advertiser>();
-		Cursor c = db.rawQuery("select * from Advertiser where Featured = 1;", null);
+		Cursor c = db.rawQuery("select * from Advertiser where Featured = 1 order by AdvName;", null);
 		System.out.println("Tamño de la consulta: " + c.getCount());
 		while(c.moveToNext()){
 			Advertiser temp = new Advertiser();

@@ -46,7 +46,7 @@ public class SearchManager {
 			}
 			
 			if(rangoBuscar == 0){		
-				Cursor tablaNegocios = db.rawQuery("select * from Advertiser where AdvName like '%" + filtroString + "%' or Tags like '%"+filtroString+"%'",null);
+				Cursor tablaNegocios = db.rawQuery("select * from Advertiser where AdvName like '%" + filtroString + "%' or Tags like '%"+filtroString+"%' order by AdvName",null);
 				while(tablaNegocios.moveToNext()){
 					Advertiser adver = new Advertiser();
 					adver.setId(tablaNegocios.getString(0));
@@ -77,7 +77,7 @@ public class SearchManager {
 				return  negociosEnRango;
 			}
 			else{
-			Cursor tablaNegocios = db.rawQuery("select * from Advertiser where AdvName like '%" + filtroString + "%' or Tags like '%"+filtroString+"%'",null);
+			Cursor tablaNegocios = db.rawQuery("select * from Advertiser where AdvName like '%" + filtroString + "%' or Tags like '%"+filtroString+"%' order by AdvName",null);
 			while(tablaNegocios.moveToNext()){
 				Advertiser adver = new Advertiser();
 				adver.setId(tablaNegocios.getString(0));
@@ -123,7 +123,7 @@ public class SearchManager {
 				filtro = filtro.substring(0, filtro.length() - 1);
 			}
 			
-			Cursor results = getdb.rawQuery("select * from Advertiser where AdvName like '%"+filtro+"%' or Tags like '%"+filtro+"%'", null);
+			Cursor results = getdb.rawQuery("select * from Advertiser where AdvName like '%"+filtro+"%' or Tags like '%"+filtro+"%' order by AdvName", null);
 			ArrayList<Advertiser> todos = new ArrayList<Advertiser>();
 			while(results.moveToNext()){
 				Advertiser adver = new Advertiser();

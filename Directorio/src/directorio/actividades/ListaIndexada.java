@@ -48,6 +48,7 @@ public class ListaIndexada extends Activity {
 		mListView = (IndexableListView) findViewById(R.id.listview);
 		mListView.setAdapter(adapter);
 		mListView.setFastScrollEnabled(true);
+		ble.getdb().close();
 		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -61,7 +62,6 @@ public class ListaIndexada extends Activity {
 						try {
 							sleep(100);
 							ble.getByCategory(categoria);
-							ble.getdb().close();
 							Class texto = Class.forName("directorio.actividades.adverlistitem");
 							Intent correo = new Intent(ListaIndexada.this,
 									texto);
