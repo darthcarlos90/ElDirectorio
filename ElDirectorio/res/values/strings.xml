@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SearchActivity!</string>
+    <string name="app_name">ElDirectorio</string>
+    <string name="bienvenido">Bienvenido a la Aplicación</string>
+    <string name="seleccion_ciudad">Buscar en: </string>
+
+    <string-array name="ciudades_array">
+        <item>Todas las ciudades</item>
+        <item>Torreón, Coah. Mex.</item>
+        <item>Gómez Palacio, Dgo. Mex.</item>
+        <item>Saltillo, Coah. Mex.</item>
+        <item>Durango, Dgo. Mex.</item>
+        <item>Lerdo, dgo. Mex.</item>
+        <item>San Miguel de Allende, Gto.</item>
+        <item>Acapulco, Gro.</item>
+        <item>Morelia, Mich.</item>
+        <item>Mérida, Yuc.</item>
+        <item>México, D.F.</item>
+        <item>Guadalajara, Jal.</item>
+        <item>León, Gto.</item>
+    </string-array>
+
+    <string name="string_localidades">En un radio de:</string>
+    <string name="string_redonda">--</string>
+    <string name="buscando">¿Que estas buscando?</string>
+    <string name="buscar">BUSCAR</string>
+    <string name="abecedario">Abecedario</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="info_1">La manera más fácil de encontrar y ubicar lo que necesitas.</string>
+    <string name="info_2">"¿Quieres aparecer en él?"</string>
+    <string name="insert_logo_here">Insert logo here</string>
+    <string name="contactanos">Contáctanos: </string>
+    <string name="email">Email:  </string>
+    <string name="emailVentas">ventas@eldirectorio.mx</string>
+    <string name="subject">Probando!!!</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="directorio_img_string">Logo que te lleva a el sitio del Directorio.</string>
+    <string name="publy_info">Logo de publysorpresas. Da click para ir al sitio web.</string>
+    <string name="banner_eldirectorio">Banner El Directorio.</string>
+    <string name="banner_acercade">Banner Acerca De.</string>
+    <string name="logo_negocio">Logo del Negocio</string>
+    <string name="datos_empresa">Datos de la empresa</string>
+    <string name="testing">TESTING</string>
+    <string name="sucursales">Sucursales</string>
+    <string name="trololololo">asdkfh</string>
+    <string name="contacto">Contacto</string>
+    <string name="galerias">Galerias</string>
+    <string name="agregar_contactos">Agregar a contactos</string>
+    <string name="busqueda">busqueda</string>
+    <string name="abc">ABC</string>
+    <string name="cupones">Cupones</string>
+    <string name="destacados">Destacados</string>
+    <string name="header_del_view_">Header del view.</string>
+    <string name="pregunta2">¿Deseas comercializarlo?</string>
+    <string name="emailInfo">info@eldirectorio.mx</string>
+    <string name="header">header</string>
+    <string name="icono_localizacion">Icono localizacion</string>
+    <string name="icono_next">Icono next</string>
+    <string name="categor_as">Categorías</string>
+    <string name="negocios">Negocios</string>
+    <string name="proximamente">¡PROXIMAMENTE!</string>
+    <string name="acerca_de">Acerca De</string>
+    <string name="cats_cupones">Categorias con cupones</string>
+    <string name="cupon_icon">El ícono del cupón.</string>
+    <string name="titulo_cupo">Titulo del Cupon</string>
+    <string name="fecha">Fecha</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="cupon">Cupon</string>
+    <string name="nombre_del_cupon">Nombre del cupon</string>
+    <string name="nombre_de_la_empresa_del_cup_n">Nombre de la Empresa del Cupón</string>
+    <string name="imagen_del_cupon">Imagen del Cupon</string>
+    <string name="vigencia">Vigencia</string>
+    <string name="desde">Desde</string>
+    <string name="hasta">hasta</string>
+    <string name="descripci_n">Descripción</string>
+    <string name="temp1">Texto temporal para probar donde va a ir la descripción del cupon.</string>
+    <string name="instrucciones">Instrucciones</string>
+    <string name="temp2">Instrucciones temporales del uso del cupón para probar.</string>
+    <string name="imprimir">Imprimir</string>
+    <string name="buscando_">Buscando...</string>
+
+</resources>
