@@ -28,31 +28,29 @@ public class cuponDAO {
 	}
 
 	public ArrayList<Cupon> cuponesPorCategorias(String categoryName) {
+		
 		getAll();
-		ArrayList<Cupon> resultado = new ArrayList<Cupon>();
-		AdvertiserDAO ad = new AdvertiserDAO();
-		ArrayList<Advertiser> advs = ad.getByCategory2(categoryName);
-		ArrayList<Advertiser> temporal = advs;
-		for (int i = 0; i < todos.size(); i++) {
-			System.out.println(todos.get(i).getName());
-			System.out.println(todos.get(i).getAdvertiserId());
-			for (int j = 0; j < temporal.size(); j++) {
-				boolean tiene = todos.get(i).getAdvertiserId()
-						.equals(temporal.get(j).getId());
-				if (tiene == false) {
-					temporal.remove(j);
-				} else {
-					resultado.add(todos.get(i));
-					System.out.println(todos.get(i).getAdvertiserId() + " "
-							+ temporal.get(j).getId());
-				}
-			}
+		if (db.isOpen() == false) {
+			openDB();
 		}
-		for (int i = 0; i < resultado.size(); i++) {
-			System.out.println(resultado.get(i).getName());
+		Cursor bus = db.rawQuery("select * from Coupon where AdvertiserId in (select AdvertiserId from Advertiser where Categories like '%" +categoryName+ "%');", null);
+		ArrayList<Cupon> cupones = new ArrayList<Cupon>();
+		while(bus.moveToNext()){
+			Cupon cuponcosi = new Cupon();
+			cuponcosi.setCuponId(bus.getInt(0));
+			cuponcosi.setAdvertiserId(bus.getString(1));
+			cuponcosi.setName(bus.getString(2));
+			cuponcosi.setDescripcion(bus.getString(3));
+			cuponcosi.setConditions(bus.getString(4));
+			cuponcosi.setHowToCash(bus.getString(5));
+			cuponcosi.setStart(bus.getString(6));
+			cuponcosi.setStart(bus.getString(7));
+			cuponcosi.setImgSrc(bus.getString(8));
+			cupones.add(cuponcosi);
 		}
-
-		return resultado;
+		bus.close();
+		db.close();
+		return cupones;
 	}
 
 	public Cupon getCupon(int id) {
