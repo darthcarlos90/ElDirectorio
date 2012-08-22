@@ -127,7 +127,7 @@ public class AdvertiserDAO {
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(
 				"Select CategoryId from Category where CatName = '" + category
-						+ "' order by AdvName;", null);
+						+ "';", null);
 		cats.moveToPosition(0);
 		String catId = "*|@" + cats.getString(0) + "|";
 		cats.close();
@@ -209,13 +209,13 @@ public class AdvertiserDAO {
 		ArrayList<Advertiser> resultados = new ArrayList<Advertiser>();
 		Cursor cats = db.rawQuery(
 				"Select CategoryId from Category where CatName = '" + category
-						+ "' order by AdvName;", null);
+						+ "'e;", null);
 		cats.moveToPosition(0);
 		String catId = "*|@" + cats.getString(0) + "|";
 		cats.close();
 		Cursor c = db.rawQuery(
 				"Select * from Advertiser where Categories like '%" + catId
-						+ "%' AND AdvertiserId = " + id + " order by AdvName;", null);
+						+ "%' AND AdvertiserId = " + id + ";", null);
 		Advertiser temp;
 		c.moveToPosition(0);
 		if (!c.isAfterLast()) {

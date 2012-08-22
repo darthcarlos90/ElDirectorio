@@ -24,8 +24,7 @@ public class CuponListActivity extends MenuActivity {
 		String categoria = getIntent().getExtras().getString("categoria");
 		System.out.println(categoria);
 		cuponDAO ble = new cuponDAO();
-		// TodoManagerApplication ama =
-		// (TodoManagerApplication)getApplication();
+
 		cups = ble.cuponesPorCategorias(categoria);
 		for(int i =0; i < cups.size(); i++){
 			System.out.println(cups.get(i).getAdvertiserId());

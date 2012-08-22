@@ -48,19 +48,6 @@ public class cuponDAO {
 				}
 			}
 		}
-		/*
-		 * resultado = todos; for(int i =0; i < temporal.size();i++){
-		 * //System.out.println(temporal.get(i).getNombre()); } for(int i =0; i
-		 * < resultado.size();i++){
-		 * //System.out.println(resultado.get(i).getName()); } for(int i =0; i <
-		 * temporal.size();i++){ for(int j =0; j<resultado.size();j++){ boolean
-		 * tiene =
-		 * temporal.get(i).getId().equals(resultado.get(j).getAdvertiserId());
-		 * if(tiene == false){ resultado.remove(j); } } } for(int i =0; i <
-		 * resultado.size();i++){
-		 * System.out.println(resultado.get(i).getName()); }
-		 * System.out.println("holis");
-		 */
 		for (int i = 0; i < resultado.size(); i++) {
 			System.out.println(resultado.get(i).getName());
 		}
@@ -73,8 +60,7 @@ public class cuponDAO {
 			openDB();
 		}
 		Cupon resultado = new Cupon();
-		Cursor c = db.rawQuery("Select * from Coupon where CouponId = " + id,
-				null);
+		Cursor c = db.rawQuery("Select * from Coupon where CouponId = " + id,null);
 		c.moveToFirst();
 		resultado.setCuponId(id);
 		resultado.setAdvertiserId(c.getString(1));
@@ -86,9 +72,12 @@ public class cuponDAO {
 		resultado.setEnd(c.getString(7));
 		resultado.setImgSrc(c.getString(8));
 		resultado.setPicUrl(c.getString(8));
+		Cursor d = db.rawQuery("select AdvName from Advertiser where AdvertiserId = " + resultado.getAdvertiserId(), null);
+		d.moveToFirst();
+		resultado.setNegocio(d.getString(0));
 		c.close();
+		d.close();
 		db.close();
-
 		return resultado;
 	}
 

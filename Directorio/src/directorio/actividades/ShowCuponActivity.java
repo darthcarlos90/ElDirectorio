@@ -37,15 +37,17 @@ public class ShowCuponActivity extends MenuActivity {
 		System.out.println(cupon.getName());
 		nombreEmpresa.setText(cupon.getName());
 		
-
+		TextView negocio = (TextView)findViewById(R.id.descripDesc);
+		negocio.setText(cupon.getNegocio());
+		
 		TextView descripcion = (TextView) findViewById(R.id.descCupon);
 		descripcion.setText(cupon.getDescripcion());
 
 		ImageView im = (ImageView) findViewById(R.id.imagenCupon);
 		if (cupon.getPicUrl() != null) {
 			im.setAdjustViewBounds(true);
-			im.setMaxHeight(100);
-			im.setMaxWidth(100);
+			im.setMaxHeight(200);
+			im.setMaxWidth(200);
 			cupon.setImgSrc(cupon.getPicUrl());
 			im.setImageBitmap(BitmapFactory.decodeByteArray(cupon.getImgSrc(),
 					0, cupon.getImgSrc().length));
@@ -53,9 +55,8 @@ public class ShowCuponActivity extends MenuActivity {
 		TextView desde = (TextView) findViewById(R.id.desde);
 		TextView hasta = (TextView) findViewById(R.id.hasta);
 		if (cupon.getStart() == null) {
-			desde.setText("Dese: sinFecha");
+			desde.setText("Desde: sinFecha");
 		} else {
-
 			desde.setText("Desde: " + cupon.getStart());
 		}
 

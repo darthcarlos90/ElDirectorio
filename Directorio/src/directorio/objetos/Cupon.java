@@ -28,6 +28,16 @@ public class Cupon {
 	private String start;
 	private String end;
 	private String picUrl;
+	private String Negocio;
+	
+	public String getNegocio() {
+		return Negocio;
+	}
+
+	public void setNegocio(String negocio) {
+		Negocio = negocio;
+	}
+
 	private byte[] imgSrc;
 
 	public int getCuponId() {
