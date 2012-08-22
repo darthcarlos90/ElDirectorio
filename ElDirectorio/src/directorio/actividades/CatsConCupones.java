@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import directorio.DAO.CategoriaDAO;
+import directorio.DAO.cuponDAO;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +15,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SectionIndexer;
 
 public class CatsConCupones extends Activity {
 
 	private ArrayList<String> categorias;
 	private IndexableListView mListView;
+	ProgressBar prog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,13 @@ public class CatsConCupones extends Activity {
 		setContentView(R.layout.cats_con_cupones);
 		setupViews();
 		CategoriaDAO adb = new CategoriaDAO();
-
+		prog = (ProgressBar)findViewById(R.id.progressBarra);
+		
+		if(!prog.isShown()){
+			prog.setVisibility(ProgressBar.INVISIBLE);
+			prog.setIndeterminate(false);
+		}
+		
 		categorias = adb.getCategoriasConCupones();
 		Collections.sort(categorias);
 		ContentAdapter adapter = new ContentAdapter(this,
@@ -41,11 +50,13 @@ public class CatsConCupones extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
+				final cuponDAO cupdao = new cuponDAO();
 				final String categoria = categorias.get(arg2);
 				Thread holo = new Thread() {
 					public void run() {
 						try {
 							sleep(100);
+							cupdao.cuponesPorCategorias(categoria);
 							Class texto = Class
 									.forName("directorio.actividades.CuponListActivity");
 							Intent correo = new Intent(CatsConCupones.this,
@@ -62,10 +73,20 @@ public class CatsConCupones extends Activity {
 					}
 				};
 				holo.start();
+				prog.setVisibility(ProgressBar.VISIBLE);
+				prog.setIndeterminate(true);
 
 			}
 		});
 
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		prog.setVisibility(ProgressBar.INVISIBLE);
+		prog.setIndeterminate(false);
 	}
 
 	private void setupViews() {
